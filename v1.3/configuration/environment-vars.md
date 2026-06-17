@@ -17,11 +17,11 @@ meta:
   scope:
   - service
 ---
-When KrakenD [runs](/docs/v1.3/commands/run/), all the behavior is loaded from the [configuration file](/docs/v1.3/configuration/structure/). For each configuration value that isn't nested (meaning first-level properties of the configuration), you can override its value with an environment variable.
+When Velonetics [runs](/docs/v1.3/commands/run/), all the behavior is loaded from the [configuration file](/docs/v1.3/configuration/structure/). For each configuration value that isn't nested (meaning first-level properties of the configuration), you can override its value with an environment variable.
 
-All configuration environment variables must have the prefix `KRAKEND_` and declared in uppercase. The variable name after the prefix must match the property in the configuration value.
+All configuration environment variables must have the prefix `VELONETICS_` and declared in uppercase. The variable name after the prefix must match the property in the configuration value.
 
-For instance, take the following `krakend.json` configuration as an example:
+For instance, take the following `velonetics.json` configuration as an example:
 
     {
         "version": 2,
@@ -29,10 +29,10 @@ For instance, take the following `krakend.json` configuration as an example:
         "name": "Example gateway."
     }
 
-Now run krakend with the following command:
+Now run velonetics with the following command:
 
 {{< terminal title="Example: Override configuration with env vars" >}}
-KRAKEND_NAME="Build ABC0123" KRAKEND_TIMEOUT="500ms" krakend run -c krakend.json
+VELONETICS_NAME="Build ABC0123" VELONETICS_TIMEOUT="500ms" velonetics run -c velonetics.json
 {{< /terminal >}}
 
 The resulting configuration will be:

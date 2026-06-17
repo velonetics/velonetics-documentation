@@ -5,14 +5,14 @@ date: 2019-09-15
 notoc: true
 linktitle: Logging to Graylog - GELF
 title: Graylog GELF Logging Integration
-description: Integrate Graylog GELF logging with KrakenD API Gateway for centralized log management and analysis of API logs
+description: Integrate Graylog GELF logging with Velonetics API Gateway for centralized log management and analysis of API logs
 weight: 300
 menu:
   community_v2.6:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
   since: v0.7
-  source: https://github.com/krakend/krakend-gelf
+  source: https://github.com/velonetics/velonetics-gelf
   namespace:
   - telemetry/gelf
   scope:
@@ -20,7 +20,7 @@ meta:
 log_prefix:
   - "[SERVICE: Logging][GELF]"
 ---
-KrakenD supports sending structured events in GELF format to your Graylog Cluster thanks to the [krakend-gelf](https://github.com/krakend/krakend-gelf) integration.
+Velonetics supports sending structured events in GELF format to your Graylog Cluster thanks to the [velonetics-gelf](https://github.com/velonetics/velonetics-gelf) integration.
 
 The setup of GELF is straightforward and requires to add **two components** in the configuration:
 
@@ -38,7 +38,7 @@ The configuration you need to add is this, and explained below:
       },
       "telemetry/logging": {
           "level": "INFO",
-          "prefix": "[KRAKEND]",
+          "prefix": "[VELONETICS]",
           "syslog": false,
           "stdout": false
       }

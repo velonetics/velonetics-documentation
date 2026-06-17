@@ -10,7 +10,7 @@ menu:
     parent: "050 Backends Configuration"
 meta:
   since: v0.7
-  source: https://github.com/krakend/krakend-martian
+  source: https://github.com/velonetics/velonetics-martian
   namespace:
   - modifier/martian
   scope:
@@ -36,7 +36,7 @@ Some **examples of typical Martian scenarios** are:
 - Set a new cookie during gateway processing
 - Flag requests with query strings or headers when specific criteria is met
 - Add, remove, or change specific headers
-- Do basic authentication between KrakenD and the backend
+- Do basic authentication between Velonetics and the backend
 - Add query strings before making the backend request (e.g., set an API key)
 
 ## Martian configuration
@@ -278,7 +278,7 @@ The `header.Modifier` adds a new header or changes the value of an existing one.
 
 To change headers sent by the client, remember to add `input_headers` in the endpoint. Also, if the client needs to see the headers in the `response`, you must set the `output_encoding` to `no-op`.
 
-For instance, the following configuration changes the `User-Agent` (set internally by KrakenD) to `Late-Night-Commander v2.3` both in the request and the response.
+For instance, the following configuration changes the `User-Agent` (set internally by Velonetics) to `Late-Night-Commander v2.3` both in the request and the response.
 
 ```json
 {
@@ -303,7 +303,7 @@ For instance, the following configuration changes the `User-Agent` (set internal
 ```
 
 #### Connecting to Basic Auth (user/pass) backends
-An application of this modifier is when you need KrakenD to provide a fixed user and password to connect to the backend, and the client does not need to know about it. The basic authentication requires you to provide a header with the form `Authorization: Basic <credentials>`. The credentials are the concatenation of the username and password using a colon `:` in base64.
+An application of this modifier is when you need Velonetics to provide a fixed user and password to connect to the backend, and the client does not need to know about it. The basic authentication requires you to provide a header with the form `Authorization: Basic <credentials>`. The credentials are the concatenation of the username and password using a colon `:` in base64.
 
 For instance, if your username is `user` and your password `pa55w0rd`, you should generate the base64 as follows:
 
@@ -339,14 +339,14 @@ If the connection works, it means that your credentials are correct, and you can
 With the configuration above, whenever a request is made to the backend, the `Authorization` header is added automatically.
 
 ### Header ID
-The `header.Id` is a modifier that sets a header `X-Krakend-Id` with a **unique identifier (UUID)** for the request. If for whatever reason, the header already exists, the header is not altered.
+The `header.Id` is a modifier that sets a header `X-Velonetics-Id` with a **unique identifier (UUID)** for the request. If for whatever reason, the header already exists, the header is not altered.
 
 The `scope` only accepts `request`.
 
 ```json
 {
   "version": 3,
-  "$schema": "https://www.krakend.io/schema/v2.3/krakend.json",
+  "$schema": "https://www.velonetics.io/schema/v2.3/velonetics.json",
   "host": ["http://localhost:8080"],
   "echo_endpoint": true,
   "endpoints": [

@@ -4,8 +4,8 @@ old_version: true
 date: 2021-05-21
 toc: true
 linktitle: HTTP client plugins
-title: HTTP Client Plugins for KrakenD API Gateway
-description: Learn how to extend the functionality of KrakenD API Gateway by utilizing HTTP client plugins, enabling customized communication with external services
+title: HTTP Client Plugins for Velonetics API Gateway
+description: Learn how to extend the functionality of Velonetics API Gateway by utilizing HTTP client plugins, enabling customized communication with external services
 weight: 110
 menu:
   community_v2.7:
@@ -16,15 +16,15 @@ meta:
   - plugin/http-client
 images:
 - /images/documentation/diagrams/plugin-type-client.mmd.svg
-- /images/documentation/krakend-plugins.png
+- /images/documentation/velonetics-plugins.png
 - /images/documentation/http-client-plugin.png
 ---
-The **HTTP client** plugins execute in the proxy layer when KrakenD tries to reach your backends for content. They allow you to intercept, transform, and manipulate the requests **before they hit your backend services**, and their way back. It is the perfect time to modify the request before it reaches the backend.
+The **HTTP client** plugins execute in the proxy layer when Velonetics tries to reach your backends for content. They allow you to intercept, transform, and manipulate the requests **before they hit your backend services**, and their way back. It is the perfect time to modify the request before it reaches the backend.
 
-You cannot chain HTTP client plugins, limiting them to one plugin per backend connection, and replace the default KrakenD's HTTP client.
+You cannot chain HTTP client plugins, limiting them to one plugin per backend connection, and replace the default Velonetics's HTTP client.
 
 {{< note title="HTTP client components will stop working" type="info" >}}
-An HTTP client is a terminator. It means that it is the last executor in the KrakenD pipe. When you add an HTTP client plugin, **you replace KrakenD's default client** with your own. It means some built-in functionality in the default HTTP client won't exist unless you code it.
+An HTTP client is a terminator. It means that it is the last executor in the Velonetics pipe. When you add an HTTP client plugin, **you replace Velonetics's default client** with your own. It means some built-in functionality in the default HTTP client won't exist unless you code it.
 
 More specifically, if you inject your plugin, you don't have [Client Credentials](/docs/v2.7/authorization/client-credentials/) or [Backend Cache](/docs/v2.7/backends/caching/), and you won't have telemetry at the HTTP backend level.
 {{< /note >}}
@@ -39,11 +39,11 @@ Read the introduction to [writing plugins](/docs/v2.7/extending/writing-plugins/
 To start with a *hello world* for your first plugin, you have to implement the plugin client interface by copying the example provided in the [Go documentation](https://godoc.org/github.com/luraproject/lura/transport/http/client/plugin)
 
 ### Example: Building your first client plugin
-The easiest way to demonstrate how HTTP client plugins work is with a Hello World plugin. So let's start by creating a new Go project named `krakend-client-example`:
+The easiest way to demonstrate how HTTP client plugins work is with a Hello World plugin. So let's start by creating a new Go project named `velonetics-client-example`:
 
-    mkdir krakend-client-example
-    cd krakend-client-example
-    go mod init krakend-client-example
+    mkdir velonetics-client-example
+    cd velonetics-client-example
+    go mod init velonetics-client-example
 
 Now we have to create a file `main.go` with the content below:
 
@@ -63,7 +63,7 @@ import (
 )
 
 // ClientRegisterer is the symbol the plugin loader will try to load. It must implement the RegisterClient interface
-var ClientRegisterer = registerer("krakend-client-example")
+var ClientRegisterer = registerer("velonetics-client-example")
 
 type registerer string
 
@@ -100,8 +100,8 @@ func (r registerer) registerClients(_ context.Context, extra map[string]interfac
 	/*
 	   "extra_config":{
 	       "plugin/http-client":{
-	           "name":"krakend-client-example",
-	           "krakend-client-example":{
+	           "name":"velonetics-client-example",
+	           "velonetics-client-example":{
 	               "path": "/some-path"
 	           }
 	       }
@@ -109,7 +109,7 @@ func (r registerer) registerClients(_ context.Context, extra map[string]interfac
 	*/
 
 	// The config variable contains all the keys you hace defined in the configuration:
-	config, _ := extra["krakend-client-example"].(map[string]interface{})
+	config, _ := extra["velonetics-client-example"].(map[string]interface{})
 
 	// The plugin will look for this path:
 	path, _ := config["path"].(string)
@@ -175,7 +175,7 @@ With the `main.go` file saved, it's time to build and test the plugin. If you ad
 For compiling Go plugins, the flag `-buildmode=plugin` is required. The command is:
 
 {{< terminal >}}
-go build -buildmode=plugin -o krakend-client-example.so .
+go build -buildmode=plugin -o velonetics-client-example.so .
 {{< /terminal >}}
 
 If you are using Docker and want to load your plugin on Docker, compile it in the [Plugin Builder](/docs/v2.7/extending/writing-plugins/#plugin-builder) for easier integration.
@@ -183,19 +183,19 @@ If you are using Docker and want to load your plugin on Docker, compile it in th
 {{< terminal title="Build your plugin" >}}
 docker run -it -v "$PWD:/app" -w /app \
 {{< product image_plugin_builder >}}:2.7 \
-go build -buildmode=plugin -o krakend-client-example.so .
+go build -buildmode=plugin -o velonetics-client-example.so .
 {{< /terminal >}}
 
-There is no output for this command. Now you have a file `krakend-client-example.so`, the KrakenD binary has to side load. Remember that you cannot use this binary in a different architecture (e.g., compiling the binary in Mac and loading it in a Docker container).
+There is no output for this command. Now you have a file `velonetics-client-example.so`, the Velonetics binary has to side load. Remember that you cannot use this binary in a different architecture (e.g., compiling the binary in Mac and loading it in a Docker container).
 
-The plugin is ready to use! You can now load your plugin in the configuration. Add the `plugin` and `extra_config` entries in your configuration. Here's an example of `krakend.json`:
+The plugin is ready to use! You can now load your plugin in the configuration. Add the `plugin` and `extra_config` entries in your configuration. Here's an example of `velonetics.json`:
 
 ```json
 {
   "version": 3,
   "plugin": {
     "pattern": ".so",
-    "folder": "./krakend-client-example/"
+    "folder": "./velonetics-client-example/"
   },
   "endpoints": [
     {
@@ -208,8 +208,8 @@ The plugin is ready to use! You can now load your plugin in the configuration. A
           "url_pattern": "/__debug/{id}",
           "extra_config": {
             "plugin/http-client": {
-              "name": "krakend-client-example",
-              "krakend-client-example": {
+              "name": "velonetics-client-example",
+              "velonetics-client-example": {
                 "path": "/__debug/hijack-me"
               }
             }
@@ -221,25 +221,25 @@ The plugin is ready to use! You can now load your plugin in the configuration. A
 }
 ```
 
-Start the server with `krakend run -dc krakend.json`. When you run the server, the expected output (with `DEBUG` log level) is:
+Start the server with `velonetics run -dc velonetics.json`. When you run the server, the expected output (with `DEBUG` log level) is:
 
-    Parsing configuration file: krakend.json
-    yyyy/mm/dd hh:mm:ss KRAKEND ERROR: [SERVICE: Logging] Unable to create the logger: getting the extra config for the krakend-gologging module
-    yyyy/mm/dd hh:mm:ss KRAKEND DEBUG: [SERVICE: Plugin Loader] Starting loading process
-    yyyy/mm/dd hh:mm:ss KRAKEND DEBUG: [PLUGIN: krakend-client-example] Logger loaded
-    yyyy/mm/dd hh:mm:ss KRAKEND INFO: [SERVICE: Executor Plugin] Total plugins loaded: 1
-    yyyy/mm/dd hh:mm:ss KRAKEND DEBUG: [SERVICE: Handler Plugin] plugin #0 (krakend-client-example/krakend-client-example.so): plugin: symbol HandlerRegisterer not found in plugin krakend-client-example
-    yyyy/mm/dd hh:mm:ss KRAKEND DEBUG: [SERVICE: Modifier Plugin] plugin #0 (krakend-client-example/krakend-client-example.so): plugin: symbol ModifierRegisterer not found in plugin krakend-client-example
-    yyyy/mm/dd hh:mm:ss KRAKEND DEBUG: [SERVICE: Plugin Loader] Loading process completed
-    yyyy/mm/dd hh:mm:ss KRAKEND INFO: Starting the KrakenD instance
-    yyyy/mm/dd hh:mm:ss KRAKEND DEBUG: [ENDPOINT: /test/:id] Building the proxy pipe
-    yyyy/mm/dd hh:mm:ss KRAKEND DEBUG: [BACKEND: /__health] Building the backend pipe
-    yyyy/mm/dd hh:mm:ss KRAKEND DEBUG: The plugin is now hijacking the path /hijack-me
-    yyyy/mm/dd hh:mm:ss KRAKEND DEBUG: [BACKEND: /__health] Injecting plugin krakend-client-example
-    yyyy/mm/dd hh:mm:ss KRAKEND DEBUG: [ENDPOINT: /test/:id] Building the http handler
-    yyyy/mm/dd hh:mm:ss KRAKEND DEBUG: [ENDPOINT: /test/:id][JWTSigner] Signer disabled
-    yyyy/mm/dd hh:mm:ss KRAKEND INFO: [ENDPOINT: /test/:id][JWTValidator] Validator disabled for this endpoint
-    yyyy/mm/dd hh:mm:ss KRAKEND INFO: [SERVICE: Gin] Listening on port: 8080
+    Parsing configuration file: velonetics.json
+    yyyy/mm/dd hh:mm:ss VELONETICS ERROR: [SERVICE: Logging] Unable to create the logger: getting the extra config for the velonetics-gologging module
+    yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [SERVICE: Plugin Loader] Starting loading process
+    yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [PLUGIN: velonetics-client-example] Logger loaded
+    yyyy/mm/dd hh:mm:ss VELONETICS INFO: [SERVICE: Executor Plugin] Total plugins loaded: 1
+    yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [SERVICE: Handler Plugin] plugin #0 (velonetics-client-example/velonetics-client-example.so): plugin: symbol HandlerRegisterer not found in plugin velonetics-client-example
+    yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [SERVICE: Modifier Plugin] plugin #0 (velonetics-client-example/velonetics-client-example.so): plugin: symbol ModifierRegisterer not found in plugin velonetics-client-example
+    yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [SERVICE: Plugin Loader] Loading process completed
+    yyyy/mm/dd hh:mm:ss VELONETICS INFO: Starting the Velonetics instance
+    yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [ENDPOINT: /test/:id] Building the proxy pipe
+    yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [BACKEND: /__health] Building the backend pipe
+    yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: The plugin is now hijacking the path /hijack-me
+    yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [BACKEND: /__health] Injecting plugin velonetics-client-example
+    yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [ENDPOINT: /test/:id] Building the http handler
+    yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [ENDPOINT: /test/:id][JWTSigner] Signer disabled
+    yyyy/mm/dd hh:mm:ss VELONETICS INFO: [ENDPOINT: /test/:id][JWTValidator] Validator disabled for this endpoint
+    yyyy/mm/dd hh:mm:ss VELONETICS INFO: [SERVICE: Gin] Listening on port: 8080
     ...
 
 Let's take a closer look at the log. First, notice that the plugin tried registering itself for each plugin type (`[SERVICE: Executor Plugin]`, `[SERVICE: Handler Plugin]`, and `[SERVICE: Modifier Plugin]`), but we are only building an Executor Plugin in this case.
@@ -247,9 +247,9 @@ Let's take a closer look at the log. First, notice that the plugin tried registe
 As we are implementing only one of the types, the other two types will fail to load (`symbol not found`). The logline is expected and is not an error but just an informational `DEBUG` message.
 
 The essential lines are:
-- `[PLUGIN: krakend-client-example] Logger loaded` printed by the plugin logger we introduced in our code telling us that the plugin is loaded
+- `[PLUGIN: velonetics-client-example] Logger loaded` printed by the plugin logger we introduced in our code telling us that the plugin is loaded
 - The `[SERVICE: Executor Plugin] Total plugins loaded: 1` telling us there is one type of plugin for this type
-- `[BACKEND: /__health] Injecting plugin krakend-client-example` telling us that the plugin is loaded AND injected by the configuration.
+- `[BACKEND: /__health] Injecting plugin velonetics-client-example` telling us that the plugin is loaded AND injected by the configuration.
 
 If you see these lines, you did great! Your plugin is working.
 

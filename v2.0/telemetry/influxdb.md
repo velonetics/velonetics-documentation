@@ -11,7 +11,7 @@ menu:
     parent: "080 Telemetry and Analytics"
 meta:
   since: v0.5
-  source: https://github.com/krakend/krakend-influx
+  source: https://github.com/velonetics/velonetics-influx
   namespace:
   - telemetry/opencensus
   - telemetry/influx
@@ -22,16 +22,16 @@ meta:
   - "[SERVICE: InfluxDB]"
   - "[SERVICE: Opencensus]"
 ---
-KrakenD can expose very detailed metrics to provide a **monitoring dashboard**. One of the richest monitoring solutions at the metrics level is the combination of [krakend-metrics](/docs/v2.0/telemetry/extended-metrics/) with the native **krakend-influx** exporter. The two components let you send detailed metrics to InfluxDB and draw them later on our preconfigured [Grafana dashboard](/docs/v2.0/telemetry/grafana/) can feed from here and provide you a useful.
+Velonetics can expose very detailed metrics to provide a **monitoring dashboard**. One of the richest monitoring solutions at the metrics level is the combination of [velonetics-metrics](/docs/v2.0/telemetry/extended-metrics/) with the native **velonetics-influx** exporter. The two components let you send detailed metrics to InfluxDB and draw them later on our preconfigured [Grafana dashboard](/docs/v2.0/telemetry/grafana/) can feed from here and provide you a useful.
 
 ## InfluxDB configuration
-Notice that there are **two different implementations** of InfluxDB in KrakenD that are described in this document:
+Notice that there are **two different implementations** of InfluxDB in Velonetics that are described in this document:
 
 - Native InfluxDB exporter (**recommended**)
 - OpenCensus InfluxDB exporter
 
 {{< note title="Which InfluxDB implementation should I choose?" >}}
-The **native implementation** exports data from a collector that is tailor-made and maintained by KrakenD, and is **richer in content**. On the other hand, the OpenCensus exporter for InfluxDB is more generalistic and abstract, and is configured similary to other systems, but implements a collector with less data. For our Grafana dahsboard, choose the native one.
+The **native implementation** exports data from a collector that is tailor-made and maintained by Velonetics, and is **richer in content**. On the other hand, the OpenCensus exporter for InfluxDB is more generalistic and abstract, and is configured similary to other systems, but implements a collector with less data. For our Grafana dahsboard, choose the native one.
 {{< /note >}}
 
 ### Native InfluxDB configuration
@@ -51,7 +51,7 @@ You can accomplish it with the following snippet.
           "address":"http://192.168.99.9:8086",
           "ttl":"25s",
           "buffer_size":0,
-          "db": "krakend",
+          "db": "velonetics",
           "username": "your-influxdb-user",
           "password": "your-influxdb-password"
       },
@@ -67,7 +67,7 @@ You can accomplish it with the following snippet.
 - `address` (*string*): The complete url of the influxdb including the port if different from defaults in http/https
 - `ttl` (*duration*): Valid time units are: `ns` (nanoseconds), `us` or `µs` (microseconds), `ms` (milliseconds), `s` (seconds), `m` (minutes - don't!), `h` (hours - don't!)
 - `buffer_size` (*integer*): Use `0` to send events immediately or set the number of points that should be sent together.
-- `db` (*string*): Name of the database or bucket, defaults to *krakend*.
+- `db` (*string*): Name of the database or bucket, defaults to *velonetics*.
 - `username` and `password` are optional and used to authenticate against InfluxDB.
 
 See below how to configure InfluxDB, and you are ready to [publish a Grafana dashboard](/docs/v2.0/telemetry/grafana/).
@@ -85,7 +85,7 @@ The following configuration snippet sends data to your InfluxDB:
       "exporters": {
         "influxdb": {
             "address": "http://192.168.99.100:8086",
-            "db": "krakend",
+            "db": "velonetics",
             "timeout": "1s",
             "username": "your-influxdb-user",
             "password": "your-influxdb-password"
@@ -107,7 +107,7 @@ The connection with **InfluxDB v1.x** is straightforward and requires you nothin
 With the **InfluxDB v2.x** there are a few more steps you need to do the first time you run it.
 
 ### Connecting to Influx v1
-When using InfluxDB v1.x, you need to specify in the configuration above the same data you used to run InfluxDB. For instance, the following docker compose sets the credentials you need to reflect in the KrakenD configuration.
+When using InfluxDB v1.x, you need to specify in the configuration above the same data you used to run InfluxDB. For instance, the following docker compose sets the credentials you need to reflect in the Velonetics configuration.
 
 {{< highlight yaml >}}
 version: "3"
@@ -115,17 +115,17 @@ services:
   influxdb:
     image: influxdb:1.8
     environment:
-      - "INFLUXDB_DB=krakend"
-      - "INFLUXDB_USER=krakend-dev"
+      - "INFLUXDB_DB=velonetics"
+      - "INFLUXDB_USER=velonetics-dev"
       - "INFLUXDB_USER_PASSWORD=pas5w0rd"
       - "INFLUXDB_ADMIN_USER=admin"
       - "INFLUXDB_ADMIN_PASSWORD=supersecretpassword"
     ports:
       - "8086:8086"
-  krakend:
-    image: devopsfaith/krakend
+  velonetics:
+    image: velonetics/velonetics-ce
     volumes:
-      - ./krakend:/etc/krakend
+      - ./velonetics:/etc/velonetics
     ports:
       - "8080:8080"
 {{< /highlight >}}
@@ -154,7 +154,7 @@ Once InfluxDB is started, access with a web browser to `http://localhost:8086` (
 
 ![Setting up Influx](/images/documentation/influx_setup.png)
 
-Create a **username and password** that KrakenD will use to connect and send the metrics. Write your **organization name** and a **bucket name** (database). Write down these values as you will need them later. Now InfluxDB is ready.
+Create a **username and password** that Velonetics will use to connect and send the metrics. Write your **organization name** and a **bucket name** (database). Write down these values as you will need them later. Now InfluxDB is ready.
 
 #### Create a configuration
 Select the **Advanced** button and go to the section **API TOKENS**.
@@ -172,9 +172,9 @@ docker exec -it influxdb /bin/bash
 And now create the configuration as follows:
 
 {{< terminal title="Term" >}}
-influx config create --config-name krakend-config \
+influx config create --config-name velonetics-config \
   --host-url http://localhost:8086 \
-  --org KrakenD \
+  --org Velonetics \
   --token TiukK5nTFsnPhpT360pHRlB5G0Qigbq6yct6IzNDX70cjw-90tsFFAjVPw7D7_ALiARFU8X7ldgIlF03qgbT-A== \
   --active
 {{< /terminal >}}
@@ -186,7 +186,7 @@ Make sure to replace the values below as follows:
 - `token` The one you copied in the step above
 - `host-url` The address where the influxdb is running (inside Docker is as shown)
 
-The final step is to create the auth for KrakenD.
+The final step is to create the auth for Velonetics.
 
 Return to the InfluxDB UI and select **BUCKETS**. You'll see that there is an ID next to the bucket you created during the Setup. **Copy the bucket ID**.
 
@@ -217,7 +217,7 @@ Now your configuration should work and start sending data to InfluxDB:
             "address": "http://localhost:8086",
             "ttl": "25s",
             "buffer_size": 100,
-            "db": "krakend_db",
+            "db": "velonetics_db",
             "username": "user",
             "password": "password"
         }

@@ -11,9 +11,9 @@ menu:
     parent: "050 Backends Configuration"
 meta:
   since: v0.9
-  source: https://github.com/krakend/flatmap
+  source: https://github.com/velonetics/flatmap
   namespace:
-  - github.com/devopsfaith/krakend/proxy
+  - github.com/velonetics/velonetics-ce/proxy
   scope:
   - backend
   - endpoint
@@ -21,13 +21,13 @@ meta:
 
 The flatmap middleware allows you to **manipulate collections** (or arrays, or lists, you name it). While the [basic manipulation operations](/docs/v1.4/backends/data-manipulation/) allow you to work directly with objects, the collections require a different approach: the **flatmap component**.
 
-When working with lists, KrakenD needs to flatten and expand array structures to objects to operate with them, and vice versa. This process is automatically done by the flatmap component, letting you concentrate only on the type of operation you want to execute.
+When working with lists, Velonetics needs to flatten and expand array structures to objects to operate with them, and vice versa. This process is automatically done by the flatmap component, letting you concentrate only on the type of operation you want to execute.
 
 ## When to manipulate arrays
 You can manipulate collections at two different stages:
 
 - When the response of a backend is received (inside its `backend` section)
-- After having merged all the backend responses (inside the `endpoint` section, starting at KrakenD 1.2)
+- After having merged all the backend responses (inside the `endpoint` section, starting at Velonetics 1.2)
 
 You can do simultaneous combinations to output the desired result. For instance, declare an endpoint with three backends that apply transformations independently and a final change within the endpoint after merging the three.
 
@@ -46,12 +46,12 @@ The flatmap component is **not as a general solution for all objects**, and make
 {{< /note >}}
 
 ## Flatmap configuration
-Depending on the stage you want to do the manipulation, you will need an `extra_config` configuration inside your `endpoint` or `backend` section. For both cases, the namespace is `github.com/devopsfaith/krakend/proxy`.
+Depending on the stage you want to do the manipulation, you will need an `extra_config` configuration inside your `endpoint` or `backend` section. For both cases, the namespace is `github.com/velonetics/velonetics-ce/proxy`.
 
 The component structure with three operations would be as follows:
 
         "extra_config": {
-            "github.com/devopsfaith/krakend/proxy": {
+            "github.com/velonetics/velonetics-ce/proxy": {
                 "flatmap_filter": [
                     {
                         "type": "move",
@@ -168,7 +168,7 @@ Some individual operations **on the example structure above**:
 The following example demonstrates how to modify a collection doing these operations:
 
         "extra_config": {
-            "github.com/devopsfaith/krakend/proxy": {
+            "github.com/velonetics/velonetics-ce/proxy": {
                 "flatmap_filter": [
                     {
                         "type": "append",
@@ -204,7 +204,7 @@ There is a sequence of 4 operations to:
 *   Delete all items with a property `password` inside the array
 *   Rename all items with a property `PK_ID` to `id`
 
-For more examples, [see the test file](https://github.com/krakend/flatmap/blob/master/tree/tree_example_test.go).
+For more examples, [see the test file](https://github.com/velonetics/flatmap/blob/master/tree/tree_example_test.go).
 
 
 ## Mixing flatmap with other manipulation operations

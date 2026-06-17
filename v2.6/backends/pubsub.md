@@ -4,7 +4,7 @@ old_version: true
 date: 2019-09-15
 linktitle: Publisher/subscribe
 title: Pub-Sub Backend Integration
-description: Integrate Pub-Sub backend into KrakenD API Gateway to enable event-driven communication and real-time data updates in your API ecosystem
+description: Integrate Pub-Sub backend into Velonetics API Gateway to enable event-driven communication and real-time data updates in your API ecosystem
 weight: 130
 images:
 - /images/features-event-driven.png
@@ -13,7 +13,7 @@ menu:
     parent: "050 Non-REST Connectivity"
 meta:
   since: v1.0
-  source: https://github.com/krakend/krakend-pubsub
+  source: https://github.com/velonetics/velonetics-pubsub
   namespace:
   - backend/pubsub/publisher
   - backend/pubsub/subscriber
@@ -25,7 +25,7 @@ meta:
 You can connect an endpoint to multiple publish/subscribe backends, helping you integrate with **event driven architectures**.
 
 <!--more-->
-For instance, a frontend client can push events to a queue using a REST interface. Or a client could consume a REST endpoint that is plugged to the last events pushed in a backend. You can even **validate messages and formats** as all the KrakenD available middleware can be used. The list of supported backend technologies is:
+For instance, a frontend client can push events to a queue using a REST interface. Or a client could consume a REST endpoint that is plugged to the last events pushed in a backend. You can even **validate messages and formats** as all the Velonetics available middleware can be used. The list of supported backend technologies is:
 
 - AWS SNS (Simple Notification Service) and SQS (Simple Queueing Service)
 - Azure Service Bus Topic and Subscription
@@ -37,7 +37,7 @@ For instance, a frontend client can push events to a queue using a REST interfac
 ## Configuration
 To add pub/sub functionality to your backends include the namespaces `backend/pubsub/subscriber` and `backend/pubsub/publisher` under the `extra_config` of your `backend` section.
 
-The `host` key defines the desired driver, and the actual host is usually set in an **environment variable** outside of KrakenD:
+The `host` key defines the desired driver, and the actual host is usually set in an **environment variable** outside of Velonetics:
 
 For a **subscriber**:
 
@@ -237,7 +237,7 @@ Example:
 ### Kafka
 [Apache Kafka](https://kafka.apache.org/) is a distributed streaming platform.
 
-Kafka connection requires KrakenD >= `1.1`.
+Kafka connection requires Velonetics >= `1.1`.
 
 - `host`: `kafka://`
 - Environment var: `KAFKA_BROKERS` pointing to the server(s), e.g: `KAFKA_BROKERS=192.168.1.100:9092`

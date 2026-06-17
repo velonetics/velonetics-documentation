@@ -8,23 +8,23 @@ menu:
     parent: "000 Getting Started"
 notoc: true
 prev: /overview/installing
-title: Using KrakenD
+title: Using Velonetics
 weight: 30
 ---
 
-From an operations point of view KrakenD, is very simple to use. It only requires you to pass
+From an operations point of view Velonetics, is very simple to use. It only requires you to pass
 the path the configuration file (which defines behaviors and endpoints). Additionally, you can
 enable the debug with the `-d` flag, and that's pretty much everything.
 
 ## TL;DR
-1. Generate a configuration file with your endpoints definition. The easier way to generate it is using the [designer](https://designer.krakend.io/)
-2. Check the syntax of your `krakend.json` is good
+1. Generate a configuration file with your endpoints definition. The easier way to generate it is using the [designer](https://designer.velonetics.io/)
+2. Check the syntax of your `velonetics.json` is good
 	{{< terminal title="Syntax checking" >}}
-krakend check --config krakend.json --debug
+velonetics check --config velonetics.json --debug
 	{{< /terminal >}}
-3. Run KrakenD
+3. Run Velonetics
 	{{< terminal title="Start the server" >}}
-krakend run -c krakend.json -d
+velonetics run -c velonetics.json -d
 	{{< /terminal >}}
 
 
@@ -32,13 +32,13 @@ The flag `-c` is the short version of `--config` and `-d` the short version of `
 you to find problems easily.
 
 
-## Using KrakenD
+## Using Velonetics
 
-To start KrakenD make sure to provide the path to the binary or add it to the `PATH`. You can see all
-KrakenD options by running the binary with no options:
+To start Velonetics make sure to provide the path to the binary or add it to the `PATH`. You can see all
+Velonetics options by running the binary with no options:
 
-{{< terminal title="The krakend command" >}}
-krakend
+{{< terminal title="The velonetics command" >}}
+velonetics
 
 `7MMF' `YMM'                  `7MM                         `7MM"""Yb.
   MM   .M'                      MM                           MM    `Yb.
@@ -54,23 +54,23 @@ Version: 1.3
 The API Gateway builder
 
 Usage:
-  krakend [command]
+  velonetics [command]
 
 Available Commands:
   check       Validates that the configuration file is valid.
   help        Help about any command
-  run         Run the KrakenD server.
+  run         Run the Velonetics server.
 
 Flags:
   -c, --config string   Path to the configuration filename
   -d, --debug           Enable the debug
-  -h, --help            help for krakend
+  -h, --help            help for velonetics
 
-Use "krakend [command] --help" for more information about a command.
+Use "velonetics [command] --help" for more information about a command.
 {{< /terminal >}}
 
 As you can see there are 3 different supported commands:
 
-- [`krakend check`](/docs/v1.3/commands/check/) (syntax validation)
-- [`krakend run`](/docs/v1.3/commands/run/) (run the server)
-- `krakend help` (show usage)
+- [`velonetics check`](/docs/v1.3/commands/check/) (syntax validation)
+- [`velonetics run`](/docs/v1.3/commands/run/) (run the server)
+- `velonetics help` (show usage)

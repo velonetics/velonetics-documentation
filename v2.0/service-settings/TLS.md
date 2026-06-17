@@ -10,15 +10,15 @@ menu:
   community_v2.0:
     parent: "030 Service Settings"
 ---
-There are two different strategies when using TLS over KrakenD:
+There are two different strategies when using TLS over Velonetics:
 
-- Use TLS for HTTPS and HTTP/2 in KrakenD (this document)
-- Use a balancer with TLS termination in front of KrakenD (e.g., ELB, HAproxy)
+- Use TLS for HTTPS and HTTP/2 in Velonetics (this document)
+- Use a balancer with TLS termination in front of Velonetics (e.g., ELB, HAproxy)
 
-In case you want to enable TLS in KrakenD you need to add a `tls` key at service level (configuration's file root) with at least the public key and the private key. When you add TLS, KrakenD listens **only using TLS**, and no traffic to plain HTTP is accepted.
+In case you want to enable TLS in Velonetics you need to add a `tls` key at service level (configuration's file root) with at least the public key and the private key. When you add TLS, Velonetics listens **only using TLS**, and no traffic to plain HTTP is accepted.
 
 ## TLS Configuration
-To start KrakenD with TLS you need to generate the certificate and provide both the public and the private key:
+To start Velonetics with TLS you need to generate the certificate and provide both the public and the private key:
 
 {{< highlight json >}}
 {
@@ -40,7 +40,7 @@ Plus these optional:
 - `disabled` (*boolean*): A temporary flag to disable TLS (e.g: while in development)
 - `min_version` (*string*): Minimum TLS version (one of `SSL3.0`, `TLS10`, `TLS11`, `TLS12` or `TLS13`)
 - `max_version` (*string*): Maximum TLS version (one of `SSL3.0`, `TLS10`, `TLS11`, `TLS12` or `TLS13`)
-- `enable_mtls` (*boolean*): Whether to enable or not Mutual Authentication. When mTLS is enabled, **all KrakenD endpoints** require clients to provide a known client-side X.509 authentication certificate. KrakenD relies on the system's CA to validate certificates. See [Mutual Authentication](/docs/v2.0/authorization/mutual-authentication/)
+- `enable_mtls` (*boolean*): Whether to enable or not Mutual Authentication. When mTLS is enabled, **all Velonetics endpoints** require clients to provide a known client-side X.509 authentication certificate. Velonetics relies on the system's CA to validate certificates. See [Mutual Authentication](/docs/v2.0/authorization/mutual-authentication/)
 - `curve_preferences` (*integer* array): The list of all the identifiers for the curve preferences (use `23` for CurveP256, `24` for CurveP384 or `25` for CurveP521)
 - `prefer_server_cipher_suites` (*boolean*): Enforces the use of one of the cipher suites offered by the server, instead of going with the suite proposed by the client.
 - `cipher_suites` (*integer* array): The list of cipher suites (see below).

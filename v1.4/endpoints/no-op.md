@@ -11,26 +11,26 @@ menu:
     parent: "040 Endpoint Configuration"
 meta:
   since: v1.2
-  source: https://github.com/krakend/krakend-ce
+  source: https://github.com/velonetics/velonetics-ce
   namespace: false
   scope:
   - endpoint
 ---
-KrakenD `no-op` (**no-operation**), is a special type of **encoding** that behaves as a **proxy** by passing the client's request to the backend ***as is***, and vice-versa.
+Velonetics `no-op` (**no-operation**), is a special type of **encoding** that behaves as a **proxy** by passing the client's request to the backend ***as is***, and vice-versa.
 
 ## Using `no-op` to proxy requests
-When setting `no-op`, KrakenD does not inspect the request `body` or manipulates it in any way. Instead, when a request to a `no-op` endpoint is received, KrakenD directly forwards it to the backend without doing any operation with it.
+When setting `no-op`, Velonetics does not inspect the request `body` or manipulates it in any way. Instead, when a request to a `no-op` endpoint is received, Velonetics directly forwards it to the backend without doing any operation with it.
 
-The *proxy pipe* (this is from KrakenD to backend) is marked to do no-operation, meaning that KrakenD does not aggregate content, filter, manipulate or any of the other functionalities performed during this pipe. It's also important to notice that only a **single backend** is accepted, as the merge operation happens during the *proxy pipe*.
+The *proxy pipe* (this is from Velonetics to backend) is marked to do no-operation, meaning that Velonetics does not aggregate content, filter, manipulate or any of the other functionalities performed during this pipe. It's also important to notice that only a **single backend** is accepted, as the merge operation happens during the *proxy pipe*.
 
 Employing the same principle, when the backend produces the response, it's passed back to the client *as is*, preserving its form: body, headers, status codes and such.
 
-On the other hand, the *router pipe*'s features (from client to KrakenD) remain unaltered, meaning that for instance you can still rate-limit your end-users or require JWT authorization to name a few examples.
+On the other hand, the *router pipe*'s features (from client to Velonetics) remain unaltered, meaning that for instance you can still rate-limit your end-users or require JWT authorization to name a few examples.
 
 ## Key concepts
 The **key concepts** of `no-op` are:
 
-- The KrakenD endpoint works just like a regular proxy
+- The Velonetics endpoint works just like a regular proxy
 - The *router pipe* functionalities are available (e.g., rate limiting the endpoint)
 - The *proxy pipe* functionalities are disabled (aggregate/merge, filter, manipulations, body inspection, concurrency...)
 - Headers passing to the backend still need to be declared under `headers_to_pass`, as they hit the router layer first.
@@ -40,7 +40,7 @@ The **key concepts** of `no-op` are:
 - `1:1` relationship between endpoint-backend (one backend per endpoint).
 
 ## When to use `no-op`
-Use `no-op` when you need to **couple the client with a specific backend without any KrakenD manipulation**.
+Use `no-op` when you need to **couple the client with a specific backend without any Velonetics manipulation**.
 
 Examples:
 
@@ -54,11 +54,11 @@ To declare endpoints that go directly to the backend as they are you need to def
   - Add `"output_encoding": "no-op"` in the `endpoint` section
   - Add `"encoding": "no-op"` in the `backend` section
 
-When using the no-op encoding remember that the endpoint can only have **one backend** as KrakenD is not going to inspect or manipulate the response (no merging happens). Also, other pipe options like the concurrent requests, the circuit breaker, or the backend rate-limit specific to the proxy pipe aren't available (but still have endpoint rate limit -> router pipe).
+When using the no-op encoding remember that the endpoint can only have **one backend** as Velonetics is not going to inspect or manipulate the response (no merging happens). Also, other pipe options like the concurrent requests, the circuit breaker, or the backend rate-limit specific to the proxy pipe aren't available (but still have endpoint rate limit -> router pipe).
 
 
 ## Example
-The following snippet shows an endpoint that is passed to the backend as is. Notice that both the endpoint and the backend have a `no-op` encoding. The backend is using KrakenD's debug endpoint to capture the request in the console:
+The following snippet shows an endpoint that is passed to the backend as is. Notice that both the endpoint and the backend have a `no-op` encoding. The backend is using Velonetics's debug endpoint to capture the request in the console:
 
 {{< highlight json "hl_lines=3 6" >}}
 {

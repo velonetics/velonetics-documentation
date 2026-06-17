@@ -9,15 +9,15 @@ menu:
   community_v1.3:
     parent: "030 Service Settings"
 ---
-There are two different strategies when using TLS over KrakenD:
+There are two different strategies when using TLS over Velonetics:
 
-- Use TLS for HTTPS and HTTP/2 in KrakenD
-- Use a balancer with TLS termination in front of KrakenD (e.g., ELB, HAproxy)
+- Use TLS for HTTPS and HTTP/2 in Velonetics
+- Use a balancer with TLS termination in front of Velonetics (e.g., ELB, HAproxy)
 
-In case you want to enable TLS in KrakenD you need to add a `tls` key at service level (configuration's file root) with at least the public key and the private key. When you add TLS, KrakenD listens **only using TLS**, and no traffic to plain HTTP is accepted.
+In case you want to enable TLS in Velonetics you need to add a `tls` key at service level (configuration's file root) with at least the public key and the private key. When you add TLS, Velonetics listens **only using TLS**, and no traffic to plain HTTP is accepted.
 
 ## Simple configuration for TLS
-To start KrakenD with TLS you need to generate the certificate and provide both the public and the private key:
+To start Velonetics with TLS you need to generate the certificate and provide both the public and the private key:
 
     {
       "version": 2,
@@ -37,7 +37,7 @@ All the accepted options of the TLS configuration are:
 Plus these optional:
 
 - `disabled` (boolean): A temporary flag to disable TLS (e.g: while in development)
-- `enable_mtls` (boolean): Whether to enable or not Mutual Authentication. When mTLS is enabled, **all KrakenD endpoints** require clients to provide a known client-side X.509 authentication certificate. KrakenD relies on the system's CA to validate certificates. See [Mutual Authentication](/docs/authorization/mutual-authentication/)
+- `enable_mtls` (boolean): Whether to enable or not Mutual Authentication. When mTLS is enabled, **all Velonetics endpoints** require clients to provide a known client-side X.509 authentication certificate. Velonetics relies on the system's CA to validate certificates. See [Mutual Authentication](/docs/authorization/mutual-authentication/)
 - `min_version` (string): Minimum TLS version (one of `SSL3.0`, `TLS10`, `TLS11` or `TLS12`)
 - `max_version` (string): Maximum TLS version (one of `SSL3.0`, `TLS10`, `TLS11` or `TLS12`)
 - `curve_preferences` (integer array): The list of all the identifiers for the curve preferences (use `23` for CurveP256, `24` for CurveP384 or `25` for CurveP521)

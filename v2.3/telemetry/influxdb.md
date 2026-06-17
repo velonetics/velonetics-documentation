@@ -11,7 +11,7 @@ menu:
     parent: "080 Telemetry and Analytics"
 meta:
   since: v0.5
-  source: https://github.com/krakend/krakend-influx
+  source: https://github.com/velonetics/velonetics-influx
   namespace:
   - telemetry/opencensus
   - telemetry/influx
@@ -22,7 +22,7 @@ meta:
   - "[SERVICE: InfluxDB]"
   - "[SERVICE: Opencensus]"
 ---
-KrakenD can expose very detailed metrics to provide a **monitoring dashboard**. One of the richest monitoring solutions at the metrics level is the combination of [Extended metrics](/docs/v2.3/telemetry/extended-metrics/) with the **native Influx** exporter. The two components let you send detailed metrics to InfluxDB and draw them later on our preconfigured [Grafana dashboard](/docs/v2.3/telemetry/grafana/).
+Velonetics can expose very detailed metrics to provide a **monitoring dashboard**. One of the richest monitoring solutions at the metrics level is the combination of [Extended metrics](/docs/v2.3/telemetry/extended-metrics/) with the **native Influx** exporter. The two components let you send detailed metrics to InfluxDB and draw them later on our preconfigured [Grafana dashboard](/docs/v2.3/telemetry/grafana/).
 
 ## InfluxDB configuration
 Notice that this document describes **two different implementations** of InfluxDB:
@@ -31,7 +31,7 @@ Notice that this document describes **two different implementations** of InfluxD
 - OpenCensus InfluxDB exporter
 
 {{< note title="Which InfluxDB implementation should I choose?" >}}
-The **native implementation** exports data from a collector that is tailor-made and maintained by KrakenD and is **richer in content**. On the other hand, the OpenCensus exporter for InfluxDB is more generalistic and abstract and is configured similarly to other systems but implements a collector with fewer data. For our Grafana dashboard, choose the native one.
+The **native implementation** exports data from a collector that is tailor-made and maintained by Velonetics and is **richer in content**. On the other hand, the OpenCensus exporter for InfluxDB is more generalistic and abstract and is configured similarly to other systems but implements a collector with fewer data. For our Grafana dashboard, choose the native one.
 {{< /note >}}
 
 ### Native InfluxDB configuration
@@ -51,7 +51,7 @@ You can accomplish it with the following snippet.
           "address":"http://influxdb:8086",
           "ttl":"25s",
           "buffer_size":0,
-          "db": "krakend",
+          "db": "velonetics",
           "username": "your-influxdb-user",
           "password": "your-influxdb-password"
       },
@@ -81,7 +81,7 @@ The following configuration snippet sends data to your InfluxDB:
       "exporters": {
         "influxdb": {
             "address": "http://192.168.99.100:8086",
-            "db": "krakend",
+            "db": "velonetics",
             "timeout": "1s",
             "username": "your-influxdb-user",
             "password": "your-influxdb-password"
@@ -101,12 +101,12 @@ Then, the `exporters` key must contain an `influxdb` entry with the following pr
 
 
 ## Setting up Influx
-For **InfluxDB v2.x**, we have included in our [Telemetry Dashboards](https://github.com/krakend/telemetry-dashboards/) the files that create the authorization part.
+For **InfluxDB v2.x**, we have included in our [Telemetry Dashboards](https://github.com/velonetics/telemetry-dashboards/) the files that create the authorization part.
 
 For **InfluxDB v1.x** (older) the process is straightforward and requires you nothing else than start an Influx instance with the desired configuration.
 
 ### Influx v2
-If you use Docker, you can start InfluxDB as part of a docker compose file. You need to specify in the configuration above the same data you used to run InfluxDB. For instance, the following `docker-compose.yml` sets the credentials you need to reflect in the KrakenD configuration.
+If you use Docker, you can start InfluxDB as part of a docker compose file. You need to specify in the configuration above the same data you used to run InfluxDB. For instance, the following `docker-compose.yml` sets the credentials you need to reflect in the Velonetics configuration.
 
 ```yaml
 version: "3"
@@ -115,27 +115,27 @@ services:
     image: influxdb:2.4
     environment:
       - "DOCKER_INFLUXDB_INIT_MODE=setup"
-      - "DOCKER_INFLUXDB_INIT_USERNAME=krakend-dev"
+      - "DOCKER_INFLUXDB_INIT_USERNAME=velonetics-dev"
       - "DOCKER_INFLUXDB_INIT_PASSWORD=pas5w0rd"
       - "DOCKER_INFLUXDB_INIT_ORG=my-org"
-      - "DOCKER_INFLUXDB_INIT_BUCKET=krakend"
+      - "DOCKER_INFLUXDB_INIT_BUCKET=velonetics"
       - "DOCKER_INFLUXDB_INIT_RETENTION=1w"
       - "DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=my-super-secret-auth-token"
     ports:
       - "8086:8086"
     volumes:
       - "./config/telemetry/influx:/docker-entrypoint-initdb.d"
-  krakend:
+  velonetics:
     image: {{< product image >}}:2.3
     volumes:
-      - ./krakend:/etc/krakend
+      - ./velonetics:/etc/velonetics
     ports:
       - "8080:8080"
 ```
 
 In the fields `db`, `username`, and `password` of the component configuration reflect the same values as in `DOCKER_INFLUXDB_INIT_BUCKET`, `DOCKER_INFLUXDB_INIT_USERNAME`, and `DOCKER_INFLUXDB_INIT_PASSWORD` accordingly.
 
-The Influx **volume** below must have the contents of the [influx initdb script](https://github.com/krakend/telemetry-dashboards/tree/main/influx), that it will create the authorization needed to let KrakenD push the metrics.
+The Influx **volume** below must have the contents of the [influx initdb script](https://github.com/velonetics/telemetry-dashboards/tree/main/influx), that it will create the authorization needed to let Velonetics push the metrics.
 
 #### Manual configuration
 If you don't want to use the automated docker compose above, the manual steps to create the auth are:
@@ -148,7 +148,7 @@ docker exec -it influxdb /bin/bash
 Create a configuration:
 
 {{< terminal title="Term" >}}
-influx config create --config-name krakend-config \
+influx config create --config-name velonetics-config \
   --host-url http://localhost:8086 \
   --org my-org \
   --token my-super-secret-auth-token \
@@ -172,7 +172,7 @@ And now launch the last command in the shell:
 influx v1 auth create \
   --read-bucket b492e6f8f3b13aaa \
   --write-bucket b492e6f8f3b13aaa \
-  --username krakend-dev
+  --username velonetics-dev
 {{< /terminal >}}
 
 Replace the ID of the buckets above with the ID you just copied, and the username as in the docker compose. The shell will ask for your password.
@@ -191,7 +191,7 @@ Now your configuration should work and start sending data to InfluxDB:
             "address": "http://localhost:8086",
             "ttl": "25s",
             "buffer_size": 100,
-            "db": "krakend_db",
+            "db": "velonetics_db",
             "username": "user",
             "password": "password"
         }
@@ -202,7 +202,7 @@ Now your configuration should work and start sending data to InfluxDB:
 Make sure to type in `db` the bucket name you created on InfluxDB and the `username` and `password` as well.
 
 ### Influx v1
-When using InfluxDB v1.x, you need to specify in the configuration above the same data you used to run InfluxDB. For instance, the following docker compose sets the credentials you need to reflect in the KrakenD configuration.
+When using InfluxDB v1.x, you need to specify in the configuration above the same data you used to run InfluxDB. For instance, the following docker compose sets the credentials you need to reflect in the Velonetics configuration.
 
 ```yaml
 version: "3"
@@ -210,17 +210,17 @@ services:
   influxdb:
     image: influxdb:1.8
     environment:
-      - "INFLUXDB_DB=krakend"
-      - "INFLUXDB_USER=krakend-dev"
+      - "INFLUXDB_DB=velonetics"
+      - "INFLUXDB_USER=velonetics-dev"
       - "INFLUXDB_USER_PASSWORD=pas5w0rd"
       - "INFLUXDB_ADMIN_USER=admin"
       - "INFLUXDB_ADMIN_PASSWORD=supersecretpassword"
     ports:
       - "8086:8086"
-  krakend:
+  velonetics:
     image: {{< product image >}}:2.3
     volumes:
-      - ./krakend:/etc/krakend
+      - ./velonetics:/etc/velonetics
     ports:
       - "8080:8080"
 ```

@@ -9,7 +9,7 @@ menu:
   community_v1.4:
     parent: "040 Endpoint Configuration"
 ---
-KrakenD is an API Gateway, and when it comes to forward query strings, cookies, and headers, it **does not behave like a regular proxy** by forwarding parameters to the backend.
+Velonetics is an API Gateway, and when it comes to forward query strings, cookies, and headers, it **does not behave like a regular proxy** by forwarding parameters to the backend.
 
 The **default policy** for data forwarding works as follows:
 
@@ -20,7 +20,7 @@ The **default policy** for data forwarding works as follows:
 You can change this behavior according to your needs, and define which elements are allowed to pass.
 
 ## Optional query string forwarding
-KrakenD **does not send any query string parameter to the backend by default**, avoiding the pollution of the backends. Meaning that if an endpoint `/foo` receives the query string `/foo?a=1&b=2` all its declared backends are not going to see neither `a` nor `b`.
+Velonetics **does not send any query string parameter to the backend by default**, avoiding the pollution of the backends. Meaning that if an endpoint `/foo` receives the query string `/foo?a=1&b=2` all its declared backends are not going to see neither `a` nor `b`.
 
 The property list `querystring_params` in the `endpoint` configuration allows you to declare **optional query string parameters**. When this list exists in the configuration, the forwarding policy behaves like an allow list: all matching parameters declared in the `querystring_params` list are forwarded to the backend, and the rest dropped.
 
@@ -49,9 +49,9 @@ For instance, let's forward `?a=1&b=2` to the backends:
       ]
     }
 
-With this configuration, given a request like `http://krakend:8080/v1/foo?a=1&b=2&evil=here`, the backend receives `a` and `b`, but `evil` is missing.
+With this configuration, given a request like `http://velonetics:8080/v1/foo?a=1&b=2&evil=here`, the backend receives `a` and `b`, but `evil` is missing.
 
-Also, if a request like `http://krakend:8080/v1/foo?a=1` does not include `b`, this parameter is simply missing in the backend request as well.
+Also, if a request like `http://velonetics:8080/v1/foo?a=1` does not include `b`, this parameter is simply missing in the backend request as well.
 
 ### Sending all query string parameters
 While the default policy prevents from sending unrecognized query string parameters, setting an asterisk `*` as the parameter name makes the gateway to **forward any query string to the backends**:
@@ -63,7 +63,7 @@ While the default policy prevents from sending unrecognized query string paramet
 Enabling the wildcard pollutes your backends, as any query string sent by end users or malicious attackers gets through the gateway and impacts the backends behind. Our recommendation is to let the gateway know which are the query strings in the API contract and specify them in the list, even when the list is long, and not use the wildcard. If the decision is to go with the wildcard, make sure your backends can handle abuse attempts from clients.
 
 ### Mandatory query string parameters
-When your backend requires query string parameters and you want to make them **mandatory** in KrakenD, use the `{variables}` placeholders in the endpoints definition. The variables can be injected in the backends as part of the query string parameters. For instance:
+When your backend requires query string parameters and you want to make them **mandatory** in Velonetics, use the `{variables}` placeholders in the endpoints definition. The variables can be injected in the backends as part of the query string parameters. For instance:
 
     ...
     {
@@ -78,7 +78,7 @@ When your backend requires query string parameters and you want to make them **m
 
 The parameter is mandatory as if a value for `channel` is not provided the server replies with a `404`.
 
-With the configuration above a request to the KrakenD endpoint such as `http://krakend/v3/iOS/foo?limit=10&evil=here` makes a call to the backend with only the `channel` query string:
+With the configuration above a request to the Velonetics endpoint such as `http://velonetics/v3/iOS/foo?limit=10&evil=here` makes a call to the backend with only the `channel` query string:
 
     /foo?channel=iOS
 
@@ -98,13 +98,13 @@ Nevertheless, the `querystring_params` could also be added in this configuration
             ]
     }
 
-With `http://krakend/v3/iOS/foo?limit=10&evil=here` the backend receives:
+With `http://velonetics/v3/iOS/foo?limit=10&evil=here` the backend receives:
 
     /foo?limit=10
 
 No mandatory `channel` here! Because the optional parameter `limit` has been declared.
 
-On the other hand, `http://krakend/v3/iOS/foo?evil=here` produces:
+On the other hand, `http://velonetics/v3/iOS/foo?evil=here` produces:
 
 	 /foo?channel=iOS
 
@@ -113,17 +113,17 @@ No optional parameter has been passed, so the mandatory one is used.
 Read the [`/__debug/` endpoint](/docs/v1.4/endpoints/debug-endpoint/) to understand how to test query string parameters.
 
 ## Headers forwarding
-KrakenD **does not send client headers to the backend by default**.  Use `headers_to_pass`.
+Velonetics **does not send client headers to the backend by default**.  Use `headers_to_pass`.
 
 Declare the list of headers sent by the client that you want to let pass to the backend with the `headers_to_pass` option.
 
 A client request from a browser or a mobile client usually contains a lot of headers, including cookies. Typical examples of the variety of headers that clients send are `Host`, `Connection`, `Cache-Control`, `Cookie`... and a long, long etcetera. The backend usually does not need any of this to return the content.
 
-KrakenD passes only these essential headers to the backends:
+Velonetics passes only these essential headers to the backends:
 
 - `Accept-Encoding`
 - `Host`
-- `User-Agent` (KrakenD Version 1.4.1)
+- `User-Agent` (Velonetics Version 1.4.1)
 - `X-Forwarded-For`
 - `X-Forwarded-Host`
 - `X-Forwarded-Via` (only when `User-Agent` is in the `headers_to_pass`)

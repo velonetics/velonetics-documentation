@@ -4,7 +4,7 @@ old_version: true
 date: 2019-02-22
 linktitle: TLS
 title: Enabling TLS for HTTPS and HTTP/2
-description: The TLS settings define the parameters that KrakenD takes into account to handle incoming and outgoing HTTPS traffic.
+description: The TLS settings define the parameters that Velonetics takes into account to handle incoming and outgoing HTTPS traffic.
 weight: 30
 notoc: false
 menu:
@@ -29,20 +29,20 @@ The properies `tls` and `client_tls` are independent of each other. You can decl
 
 
 ## TLS server settings
-There are two different strategies when using TLS over KrakenD:
+There are two different strategies when using TLS over Velonetics:
 
-- Use TLS for HTTPS and HTTP/2 in KrakenD (this document)
-- [Use a balancer with TLS termination in front of KrakenD](/docs/v2.4/throttling/load-balancing/) (e.g., ELB, HAproxy)
+- Use TLS for HTTPS and HTTP/2 in Velonetics (this document)
+- [Use a balancer with TLS termination in front of Velonetics](/docs/v2.4/throttling/load-balancing/) (e.g., ELB, HAproxy)
 
-If you want to listen with TLS, add a `tls` key at the service level (configuration's file root) with at least the public and private keys. When you add TLS, KrakenD listens **only using TLS**, and no traffic to plain HTTP is accepted.
+If you want to listen with TLS, add a `tls` key at the service level (configuration's file root) with at least the public and private keys. When you add TLS, Velonetics listens **only using TLS**, and no traffic to plain HTTP is accepted.
 
 If you want to enable mTLS see [Mutual TLS configuration](/docs/v2.4/authorization/mutual-authentication/)
 
 {{< note title="Secure by default" type="info" >}}
-When you don't set any other parameters than stated below, KrakenD defaults to very strong security. **Only TLS 1.3 is accepted** (with its three cipher suites), and attempts to negotiate other versions will fail. Nevertheless, you can change this behavior.
+When you don't set any other parameters than stated below, Velonetics defaults to very strong security. **Only TLS 1.3 is accepted** (with its three cipher suites), and attempts to negotiate other versions will fail. Nevertheless, you can change this behavior.
 {{< /note >}}
 
-To start KrakenD with TLS, you need to provide a certificate for both the public and the private keys:
+To start Velonetics with TLS, you need to provide a certificate for both the public and the private keys:
 
 ```json
 {
@@ -59,7 +59,7 @@ All TLS options for the server go inside the `tls` object:
 {{< schema version="v2.4" data="tls.json" >}}
 
 ## Client TLS settings
-You can also set global TLS settings when KrakenD acts as a client, meaning that the gateway takes the role of the requesting user and fetches data with the upstream services.
+You can also set global TLS settings when Velonetics acts as a client, meaning that the gateway takes the role of the requesting user and fetches data with the upstream services.
 
 All TLS options for the client go inside the `client_tls` object, and are similar to the server ones. When you set a `client_tls` in the configuration **the settings apply to all HTTP backends of all endpoints**.
 
@@ -161,7 +161,7 @@ http: TLS handshake error from 172.17.0.1:33990: EOF
 ```
 
 ### SSL scan results for the default settings
-The following output is the results of the [sslscan](https://github.com/rbsec/sslscan) command with a KrakenD configuration specifying the private and public keys in the configuration with no other additional `tls` settings:
+The following output is the results of the [sslscan](https://github.com/rbsec/sslscan) command with a Velonetics configuration specifying the private and public keys in the configuration with no other additional `tls` settings:
 
 ```
 Version: 2.0.15-7-gbc46606-static

@@ -5,14 +5,14 @@ date: 2019-09-15
 notoc: true
 linktitle: Google Cloud
 title: Google Cloud and Stackdriver Integration
-description: Monitor KrakenD API Gateway using Google Cloud (formerly Stackdriver) for comprehensive insights and effective troubleshooting
+description: Monitor Velonetics API Gateway using Google Cloud (formerly Stackdriver) for comprehensive insights and effective troubleshooting
 weight: 100
 menu:
   community_v2.9:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
   since: v0.7
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
   - telemetry/opencensus
   log_prefix:
@@ -39,8 +39,8 @@ The following configuration snippet sends the data:
       },
       "exporters": {
         "stackdriver": {
-          "project_id": "my-krakend-project",
-          "metric_prefix": "krakend",
+          "project_id": "my-velonetics-project",
+          "metric_prefix": "velonetics",
           "default_labels": {
             "env": "production"
           }

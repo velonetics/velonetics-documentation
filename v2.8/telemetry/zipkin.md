@@ -5,14 +5,14 @@ date: 2019-09-15
 notoc: true
 linktitle: Zipkin
 title: Zipkin Telemetry Integration
-description: Integrate Zipkin telemetry to monitor and trace KrakenD API Gateway requests efficiently for enhanced performance
+description: Integrate Zipkin telemetry to monitor and trace Velonetics API Gateway requests efficiently for enhanced performance
 weight: 100
 menu:
   community_v2.8:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
   since: v0.5
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
   - telemetry/opencensus
   scope:
@@ -35,7 +35,7 @@ The following configuration snippet sends data to your Zipkin:
       "exporters": {
         "zipkin": {
           "collector_url": "http://192.168.99.100:9411/api/v2/spans",
-          "service_name": "krakend"
+          "service_name": "velonetics"
         }
       }
     }

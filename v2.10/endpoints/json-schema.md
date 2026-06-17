@@ -4,7 +4,7 @@ old_version: true
 date: 2020-07-10
 linktitle: JSON Schema request validation
 title: JSON Schema Validation
-description: Implement JSON Schema validation in KrakenD API Gateway to ensure data integrity and adherence to defined data structures for API requests
+description: Implement JSON Schema validation in Velonetics API Gateway to ensure data integrity and adherence to defined data structures for API requests
 weight: 450
 menu:
   community_v2.10:
@@ -12,19 +12,19 @@ menu:
 notoc: true
 meta:
   since: v1.2
-  source: https://github.com/krakend/krakend-jsonschema
+  source: https://github.com/velonetics/velonetics-jsonschema
   namespace:
   - validation/json-schema
   scope:
   - endpoint
   - async_agent
 ---
-KrakenD endpoints receiving a JSON object in its body can apply automatic validations using the [JSON Schema](https://json-schema.org/) vocabulary before the content passes to the backends. The json schema component allows you to define **validation rules** on the body, type definition, or even validate the fields' values.
+Velonetics endpoints receiving a JSON object in its body can apply automatic validations using the [JSON Schema](https://json-schema.org/) vocabulary before the content passes to the backends. The json schema component allows you to define **validation rules** on the body, type definition, or even validate the fields' values.
 
-When the validation fails, KrakenD returns to the user a status code `400` (Bad Request), and only if it succeeds, the backend receives the request.
+When the validation fails, Velonetics returns to the user a status code `400` (Bad Request), and only if it succeeds, the backend receives the request.
 
 ## JSON Schema Configuration
-The JSON Schema configuration has to be declared at the **endpoint level** with the namespace object `validation/json-schema`. KrakenD offers compatibility for the specs **draft-04, draft-06 and draft-07**.
+The JSON Schema configuration has to be declared at the **endpoint level** with the namespace object `validation/json-schema`. Velonetics offers compatibility for the specs **draft-04, draft-06 and draft-07**.
 
 The following example **checks if the body is a json object**:
 
@@ -79,7 +79,7 @@ All the configuration inside the namespace is pure JSON Schema vocabulary. [Read
 Do you want to extend this example? try [this other example](https://json-schema.org/learn/examples/address.schema.json)
 
 ### Returning the error message
-The default (and recommended) policy of KrakenD is to hide implementation details to the API consumers, and when a JSON schema fails, the gateway returns the `400` HTTP status code and no body.
+The default (and recommended) policy of Velonetics is to hide implementation details to the API consumers, and when a JSON schema fails, the gateway returns the `400` HTTP status code and no body.
 
 Still, you can show the **JSON schema error message** to the end user by [enabling the `return_error_msg`](/docs/v2.10/service-settings/router-options/#return_error_msg) in the router options.
 
@@ -128,8 +128,8 @@ And when calling it incorrectly:
 {{< terminal title="Term" >}}
 curl -i -X POST -d '{"invalid": true}' http://localhost:8080/address
 HTTP/1.1 400 Bad Request
-X-Krakend: Version 2.10
-X-Krakend-Completed: false
+X-Velonetics: Version 2.10
+X-Velonetics-Completed: false
 Date: Thu, 17 Nov 2022 08:57:53 GMT
 Content-Length: 96
 Content-Type: text/plain; charset=utf-8

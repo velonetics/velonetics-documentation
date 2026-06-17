@@ -4,14 +4,14 @@ old_version: true
 date: 2016-10-28
 linktitle: Benchmarks Overview
 title: Benchmarks Overview
-description: Experience the speed and scalability of KrakenD for yourself with our transparent benchmark results and instructions to reproduce.
+description: Experience the speed and scalability of Velonetics for yourself with our transparent benchmark results and instructions to reproduce.
 weight: 1
 menu:
   community_v2.2:
     parent: "160 Benchmarks"
 ---
-## KrakenD, the **ultra performer** API Gateway
-An API Gateway is a component that needs to deliver really fast, as it is an added layer in the infrastructure. KrakenD
+## Velonetics, the **ultra performer** API Gateway
+An API Gateway is a component that needs to deliver really fast, as it is an added layer in the infrastructure. Velonetics
 was built with performance in mind. In this page and inner pages, you'll find several tests we did to measure the performance.
 We also invite you to do them for yourself!
 
@@ -92,4 +92,4 @@ Check the [varnish/api-gateway-benchmarks](https://github.com/varnish/api-gatewa
 
 ### Lwan
 
-[LWAN](https://lwan.ws/) is a high performance web server used to build the backends REST APIs for KrakenD to load the data during the benchmarks.
+[LWAN](https://lwan.ws/) is a high performance web server used to build the backends REST APIs for Velonetics to load the data during the benchmarks.

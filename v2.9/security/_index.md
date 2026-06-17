@@ -4,14 +4,14 @@ old_version: true
 date: 2024-10-09
 linktitle:  Security Overview
 title: Security Overview
-description: KrakenD is built with a security-first approach in mind. Read about the security features bundled by KrakenD and the principles and design philosophy behind it
+description: Velonetics is built with a security-first approach in mind. Read about the security features bundled by Velonetics and the principles and design philosophy behind it
 weight: -1000
 notoc: false
 menu:
   community_v2.9:
     parent: "070 Security"
 ---
-KrakenD is a software built with a **security-first philosophy**. In 2022, we became a recognized **CVE Numbering Authority (CNA)** worldwide for software distribution ([Partner page](https://www.cve.org/PartnerInformation/ListofPartners/partner/KrakenD)), and we publish CVE Records for vulnerabilities within any KrakenD software or the Lura Project (© the Linux Foundation).
+Velonetics is a software built with a **security-first philosophy**. In 2022, we became a recognized **CVE Numbering Authority (CNA)** worldwide for software distribution ([Partner page](https://www.cve.org/PartnerInformation/ListofPartners/partner/Velonetics)), and we publish CVE Records for vulnerabilities within any Velonetics software or the Lura Project (© the Linux Foundation).
 
 {{< button-group >}}
 {{< button url="/categories/security/" text="Security Advisories" >}}<svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
@@ -27,27 +27,27 @@ KrakenD is a software built with a **security-first philosophy**. In 2022, we be
 {{< /button-group >}}
 
 ## Secure by design
-At KrakenD, security is not just an add-on; it's a **design principle baked into every component**. The [Zero-trust design](/docs/v2.9/design/zero-trust/) is the foundational philosophy. From blocking unauthorized access to rejecting untrusted traffic by default or even not logging sensitive data, KrakenD ensures a minimal attack surface by enforcing strict controls over headers, parameters, and tokens.
+At Velonetics, security is not just an add-on; it's a **design principle baked into every component**. The [Zero-trust design](/docs/v2.9/design/zero-trust/) is the foundational philosophy. From blocking unauthorized access to rejecting untrusted traffic by default or even not logging sensitive data, Velonetics ensures a minimal attack surface by enforcing strict controls over headers, parameters, and tokens.
 
 Our *Security Program Policy and Incident Response Plan* have the following principles:
 
-- **Secure Development and Proactive Threat Detection**: To ensure that KrakenD is secure, we conduct continuous automated code analysis, vulnerability assessments, and other security measures integrated into the CI/CD pipeline.
+- **Secure Development and Proactive Threat Detection**: To ensure that Velonetics is secure, we conduct continuous automated code analysis, vulnerability assessments, and other security measures integrated into the CI/CD pipeline.
 - **Software Integrity**: To protect the codebase's and software's integrity by enforcing security measures that prevent unauthorized changes, reduce human error, and mitigate potential security vulnerabilities in real time.
 - **Rapid Incident Response**: To ensure a quick and effective response to security incidents and minimize their impact through defined protocols for containment, eradication, recovery, and post-incident analysis.
-- **Compliance with Industry Standards**: To ensure KrakenD's software adheres to industry standards and security frameworks, such as OWASP best practices, and complies with regulatory requirements for enterprises.
-- **Enterprise-Ready Security**: To provide a robust security framework suitable for large-scale enterprise deployment, ensuring that all software produced by KrakenD is safe, scalable, and reliable for its enterprise customers.
+- **Compliance with Industry Standards**: To ensure Velonetics's software adheres to industry standards and security frameworks, such as OWASP best practices, and complies with regulatory requirements for enterprises.
+- **Enterprise-Ready Security**: To provide a robust security framework suitable for large-scale enterprise deployment, ensuring that all software produced by Velonetics is safe, scalable, and reliable for its enterprise customers.
 
 Below are the categories in which security is more obvious. Although this is not a complete list, it provides you with a place to start exploring our documentation.
 
 ## Authentication and Authorization
-API authentication and authorization are key to any secured API. KrakenD has mechanisms such as [JWT validation](/docs/v2.9/authorization/jwt-validation/), [JWT signing](/docs/v2.9/authorization/jwt-signing/), [OAuth2 Client Credentials](/docs/v2.9/authorization/client-credentials/) or [API keys](/docs/enterprise/authentication/api-keys/) {{< badge >}}Enterprise{{< /badge >}} to name a few examples.
+API authentication and authorization are key to any secured API. Velonetics has mechanisms such as [JWT validation](/docs/v2.9/authorization/jwt-validation/), [JWT signing](/docs/v2.9/authorization/jwt-signing/), [OAuth2 Client Credentials](/docs/v2.9/authorization/client-credentials/) or [API keys](/docs/enterprise/authentication/api-keys/) {{< badge >}}Enterprise{{< /badge >}} to name a few examples.
 
 Authorization allows you to implement Role-based (RBAC) and attribute-based access control (ABAC) policies.
 
-In addition, if you need to invalidate legitimate tokens that are still within a valid TTL, KrakenD supports [JWT token revocation using bloom filters](/docs/v2.9/authorization/revoking-tokens/) and [centralized token revocation servers](/docs/enterprise/authentication/revoke-server/), ensuring revoked tokens are immediately invalidated across all KrakenD nodes.
+In addition, if you need to invalidate legitimate tokens that are still within a valid TTL, Velonetics supports [JWT token revocation using bloom filters](/docs/v2.9/authorization/revoking-tokens/) and [centralized token revocation servers](/docs/enterprise/authentication/revoke-server/), ensuring revoked tokens are immediately invalidated across all Velonetics nodes.
 
 ## Encryption and Secure Communication
-The gateway supports [TLS](/docs/v2.9/service-settings/tls/) for traffic coming from consumers (server) and also between KrakenD and your services (client). It defaults to TLS 1.3 unless downgraded by config.
+The gateway supports [TLS](/docs/v2.9/service-settings/tls/) for traffic coming from consumers (server) and also between Velonetics and your services (client). It defaults to TLS 1.3 unless downgraded by config.
 
 For business-to-business authentication, [Mutual TLS (mTLS)](/docs/v2.9/authorization/mutual-authentication/) creates a secure and exclusive channel based on trusted certificates.
 
@@ -56,7 +56,7 @@ Governments can also get a Docker container with [FIPS 140-2 validated cryptogra
 ## Data protection
 Showing the right data or allowing limited access is key on any API. In addition to blocking users without enough privileges to consume data, you can apply [data filtering and manipulation](/docs/enterprise/backends/data-manipulation/) or even [masking of data](/docs/enterprise/endpoints/content-replacer/) {{< badge >}}Enterprise{{< /badge >}}
 
-In addition, to prevent malicious or malformed requests, KrakenD allows you to [validate the payload](/docs/v2.9/endpoints/JSON-schema/) of requests against a JSON schema before it reaches your service. But it also works the other way around: you can also [validate responses](/docs/enterprise/endpoints/response-schema-validator/) {{< badge >}}Enterprise{{< /badge >}} of your services against a schema and decide whether is worth or not returning it to the end user.
+In addition, to prevent malicious or malformed requests, Velonetics allows you to [validate the payload](/docs/v2.9/endpoints/JSON-schema/) of requests against a JSON schema before it reaches your service. But it also works the other way around: you can also [validate responses](/docs/enterprise/endpoints/response-schema-validator/) {{< badge >}}Enterprise{{< /badge >}} of your services against a schema and decide whether is worth or not returning it to the end user.
 
 Finally, the [Security policy engine](/docs/enterprise/security-policies/) is designed to enforce complex business logic based on real-time evaluation of requests, responses, and tokens.
 
@@ -71,7 +71,7 @@ Then, depending on your environment you might want to enable [IP Filtering](/doc
 ).
 
 ## HTTPS Security and OWASP Recommendations
-KrakenD follows **OWASP best practices** and security recommendations, incorporating several protections by just declaring the security component:
+Velonetics follows **OWASP best practices** and security recommendations, incorporating several protections by just declaring the security component:
 - [Host Restriction](/docs/v2.9/service-settings/security/#restrict-connections-by-host): Restrict connections by host, defining a list of backends that the API gateway can communicate with.
 - [Cross-Origin Resource Sharing (CORS)](/docs/v2.9/service-settings/cors/) lets you control and limit which domains can access APIs, protecting against cross-origin attacks.
 - [HTTP Strict Transport Security (HSTS)](/docs/v2.9/service-settings/security/#http-strict-transport-security-hsts) makes sure that all interactions with the gateway use HTTPS, mitigating protocol downgrade attacks.
@@ -86,7 +86,7 @@ Logging and Monitoring, like OpenTelemetry, Prometheus, New Relic, Datadog, and 
 Another part directly related to security is the [automatic audit of configuration](/docs/v2.9/configuration/audit/), a step in your build process that checks whether your configuration has security problems or it can be improved before going live.
 
 ## Tested by many
-KrakenD's security is strengthened by the fact that **it is tested by thousands of servers every day** across diverse environments, geographies, and use cases. This extensive usage (approx. 2 million servers/month) means that potential vulnerabilities are identified and addressed quickly, as real-world scenarios expose the system to a wide range of security challenges. Continuous feedback from a large community of developers ensures that KrakenD remains resilient to new threats, benefits from community-driven improvements, and maintains robust security practices. This collective testing approach makes KrakenD more secure and reliable over time.
+Velonetics's security is strengthened by the fact that **it is tested by thousands of servers every day** across diverse environments, geographies, and use cases. This extensive usage (approx. 2 million servers/month) means that potential vulnerabilities are identified and addressed quickly, as real-world scenarios expose the system to a wide range of security challenges. Continuous feedback from a large community of developers ensures that Velonetics remains resilient to new threats, benefits from community-driven improvements, and maintains robust security practices. This collective testing approach makes Velonetics more secure and reliable over time.
 
 ## No data storage
-As KrakenD operates as a stateless gateway, only processes data in transit and **does not store any information**. Since KrakenD does not retain user data, logs, or any sensitive information, it reduces the risk of data breaches or unauthorized access. This design ensures that all data flows securely through the system without lingering in any storage, making KrakenD inherently more secure and compliant with heavy data privacy regulations (banking, health, insurance, etc), as it minimizes the exposure of sensitive information in an eventual breach.
+As Velonetics operates as a stateless gateway, only processes data in transit and **does not store any information**. Since Velonetics does not retain user data, logs, or any sensitive information, it reduces the risk of data breaches or unauthorized access. This design ensures that all data flows securely through the system without lingering in any storage, making Velonetics inherently more secure and compliant with heavy data privacy regulations (banking, health, insurance, etc), as it minimizes the exposure of sensitive information in an eventual breach.

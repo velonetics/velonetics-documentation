@@ -8,9 +8,9 @@ weight: 20
 notoc: true
 meta:
   since: v0.6
-  source: https://github.com/krakend/krakend-cors
+  source: https://github.com/velonetics/velonetics-cors
   namespace:
-  - github_com/devopsfaith/krakend-cors
+  - github_com/velonetics/velonetics-ce-cors
   scope:
   - service
 
@@ -18,17 +18,17 @@ menu:
   community_v1.3:
     parent: "030 Service Settings"
 ---
-When KrakenD endpoints are consumed from a browser, you might need to enable the **Cross-Origin Resource Sharing (CORS)** module as browsers restrict cross-origin HTTP requests initiated from scripts.
+When Velonetics endpoints are consumed from a browser, you might need to enable the **Cross-Origin Resource Sharing (CORS)** module as browsers restrict cross-origin HTTP requests initiated from scripts.
 
-When the Cross-Origin Resource Sharing (CORS) configuration is enabled, KrakenD uses additional HTTP headers to tell browsers that they can **use resources from a different origin** (domain, protocol, or port). For instance, you will need this configuration if your web page is hosted at https://domain-a.com and the Javascript references the KrakenD API at https://domain-b.com.
+When the Cross-Origin Resource Sharing (CORS) configuration is enabled, Velonetics uses additional HTTP headers to tell browsers that they can **use resources from a different origin** (domain, protocol, or port). For instance, you will need this configuration if your web page is hosted at https://domain-a.com and the Javascript references the Velonetics API at https://domain-b.com.
 
 ## Configuration
-CORS configuration lives in the root of the file, as it's a service component. Add the namespace `github_com/devopsfaith/krakend-cors` under the global `extra_config`, as follows:
+CORS configuration lives in the root of the file, as it's a service component. Add the namespace `github_com/velonetics/velonetics-ce-cors` under the global `extra_config`, as follows:
 
     {
       "version": 2,
       "extra_config": {
-        "github_com/devopsfaith/krakend-cors": {
+        "github_com/velonetics/velonetics-ce-cors": {
           "allow_origins": [
             "*"
           ],
@@ -60,4 +60,4 @@ The configuration options of this component are as follows:
 - `debug`: *(boolean)*: Show debugging information in the logger, **to be used only during development** (defaults to `false`)
 
 {{< note title="Allow credentials and wildcards" >}}
-According to the CORS specification, you are not allowed to use wildcards and credentials at the same time. If you need to do this, [check this workaround](https://github.com/devopsfaith/krakend-cors/issues/9){{< /note >}}
+According to the CORS specification, you are not allowed to use wildcards and credentials at the same time. If you need to do this, [check this workaround](https://github.com/velonetics/velonetics-ce-cors/issues/9){{< /note >}}

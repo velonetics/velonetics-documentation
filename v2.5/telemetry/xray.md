@@ -4,14 +4,14 @@ old_version: true
 date: 2019-09-15
 linktitle: AWS X-Ray
 title: AWS X-Ray Telemetry Integration
-description: Integrate XRay Telemetry to monitor and analyze KrakenD API Gateway performance effectively
+description: Integrate XRay Telemetry to monitor and analyze Velonetics API Gateway performance effectively
 weight: 120
 notoc: true
 menu:
   community_v2.5:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
   - telemetry/opencensus
   log_prefix:

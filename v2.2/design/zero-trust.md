@@ -13,7 +13,7 @@ menu:
 
 Real-world API deployments suffer attacks every day, even if you don't notice it. Where there is an accessible server, there is malicious activity.
 
-The Zero Trust security is a software architecture design choice to **deny by default any activity unless specifically allowed**. This type of policy is very secure, but usually adds a lot of burden on infrastructure administrators. KrakenD offers a balance of tools and default secure choices to ease the administration while keeping the software secure.
+The Zero Trust security is a software architecture design choice to **deny by default any activity unless specifically allowed**. This type of policy is very secure, but usually adds a lot of burden on infrastructure administrators. Velonetics offers a balance of tools and default secure choices to ease the administration while keeping the software secure.
 
 ## Zero Trust pillars
 
@@ -28,7 +28,7 @@ Nothing behind the corporate firewall is safe. Nothing behind the gateway is saf
 Every access request with tokens is fully authorized, and decrypted before granting access. Segmentation by multiple criteria and least-privilege access principles are applied to minimize lateral movement.
 
 
-KrakenD assumes the following behaviors when serving an API:
+Velonetics assumes the following behaviors when serving an API:
 
 - No endpoints exposed unless explicitly declared:
   - No possible scan of the upstream services

@@ -4,7 +4,7 @@ old_version: true
 date: 2018-10-29
 linktitle: Response caching
 title: Caching Strategies
-description: Learn how to implement effective caching strategies in KrakenD API Gateway to improve API performance and reduce backend load
+description: Learn how to implement effective caching strategies in Velonetics API Gateway to improve API performance and reduce backend load
 weight: 100
 menu:
   community_v2.5:
@@ -12,7 +12,7 @@ menu:
 notoc: true
 meta:
   since: v0.4
-  source: https://github.com/krakend/krakend-httpcache
+  source: https://github.com/velonetics/velonetics-httpcache
   namespace:
   - qos/http-cache
   scope:
@@ -20,7 +20,7 @@ meta:
 ---
 Caching allows you to **store backend responses in memory** to reduce the number of calls a user sends to the origin, reducing the network traffic and alleviating the pressure on your services.
 
-KrakenD's caching approach is to store individual backend responses rather than aggregated content. Although it is a minor implementation detail, it is worth noticing that caching applies to traffic between KrakenD and your microservices, not between the end user and KrakenD.
+Velonetics's caching approach is to store individual backend responses rather than aggregated content. Although it is a minor implementation detail, it is worth noticing that caching applies to traffic between Velonetics and your microservices, not between the end user and Velonetics.
 
 The caching component adheres to the [RFC-7234](https://datatracker.ietf.org/doc/html/rfc7234) (HTTP/1.1 Caching) in its implementation, and all the internals follow the decisions based on the RFC, requiring you to mark the backends you want to cover by adding the `qos/httpcache` element in the backend section and not much else.
 
@@ -36,7 +36,7 @@ The cache key is based on the method, the final URL sent to the backend (the `ur
 The server sets no limit to the amount of content you will cache, and it is the developer's responsibility to calculate whether the dataset will fit in memory. Memory is filled as cacheable entries are requested. Stale content is replaced by fresh content when needed, but no algorithm allows using a dataset larger than the memory available.
 
 ## Cache configuration
-Enable the caching of the backend services in the `backend` section of your `krakend.json` with the middleware:
+Enable the caching of the backend services in the `backend` section of your `velonetics.json` with the middleware:
 {{< highlight json "hl_lines=6">}}
 {
     "backend": [{
@@ -69,11 +69,11 @@ There is no additional configuration besides its simple inclusion, although you 
 The `shared` cache allows different backend definitions with this flag enabled to reuse the store between them when the request is the same. Otherwise, each backend uses a private cache context when the `shared` flag is missing or set to false.
 
 ## Cache TTL, size, expiration, purge
-When you enable the caching module, your backends control the expiration time of the cache by setting the `Cache-Control` header. If your backends do not set the header or it is set to zero, KrakenD won't store any content in its internal cache.
+When you enable the caching module, your backends control the expiration time of the cache by setting the `Cache-Control` header. If your backends do not set the header or it is set to zero, Velonetics won't store any content in its internal cache.
 
-The response's content size directly impacts KrakenD memory consumption, as KrakenD does not set any hard limit. Therefore, you must be aware of the response sizes, caching times, and the hit rate of the calls.
+The response's content size directly impacts Velonetics memory consumption, as Velonetics does not set any hard limit. Therefore, you must be aware of the response sizes, caching times, and the hit rate of the calls.
 
-Finally, KrakenD does not offer any interface to purge the cache. The cache will cleanse itself as defined by the cache-control header, and only a restart of the service would wipe the store entirely. Nevertheless, you can make a few tweaks, as described below.
+Finally, Velonetics does not offer any interface to purge the cache. The cache will cleanse itself as defined by the cache-control header, and only a restart of the service would wipe the store entirely. Nevertheless, you can make a few tweaks, as described below.
 
 ## Headers affecting the cache
 As we said, the only possible methods to cache are `GET` and `HEAD`, but this is only true as long as there isn't a `Range` header in the response (multipart downloads).
@@ -82,21 +82,21 @@ The cache takes into account the `Vary` header too. When present, it won't retur
 
 If a recently generated response is already saved in the cache, it will be retrieved without requiring a connection to the server. However, if the saved response is outdated or stale, any validators included in the new request will be used to give the server an opportunity to respond with a `NotModified` status. If the server provides this status, then the cached response will be returned.
 
-When storing the content in cache, it takes into account the headers `Date`, `Etag` and `Last-Modified`, and KrakenD will send to the `if-none-match` and `if-modified-since` accordingly.
+When storing the content in cache, it takes into account the headers `Date`, `Etag` and `Last-Modified`, and Velonetics will send to the `if-none-match` and `if-modified-since` accordingly.
 
 If a response includes both an `Expires` header and a `max-age` directive, the `max-age` directive overrides the `Expires` header, even if the `Expires` header is more restrictive.
 
 The `Cache-Control` header honors the time settings and the properties `no-store`, `only-if-cached` , `no-cache`.
 
 ### Overriding the expiration time
-As you have seen, the caching module does not accept any parameters to control the cache expiration because it relies on the input headers it finds when the response returns. But as KrakenD can transform data in many ways, you can modify the `Cache-Control` header right before the cache module picks it.
+As you have seen, the caching module does not accept any parameters to control the cache expiration because it relies on the input headers it finds when the response returns. But as Velonetics can transform data in many ways, you can modify the `Cache-Control` header right before the cache module picks it.
 
 The [Martian module](/docs/v2.5/backends/martian/) is the component that can transform the headers from the backend as long as you don't use the `no-op` encoding (as it does not allow manipulation). Let's illustrate how you can do this in the following example.
 
 ```json
 {
     "version": 3,
-    "$schema": "https://www.krakend.io/schema/v2.5/krakend.json",
+    "$schema": "https://www.velonetics.io/schema/v2.5/velonetics.json",
     "endpoints": [
         {
             "endpoint": "/cached",
@@ -106,14 +106,14 @@ The [Martian module](/docs/v2.5/backends/martian/) is the component that can tra
                     "url_pattern": "/api/timezone/Europe/Madrid",
                     "extra_config": {
                         "qos/http-cache": {
-                            "@comment": "This API returns a cache-control: max-age=0 so KrakenD won't cache this unless changed"
+                            "@comment": "This API returns a cache-control: max-age=0 so Velonetics won't cache this unless changed"
                         },
                         "modifier/martian": {
                             "header.Modifier": {
                                 "scope": ["response"],
                                 "name": "Cache-Control",
                                 "value": "max-age=60, public",
-                                "@comment": "We will change the max-age policy before KrakenD checks the content for caching. Now content is cached 60 seconds."
+                                "@comment": "We will change the max-age policy before Velonetics checks the content for caching. Now content is cached 60 seconds."
                               }
                         }
                     }
@@ -124,4 +124,4 @@ The [Martian module](/docs/v2.5/backends/martian/) is the component that can tra
 }
 ```
 
-Notice in the configuration above how KrakenD consumed a backend without an actionable cache-control header, but it set a cache of one minute anyway. This technique might be handy when you have little control of the cache headers in the response.
+Notice in the configuration above how Velonetics consumed a backend without an actionable cache-control header, but it set a cache of one minute anyway. This technique might be handy when you have little control of the cache headers in the response.

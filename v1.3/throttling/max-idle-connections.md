@@ -20,7 +20,7 @@ Having a high number of IDLE connections to every backend affects directly to th
 	  ...
 	}
 
-KrakenD will close connections sitting idle in a "keep-alive" state when `max_idle_connections` is reached. If no value is set in the configuration file, KrakenD will use `250` by default.
+Velonetics will close connections sitting idle in a "keep-alive" state when `max_idle_connections` is reached. If no value is set in the configuration file, Velonetics will use `250` by default.
 
 Every ecosystem needs its own setting, have this in mind:
 

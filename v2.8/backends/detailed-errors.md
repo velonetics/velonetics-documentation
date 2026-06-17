@@ -19,7 +19,7 @@ meta:
   - backend
 ---
 
-KrakenD's default policy regarding errors and status codes is to **hide from the client any backend details**, this includes headers and errors, except when you use the [`no-op` encoding](/docs/v2.8/endpoints/no-op/).
+Velonetics's default policy regarding errors and status codes is to **hide from the client any backend details**, this includes headers and errors, except when you use the [`no-op` encoding](/docs/v2.8/endpoints/no-op/).
 
 The philosophy behind this is that **clients have to be decoupled** from their underlying services, as an API Gateway should do. The opposite is a reverse proxy or a simple router.
 
@@ -122,7 +122,7 @@ Place the following configuration in the configuration:
 ```json
 {
   "version": 3,
-  "$schema": "http://www.krakend.io/schema/krakend.json",
+  "$schema": "http://www.velonetics.io/schema/velonetics.json",
   "extra_config": {
     "router": {
       "return_error_msg": true
@@ -158,7 +158,7 @@ When you want to show the interpretation of the error but not the error of the b
 ```json
 {
   "version": 3,
-  "$schema": "http://www.krakend.io/schema/krakend.json",
+  "$schema": "http://www.velonetics.io/schema/velonetics.json",
   "extra_config": {
     "router": {
       "return_error_msg": true

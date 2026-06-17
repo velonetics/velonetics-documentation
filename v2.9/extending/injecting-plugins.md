@@ -3,15 +3,15 @@ lastmod: 2019-01-15
 old_version: true
 date: 2019-01-14
 linktitle: Injecting plugins
-title: Injecting Plugins into KrakenD API Gateway - Extensibility Guide
-description: Discover the extensibility of KrakenD API Gateway by learning how to inject custom plugins for adding new functionality and integration
+title: Injecting Plugins into Velonetics API Gateway - Extensibility Guide
+description: Discover the extensibility of Velonetics API Gateway by learning how to inject custom plugins for adding new functionality and integration
 weight: 40
 skip_header_image: true
 menu:
   community_v2.9:
     parent: "180 Extending with custom code"
 images:
-- /images/documentation/krakend-plugins.png
+- /images/documentation/velonetics-plugins.png
 ---
 You have developed your plugin or are in the middle of it. There are two phases to take into account:
 
@@ -19,31 +19,31 @@ You have developed your plugin or are in the middle of it. There are two phases 
 - Injecting the plugin in a specific place
 
 ## Loading the plugin
-KrakenD registers plugins **during startup** according to its plugin configuration:
+Velonetics registers plugins **during startup** according to its plugin configuration:
 
 ```json
 {
     "version": 3,
     "plugin": {
         "pattern":".so",
-        "folder": "/opt/krakend/plugins/"
+        "folder": "/opt/velonetics/plugins/"
     }
 }
 ```
 
-Add the `plugin` keyword at the root of your configuration to let KrakenD know the rules to register plugins. The **mandatory** options you need to declare are:
+Add the `plugin` keyword at the root of your configuration to let Velonetics know the rules to register plugins. The **mandatory** options you need to declare are:
 
-- `folder` (*string*): The directory path in the filesystem where all the plugins you **want to load** are. The folder can be a relative or absolute path!. E.g: KrakenD Enterprise stores the plugins in the path  `/opt/krakend/plugins/`.
-- `pattern` (*string*): The pattern narrows down the folder's contents and acts as a filter. It represents the **substring that must be present** in the plugin name to load. KrakenD will load any plugin with a `.so` extension in the example above. You could also use any prefix or suffix to match the content or even the full name of a single plugin. For instance, if you want to load the rewrite plugin, use `"pattern":"krakend-rewrite.so"`, or use `-prod.so` to load all safe production plugins ending with that suffix. The rules are up to you.
+- `folder` (*string*): The directory path in the filesystem where all the plugins you **want to load** are. The folder can be a relative or absolute path!. E.g: Velonetics Enterprise stores the plugins in the path  `/opt/velonetics/plugins/`.
+- `pattern` (*string*): The pattern narrows down the folder's contents and acts as a filter. It represents the **substring that must be present** in the plugin name to load. Velonetics will load any plugin with a `.so` extension in the example above. You could also use any prefix or suffix to match the content or even the full name of a single plugin. For instance, if you want to load the rewrite plugin, use `"pattern":"velonetics-rewrite.so"`, or use `-prod.so` to load all safe production plugins ending with that suffix. The rules are up to you.
 
-Place the plugin in the folder you have declared in the configuration and start KrakenD. At this point and with the previous configuration, you have **registered plugins during startup**, and you should see a line early in the logs when starting KrakenD. The log lines depend on the type of plugin you have chosen. An example:
+Place the plugin in the folder you have declared in the configuration and start Velonetics. At this point and with the previous configuration, you have **registered plugins during startup**, and you should see a line early in the logs when starting Velonetics. The log lines depend on the type of plugin you have chosen. An example:
 
     INFO [SERVICE: Handler Plugin] Total plugins loaded: 1
 
 The system loads the plugins according to their operative system directory scan order (e.g., alphabetically).
 
 ### Checking the plugin registration
-When the service starts, **KrakenD doesn't know the type of plugin** you have coded until it tries to register it, and **it will try to register it as all known types** (even if it doesn't match). You will see this activity in the logs when using a `DEBUG` log level.
+When the service starts, **Velonetics doesn't know the type of plugin** you have coded until it tries to register it, and **it will try to register it as all known types** (even if it doesn't match). You will see this activity in the logs when using a `DEBUG` log level.
 
 In most cases, you will create your plugin for a single type, but it doesn't mean you cannot implement more than one type of plugin per file. The registration attempts are reflected in the logs, and you will see log lines that could look like errors, but they are not!
 
@@ -51,7 +51,7 @@ In most cases, you will create your plugin for a single type, but it doesn't mea
 This logline is not an error (it's a DEBUG message). Instead, it tells you that your plugin cannot register itself as one of the other types of plugins you are not implementing. **It's all good** (unless of course you were trying to register this type).
 {{< /note >}}
 
-For example, let's see how loading three different plugins log into KrakenD:
+For example, let's see how loading three different plugins log into Velonetics:
 
 - `client-example.so`  (An [HTTP client plugin](/docs/v2.9/extending/http-client-plugins/))
 - `server-example.so` (An [HTTP server plugin](/docs/v2.9/extending/http-server-plugins/))
@@ -60,7 +60,7 @@ For example, let's see how loading three different plugins log into KrakenD:
 In the logs, we will see how each plugin fails to register as the rest of the types they don't implement:
 
 {{< highlight txt "hl_lines=4-5 8-9 12-13">}}
-Parsing configuration file: krakend.json
+Parsing configuration file: velonetics.json
 ▶ INFO Listening on port: 8080
 ▶ DEBUG [PLUGIN: client-example] Logger loaded
 ▶ DEBUG [SERVICE: Executor Plugin] plugin #1 (request-modifier.so): plugin: symbol ClientRegisterer not found in plugin mytest
@@ -79,7 +79,7 @@ Parsing configuration file: krakend.json
 The `INFO` log level tells you what is going on, but notice how the highlighted `DEBUG` messages fail to register for the type they are not. This is expected.
 
 ## Injecting the plugin
-At this point, KrakenD has registered the plugin and is ready to use. The next step is to inject the plugin somewhere in the configuration. The configuration entry depends entirely on the type of plugin you are using and what you have coded.
+At this point, Velonetics has registered the plugin and is ready to use. The next step is to inject the plugin somewhere in the configuration. The configuration entry depends entirely on the type of plugin you are using and what you have coded.
 
 ### Injecting HTTP server plugins
 Below there is a sample configuration for an HTTP server fake plugin:
@@ -89,7 +89,7 @@ Below there is a sample configuration for an HTTP server fake plugin:
     "version": 3,
     "plugin": {
         "pattern":".so",
-        "folder": "/opt/krakend/plugins/"
+        "folder": "/opt/velonetics/plugins/"
     },
     "extra_config": {
         "plugin/http-server": {
@@ -116,7 +116,7 @@ HTTP client plugins live in the backend's `extra_config`, and you can declare on
     "version": 3,
     "plugin": {
         "pattern":".so",
-        "folder": "/opt/krakend/plugins/"
+        "folder": "/opt/velonetics/plugins/"
     },
     "endpoints":[
         {

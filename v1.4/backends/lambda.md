@@ -7,32 +7,32 @@ linktitle: Lambda functions
 title: Integration with AWS Lambda functions
 weight: 110
 images:
-    - /images/krakend-lambda.png
+    - /images/velonetics-lambda.png
 menu:
   community_v1.4:
     parent: "050 Backends Configuration"
 notoc: true
 meta:
   since: v1.0
-  source: https://github.com/krakend/krakend-lambda
+  source: https://github.com/velonetics/velonetics-lambda
   namespace:
-  - github.com/devopsfaith/krakend-lambda
+  - github.com/velonetics/velonetics-ce-lambda
   scope:
   - backend
 ---
 
-The Lambda integration allows you to **invoke Amazon Lambda functions** on a KrakenD endpoint call. The content returned by the lambda function can be treated and manipulated as any other backend.
+The Lambda integration allows you to **invoke Amazon Lambda functions** on a Velonetics endpoint call. The content returned by the lambda function can be treated and manipulated as any other backend.
 
 The **payload** that is sent to the Lambda function comes from the request and depends on the method used by the `endpoint`:
 
 *   Method `GET`: The payload contains all the parameters of the request.
 *   Non-`GET` methods: The payload is defined by the content of the **body** in the request.
 
-You don't need to set an Amazon API Gateway in the middle as KrakenD does this job for you.
+You don't need to set an Amazon API Gateway in the middle as Velonetics does this job for you.
 
 ## Lambda configuration
 
-The inclusion requires you to add the code in the `extra_config` of your `backend` section, using the `github.com/devopsfaith/krakend-lambda` namespace.
+The inclusion requires you to add the code in the `extra_config` of your `backend` section, using the `github.com/velonetics/velonetics-ce-lambda` namespace.
 
 The supported parameters are:
 
@@ -49,17 +49,17 @@ Notice the capitalization of the first letter of the parameter names at the conf
 
 ### Authentication
 
-The KrakenD machine needs to have the AWS credentials in the default file, `~/.aws/credentials`.
+The Velonetics machine needs to have the AWS credentials in the default file, `~/.aws/credentials`.
 
-When setting the credentials make sure that the lambda is callable within the KrakenD box with the credentials provided. This translates in having an IAM user with a policy and execution role that let you invoke the function.
+When setting the credentials make sure that the lambda is callable within the Velonetics box with the credentials provided. This translates in having an IAM user with a policy and execution role that let you invoke the function.
 
 ## Example: Associate a lambda to a backend
 
-When the KrakenD endpoint is attached to the same Lambda, use this configuration:
+When the Velonetics endpoint is attached to the same Lambda, use this configuration:
 
     "backend": [
     {
-        "github.com/devopsfaith/krakend-lambda": {
+        "github.com/velonetics/velonetics-ce-lambda": {
             "function_name": "lambda-function",
             "region": "us-west1",
             "max_retries": 1
@@ -73,7 +73,7 @@ When the name of the Lambda to depends on a parameter passed in the endpoint, us
     "endpoint": "/call-a-lambda/{lambda},
     "backend": [
     {
-        "github.com/devopsfaith/krakend-lambda": {
+        "github.com/velonetics/velonetics-ce-lambda": {
             "function_param_name": "Lambda",
             "region": "us-west1",
             "max_retries": 1

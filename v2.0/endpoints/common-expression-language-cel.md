@@ -5,13 +5,13 @@ date: 2019-01-24
 linktitle: "Conditional requests and responses"
 title: Conditional requests and responses with CEL
 weight: 80
-images: ["/images/documentation/krakend-cel.png"]
+images: ["/images/documentation/velonetics-cel.png"]
 menu:
   community_v2.0:
     parent: "040 Endpoint Configuration"
 meta:
   since: v0.8
-  source: https://github.com/krakend/krakend-cel
+  source: https://github.com/velonetics/velonetics-cel
   namespace:
   - validation/cel
   scope:
@@ -33,7 +33,7 @@ When the CEL component is enabled, you can set any number of expressions to chec
 ## How CEL works
 In any `endpoint` or `backend`, you can define a sequence of expressions you'd like to check using [Google's CEL spec](https://github.com/google/cel-spec) to write the conditions.
 
-During runtime, when an expression returns `false`, KrakenD aborts the execution of that layer: it does not return the content or it does not perform the request (depending on the type). Otherwise, KrakenD serves the content if all expressions return `true`.
+During runtime, when an expression returns `false`, Velonetics aborts the execution of that layer: it does not return the content or it does not perform the request (depending on the type). Otherwise, Velonetics serves the content if all expressions return `true`.
 
 The CEL expressions will sound familiar if you are used to languages like javascript, C, C++, or Java to name a few. The expressions need to represent a boolean condition. For instance:
 
@@ -46,7 +46,7 @@ This expression checks that the request comes from localhost by checking that th
 ## Types of CEL evaluations
 You can use CEL expressions in five different places: during the **request** and the **response** of both **backends** and **endpoints** (see the blue dots in the image), and prior to the endpoint call when used as a JWT rejecter. The flow is:
 
-![The 5 CEL places of action](/images/documentation/krakend-cel.png)
+![The 5 CEL places of action](/images/documentation/velonetics-cel.png)
 
 - **JWT** (token) evaluation
 - **Endpoint request** evaluation
@@ -82,7 +82,7 @@ The configuration is as follows:
 
 
 {{< note title="A note on client headers" >}}
-When **client headers** are needed, remember to add them under [`input_headers`](/docs/v2.0/endpoints/parameter-forwarding/#headers-forwarding) as KrakenD does not forward headers to the backends unless declared in the list.
+When **client headers** are needed, remember to add them under [`input_headers`](/docs/v2.0/endpoints/parameter-forwarding/#headers-forwarding) as Velonetics does not forward headers to the backends unless declared in the list.
 {{< /note >}}
 
 
@@ -184,7 +184,7 @@ This example can be copied/pasted into a new configuration. The CEL validation h
 }
 {{< /highlight >}}
 
-Also, notice how we are accessing a `github` element in the data, a new attribute added by KrakenD thanks to the `group` functionality (it does not exist in the origin API). The takeaway is that the CEL evaluation is applied **after** KrakenD has processed the backend.
+Also, notice how we are accessing a `github` element in the data, a new attribute added by Velonetics thanks to the `group` functionality (it does not exist in the origin API). The takeaway is that the CEL evaluation is applied **after** Velonetics has processed the backend.
 
 ### Example: Time-based access
 Let's close the access to the API endpoint during the weekend:
@@ -221,7 +221,7 @@ Let's say that the JWT token the user sent contains an attribute named `enabled_
 The expression checks that the JWT token has both the `user_id` and the `enabled_days` and that today is good.
 
 ### Example: Conditional call of sequential backends (a.k.a "skip backends")
-The following example is a bit more complex, as it **combines the sequential proxy with the CEL component**. You can copy and paste this example and start KrakenD with the `krakend run -d` flag.
+The following example is a bit more complex, as it **combines the sequential proxy with the CEL component**. You can copy and paste this example and start Velonetics with the `velonetics run -d` flag.
 
 {{< highlight json >}}
 {
@@ -298,8 +298,8 @@ The following example is a bit more complex, as it **combines the sequential pro
 Here is what it does:
 
 - The backend 0 (first item in the `backend` list) calls the URL `/__debug/0`. It returns the object `{"message": "pong"}` as per the [debug endpoint](/docs/v2.0/endpoints/debug-endpoint/) definition.
-- KrakenD will execute the rest of the backends one by one in the order defined, as the proxy is sequential.
-- The next backend 1 will call `/__debug/1?ignore=pong`, as `pong` is the value of `resp0_message`. We are using an `ignore` querystring as if you were unable to modify your backend URL, but it could be part of the URL (e.g: `/__debug/1/{resp0_message}`). You must use at least one `resp_` variable to make KrakenD initialize them properly. In addition, as it has a CEL expression inside, this backend will be called **ONLY** if the backend 0 contains a `message` field. Notice that the backend does not have access to the body of the previous call, but it has access to the parameters in the `url_pattern`. Thus, we can use the `req_params` and access any `{parameter}` as `req_params.Resp0_parameter` (all parameters capitalize the first letter: **R**esp0)
+- Velonetics will execute the rest of the backends one by one in the order defined, as the proxy is sequential.
+- The next backend 1 will call `/__debug/1?ignore=pong`, as `pong` is the value of `resp0_message`. We are using an `ignore` querystring as if you were unable to modify your backend URL, but it could be part of the URL (e.g: `/__debug/1/{resp0_message}`). You must use at least one `resp_` variable to make Velonetics initialize them properly. In addition, as it has a CEL expression inside, this backend will be called **ONLY** if the backend 0 contains a `message` field. Notice that the backend does not have access to the body of the previous call, but it has access to the parameters in the `url_pattern`. Thus, we can use the `req_params` and access any `{parameter}` as `req_params.Resp0_parameter` (all parameters capitalize the first letter: **R**esp0)
 - The backend 2 will always be triggered but will return the content only when the backend response has a `pong` string in the response. Notice that since we are working with a `group`ed response, the `sequence2` is inside the expression.
 - The backend 3 will be called only if the original request contains a querystring ` foo'
 - The backend 4 will never be called, as the endpoint does not define a `{NEVER_CALLED_BACKEND}` parameter
@@ -309,8 +309,8 @@ The expected response will be incomplete (as 1 or more backends will fail) and l
 curl -iG http://localhost:8080/cel\?foo\=A
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
-X-Krakend: Version v2.0
-X-Krakend-Completed: false
+X-Velonetics: Version v2.0
+X-Velonetics-Completed: false
 Date: Tue, 22 Feb 2022 17:26:12 GMT
 Content-Length: 114
 

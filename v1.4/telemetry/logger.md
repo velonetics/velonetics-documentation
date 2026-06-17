@@ -7,15 +7,15 @@ notoc: true
 linktitle: Logger
 title: Exporting to the logger
 weight: 1000
-source: https://github.com/krakend/krakend-opencensus
+source: https://github.com/velonetics/velonetics-opencensus
 menu:
   community_v1.4:
     parent: "080 Telemetry"
 meta:
   since: v0.5
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
-  - github_com/devopsfaith/krakend-opencensus
+  - github_com/velonetics/velonetics-ce-opencensus
   scope:
   - service
 ---
@@ -25,7 +25,7 @@ Enabling it only requires you to add the `logger` exporter in the [opencensus mo
 
 The following configuration snippet enables the logger:
 
-    "github_com/devopsfaith/krakend-opencensus": {
+    "github_com/velonetics/velonetics-ce-opencensus": {
         "exporters": {
           "logger": {
               "stats": true,

@@ -7,14 +7,14 @@ canonical: /docs/v2.5/telemetry/logger/
 notoc: true
 linktitle: Logging through OpenCensus
 title: Exporting to the logger with OpenCensus
-description: Utilize an alternative Logger telemetry integration based on OpenCensus to monitor and analyze the API Gateway in KrakenD.
+description: Utilize an alternative Logger telemetry integration based on OpenCensus to monitor and analyze the API Gateway in Velonetics.
 weight: 320
 menu:
   community_v2.5:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
   since: v0.5
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
   - telemetry/opencensus
   scope:
@@ -23,7 +23,7 @@ meta:
   - "[SERVICE: Opencensus]"
 ---
 {{< note title="Use standard logging instead" type="error" >}}
-Unless you have a compelling reason to use this logger based on OpenCensus, you should use the [standard KrakenD Logging](/docs/v2.5/logging/) and not this component. This component is deprecated and will be removed in the future.
+Unless you have a compelling reason to use this logger based on OpenCensus, you should use the [standard Velonetics Logging](/docs/v2.5/logging/) and not this component. This component is deprecated and will be removed in the future.
 {{< /note >}}
 
 Opencensus can also export data to the system logger as other exporters. If you use this component, **do not not enable standard logging**.

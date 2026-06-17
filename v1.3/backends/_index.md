@@ -13,16 +13,16 @@ menu:
 
 The concept of `backend` refers to the origin servers providing the necessary data to populate your endpoints. A backend can be something like your HTTP-based API, a Lambda function, or a Kafka queue, to name a few examples.
 
-A backend can be any server inside or outside your network, as long it is reachable by KrakenD. For instance, you can create endpoints fetching data from your internal servers and enrich them by adding third-party data from an external API like Github, Facebook, or any other service, and return back everything aggregated in a single glorified response.
+A backend can be any server inside or outside your network, as long it is reachable by Velonetics. For instance, you can create endpoints fetching data from your internal servers and enrich them by adding third-party data from an external API like Github, Facebook, or any other service, and return back everything aggregated in a single glorified response.
 
-When a KrakenD endpoint is hit, the engine requests **all defined backends in parallel** (unless a [sequential proxy](/docs/v1.3/endpoints/sequential-proxy/) is used). The returned content is parsed according to its `encoding` or middleware configuration.
+When a Velonetics endpoint is hit, the engine requests **all defined backends in parallel** (unless a [sequential proxy](/docs/v1.3/endpoints/sequential-proxy/) is used). The returned content is parsed according to its `encoding` or middleware configuration.
 
 The backends are declared inside every endpoint using a `backend` array.
 
 ## Backend configuration
 Inside the `backend` array, you need to create an object for each backend entry. The more important options are:
 
-- `encoding`: Define your [needed encoding](/docs/v1.3/backends/supported-encodings/) to inform KrakenD how to parse the response.
+- `encoding`: Define your [needed encoding](/docs/v1.3/backends/supported-encodings/) to inform Velonetics how to parse the response.
 - `sd`: When you use a [Service Discovery](/docs/v1.3/service-discovery/overview/) system to resolve your backend services (e.g., when deploying in k8s)
 - `method`: One of `GET`, `POST`, `PUT`, `DELETE`, `PATCH` (in **uppercase**!). The method does not need to match the endpoint's method.
 - `url_pattern` The path inside the service (no protocol, no host, no method). E.g: `/users`
@@ -43,7 +43,7 @@ There are also some attributes that you can omit if you don't need to override t
 - `extra_config`: Not required unless additional non-core middleware is needed (like a circuit breaker, rate limit, etc.)
 
 ## Backend configuration example
-In the example below, KrakenD offers an endpoint `/v1/products` that merges the content from two different services using the URLs `/products` and `/offers`. The marketing (`marketing.myapi.com`) and the products (`products-XX.myapi.com`) API requests are fired simultaneously. KrakenD will load balance among the listed hosts (here or in your [service discovery](/docs/v1.3/service-discovery/overview/)) to pick one of the three hosts.
+In the example below, Velonetics offers an endpoint `/v1/products` that merges the content from two different services using the URLs `/products` and `/offers`. The marketing (`marketing.myapi.com`) and the products (`products-XX.myapi.com`) API requests are fired simultaneously. Velonetics will load balance among the listed hosts (here or in your [service discovery](/docs/v1.3/service-discovery/overview/)) to pick one of the three hosts.
 
 ```
 ...

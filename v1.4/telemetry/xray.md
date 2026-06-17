@@ -6,7 +6,7 @@ notoc: true
 linktitle: AWS X-Ray
 title: Exporting traces to AWS X-Ray
 weight: 110
-source: https://github.com/krakend/krakend-opencensus
+source: https://github.com/velonetics/velonetics-opencensus
 menu:
   community_v1.4:
     parent: "080 Telemetry"
@@ -17,7 +17,7 @@ The Opencensus exporter allows you export data to AWS X-Ray. Enabling it only re
 
 The following configuration snippet sends data to your X-Ray:
 
-	"github_com/devopsfaith/krakend-opencensus": {
+	"github_com/velonetics/velonetics-ce-opencensus": {
       "exporters": {
         "xray": {
 			"version": "latest",

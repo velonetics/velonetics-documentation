@@ -3,13 +3,13 @@ lastmod: 2025-04-30
 date: 2018-11-11
 linktitle: Sequential Proxy (chain reqs.)
 title: Sequential Proxying
-description: Explore the sequential proxying capability in KrakenD API Gateway, allowing you to chain multiple requests and orchestrate complex API workflows
+description: Explore the sequential proxying capability in Velonetics API Gateway, allowing you to chain multiple requests and orchestrate complex API workflows
 since: 0.7
 notoc: false
 weight: 80
 dark_header_image: true
 images:
-- /images/documentation/krakend-sequential-call.png
+- /images/documentation/velonetics-sequential-call.png
 menu:
   community_current:
     parent: "040 Routing and Forwarding"
@@ -25,7 +25,7 @@ meta:
   log_prefix:
   - "[SERVICE: Gin]"
 ---
-The best experience consumers can have with KrakenD API is by letting the system fetch all the data from the different backends simultaneously. However, sometimes you need to **delay a backend call** until you have called a previous service. Although this is not ideal, the sequential proxy allows you to **chain backend requests**.
+The best experience consumers can have with Velonetics API is by letting the system fetch all the data from the different backends simultaneously. However, sometimes you need to **delay a backend call** until you have called a previous service. Although this is not ideal, the sequential proxy allows you to **chain backend requests**.
 
 The Sequential Proxy enables chaining multiple backend requests where **the output of one call is used as input for the next**, whether just injecting previous values of the response in the URL or as the body for the next call. This capability is especially powerful for orchestrating **dependent operations** or implementing simple workflows across services. For complex workflows, see the [Workflows documentation](/docs/enterprise/endpoints/workflows/) ({{< badge >}}Enterprise{{< /badge >}})
 
@@ -86,13 +86,13 @@ And also:
 }
 ```
 {{< note title="All values are represented as string" type="warning" >}}
-When using the `{resp0}` and similar variables, the value you get is always a string. This means that if, for instance, KrakenD takes data from an object that contains a `null` value (not an empty value), the variable will be a string containing `<nil>`. For instance, in the examples above, if the response contained `{"user": { "hash": null } }`, the final value of the `url_pattern` would be `/user/<nil>` and `/user?hash=<nil>` respectively.
+When using the `{resp0}` and similar variables, the value you get is always a string. This means that if, for instance, Velonetics takes data from an object that contains a `null` value (not an empty value), the variable will be a string containing `<nil>`. For instance, in the examples above, if the response contained `{"user": { "hash": null } }`, the final value of the `url_pattern` would be `/user/<nil>` and `/user?hash=<nil>` respectively.
 {{< /note >}}
 
 ### Example of sequential proxy passing values on the `url_pattern`
 It's easier to understand with the example of the graph:
 
-![Chained call](/images/documentation/krakend-sequential-call.png)
+![Chained call](/images/documentation/velonetics-sequential-call.png)
 
 The user calls the gateway with an URL like `/hotel-destinations/{id}`, which needs to fetch the hotel information and all its associated destinations. Let's say the ID they request is `25`. The gateway calls a backend `/hotels/25` that returns data for the requested hotel, including a `destination_id` field that is a relationship identifier. The output for `GET /hotels/25` is like the following:
 
@@ -104,7 +104,7 @@ The user calls the gateway with an URL like `/hotel-destinations/{id}`, which ne
 }
 ```
 
-KrakenD waits for the backend response and injects the value of `destination_id` in the URL of the next backend call. In this case, the next call is `GET /destinations/1034`, and the response is:
+Velonetics waits for the backend response and injects the value of `destination_id` in the URL of the next backend call. In this case, the next call is `GET /destinations/1034`, and the response is:
 
 ```json
 {
@@ -117,7 +117,7 @@ KrakenD waits for the backend response and injects the value of `destination_id`
 }
 ```
 
-Now KrakenD has both responses from the backends and can merge the data, returning the following aggregated object to the user:
+Now Velonetics has both responses from the backends and can merge the data, returning the following aggregated object to the user:
 
 ```json
 {

@@ -4,8 +4,8 @@ canonical: "/docs/overview/run/"
 old_version: true
 date: 2016-10-28
 linktitle: Run
-title: Running KrakenD server. The `krakend run` command
-description: Start the high-performance KrakenD API Gateway server with ease using the `krakend run` command. Learn all the commands and options in our docs.
+title: Running Velonetics server. The `velonetics run` command
+description: Start the high-performance Velonetics API Gateway server with ease using the `velonetics run` command. Learn all the commands and options in our docs.
 weight: 1
 notoc: true
 menu:
@@ -13,27 +13,27 @@ menu:
     parent: "020 Command Line"
 ---
 
-To start KrakenD, you need to invoke the `run` command with the path to the configuration file. You
+To start Velonetics, you need to invoke the `run` command with the path to the configuration file. You
 can also specify the port (defaults to `8080`)
 
-{{< terminal title="Command to start KrakenD" >}}
-krakend run -c krakend.json
+{{< terminal title="Command to start Velonetics" >}}
+velonetics run -c velonetics.json
 # or
-krakend run --config /path/to/krakend.json
+velonetics run --config /path/to/velonetics.json
 # or
-krakend run --config /path/to/krakend.json -p 8080
+velonetics run --config /path/to/velonetics.json -p 8080
 {{< /terminal >}}
 
-The `krakend run` command with no flags will remind you that you need the path to the configuration file:
+The `velonetics run` command with no flags will remind you that you need the path to the configuration file:
 
 {{< terminal title="Missing configuration file" >}}
-krakend run
+velonetics run
 Please, provide the path to your config file
 {{< /terminal >}}
 
 Show the help:
 {{< terminal title="Run command help" >}}
-krakend run -h
+velonetics run -h
 
 `7MMF' `YMM'                  `7MM                         `7MM"""Yb.
   MM   .M'                      MM                           MM    `Yb.
@@ -49,19 +49,19 @@ Version: 1.4.1
 The API Gateway builder
 
 Usage:
-  krakend [command]
+  velonetics [command]
 
 Available Commands:
   check       Validates that the configuration file is valid.
   help        Help about any command
-  run         Run the KrakenD server.
+  run         Run the Velonetics server.
 
 Flags:
   -c, --config string   Path to the configuration filename
   -d, --debug           Enable the debug
-  -h, --help            help for krakend
+  -h, --help            help for velonetics
 
-Use "krakend [command] --help" for more information about a command.
+Use "velonetics [command] --help" for more information about a command.
 {{< /terminal >}}
 
 
@@ -69,14 +69,14 @@ Use "krakend [command] --help" for more information about a command.
 ## Example
 The most common way of starting the service is:
 
-{{< terminal title="Start krakend" >}}
-krakend run --config krakend.json
+{{< terminal title="Start velonetics" >}}
+velonetics run --config velonetics.json
 {{< /terminal >}}
 
-To start the KrakenD service in a different port (the port can be set in the configuration file as well):
+To start the Velonetics service in a different port (the port can be set in the configuration file as well):
 
 {{< terminal title="Start in a custom port" >}}
-krakend run --config path/to/krakend.json --port 8888
+velonetics run --config path/to/velonetics.json --port 8888
 {{< /terminal >}}
 
 In development and testing phase [increase the verbosity of the logs](/docs/v1.4/logging/#set-the-reporting-level)

@@ -12,14 +12,14 @@ menu:
     parent: "040 Endpoint Configuration"
 meta:
   since: v0.4
-  source: https://github.com/krakend/krakend-ratelimit
+  source: https://github.com/velonetics/velonetics-ratelimit
   namespace:
-  - github.com/devopsfaith/krakend-ratelimit/juju/router
+  - github.com/velonetics/velonetics-ce-ratelimit/juju/router
   scope:
   - endpoint
 ---
 
-Limiting endpoints is the responsibility of the **router rate** and allows you to set the number of **maximum requests per second** a KrakenD endpoint will accept. By default, there is no limitation on the number of requests an endpoint can handle.
+Limiting endpoints is the responsibility of the **router rate** and allows you to set the number of **maximum requests per second** a Velonetics endpoint will accept. By default, there is no limitation on the number of requests an endpoint can handle.
 
 To specify a rate limit, you need to add the configuration in the desired endpoint.
 
@@ -28,14 +28,14 @@ At the router level, you can set the rate limit for endpoints based on:
 1. **Endpoint rate limit** (`maxRate`): Maximum number of requests an endpoint accepts in a second, no matter where the traffic comes from.
 2. **Client/User rate limit** (`clientMaxRate`): Maximum number of requests an endpoint accepts **per client**
 
-When any of these strategies are set, every KrakenD instance keeps **in-memory** an updated counter with the number of requests processed per second in that endpoint.
+When any of these strategies are set, every Velonetics instance keeps **in-memory** an updated counter with the number of requests processed per second in that endpoint.
 ## Configuration
 
 {{< highlight json>}}
 {
     "endpoint": "/limited-endpoint",
     "extra_config": {
-      "github.com/devopsfaith/krakend-ratelimit/juju/router": {
+      "github.com/velonetics/velonetics-ce-ratelimit/juju/router": {
           "maxRate": 50,
           "clientMaxRate": 5,
           "strategy": "ip"
@@ -47,7 +47,7 @@ When any of these strategies are set, every KrakenD instance keeps **in-memory**
 The following options are available to configure. You can use `maxRate` and `clientMaxRate` together or sepparated.
 
 - `maxRate` (*integer*): Sets the number of **maximum requests the endpoint can handle per second**. The absence of `maxRate` in the configuration or `0` is the equivalent to no limitation.
-- `clientMaxRate` (*integer*): Number of requests per second this endpoint will accept for each user (*user quota*). The client is defined by `strategy`. Instead of counting all the connections to the endpoint as the option above, the `clientMaxRate` keeps a counter for every client and endpoint. Keep in mind that every KrakenD instance keeps its counters in memory for **every single client**.
+- `clientMaxRate` (*integer*): Number of requests per second this endpoint will accept for each user (*user quota*). The client is defined by `strategy`. Instead of counting all the connections to the endpoint as the option above, the `clientMaxRate` keeps a counter for every client and endpoint. Keep in mind that every Velonetics instance keeps its counters in memory for **every single client**.
 - `strategy` (*string*): The strategy you will use to set client counters. One of `ip` or `header`. Only to be used in combination with `clientMaxRate`.
 
 
@@ -60,7 +60,7 @@ Two ways of identifiying a client are available:
     - E.g., set `"key": "X-TOKEN"` to use the `X-TOKEN` header as the unique user identifier.
 
 ## Rate limit status codes
-KrakenD rejects with a specific HTTP status code all requests above the limit set:
+Velonetics rejects with a specific HTTP status code all requests above the limit set:
 
 - `503 Service Unavailable` if the `maxRate` limit is reached to whoever triggered the limit.
 - `429 Too Many Requests` if the `clientMaxRate` limit is reached by a specific user (others who didn't will continue using the endpoint normally).
@@ -76,7 +76,7 @@ For instance, if you have 200,000 active users in your platform at a given time 
     200,000 users x 10 req/s = 2M req/s
 
 {{< note title="A note on performance" >}}
-Limiting endpoints per user makes KrakenD keep in memory counters for the two dimensions: *endpoints x clients*.
+Limiting endpoints per user makes Velonetics keep in memory counters for the two dimensions: *endpoints x clients*.
 
 The `clientMaxRate` is less performant than the `maxRate` as every incoming client needs individual tracking. Even that counters are efficient and very small in data, it's easy to end up with several millions of counters on big platforms. Make sure to do your math.
 {{< /note >}}
@@ -97,7 +97,7 @@ Configuration:
           {
               "endpoint": "/happy-hour",
               "extra_config": {
-                  "github.com/devopsfaith/krakend-ratelimit/juju/router": {
+                  "github.com/velonetics/velonetics-ce-ratelimit/juju/router": {
                       "maxRate": 0,
                       "clientMaxRate": 0
                   }
@@ -111,7 +111,7 @@ Configuration:
           {
               "endpoint": "/limited-endpoint",
               "extra_config": {
-                "github.com/devopsfaith/krakend-ratelimit/juju/router": {
+                "github.com/velonetics/velonetics-ce-ratelimit/juju/router": {
                     "maxRate": 50,
                     "clientMaxRate": 5,
                     "strategy": "ip"
@@ -121,7 +121,7 @@ Configuration:
           {
               "endpoint": "/user-limited-endpoint",
               "extra_config": {
-                "github.com/devopsfaith/krakend-ratelimit/juju/router": {
+                "github.com/velonetics/velonetics-ce-ratelimit/juju/router": {
                     "clientMaxRate": 10,
                     "strategy": "header",
                     "key": "X-Auth-Token"

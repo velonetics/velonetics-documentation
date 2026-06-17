@@ -10,13 +10,13 @@ menu:
     parent: "050 Backends Configuration"
 meta:
   since: v0.7
-  source: https://github.com/krakend/krakend-martian
+  source: https://github.com/velonetics/velonetics-martian
   namespace:
   - modifier/martian
   scope:
   - backend
 ---
-The [krakend-martian](https://github.com/krakend/krakend-martian) component allows you to **transform requests and responses** through a simple DSL definition in the configuration file. Martian works perfectly in combination with [CEL verifications](/docs/v2.2/endpoints/common-expression-language-cel/).
+The [velonetics-martian](https://github.com/velonetics/velonetics-martian) component allows you to **transform requests and responses** through a simple DSL definition in the configuration file. Martian works perfectly in combination with [CEL verifications](/docs/v2.2/endpoints/common-expression-language-cel/).
 
 Use Martian when you want to intercept the end-user's request and make modifications before passing the content to the backends. Also, the other way around, transform the backends response before passing it to the user.
 
@@ -52,7 +52,7 @@ Your configuration has to look as follows:
 See the possibilities and examples below.
 
 {{< note title="A note on client headers" >}}
-When **client headers** are needed, remember to add them under [`input_headers`](/docs/v2.2/endpoints/parameter-forwarding/#headers-forwarding) as KrakenD does not forward headers to the backends unless declared in the list.
+When **client headers** are needed, remember to add them under [`input_headers`](/docs/v2.2/endpoints/parameter-forwarding/#headers-forwarding) as Velonetics does not forward headers to the backends unless declared in the list.
 {{< /note >}}
 
 
@@ -179,7 +179,7 @@ Example of usage (modify the body, and set a header):
 ```
 
 ## Connecting to Basic Auth (user/pass) backends
-Sometimes your backends are protected, and you need KrakenD to provide a user and password to connect. The basic authentication requires you to provide a header with the form `Authorization: Basic <credentials>`. The credentials are the concatenation of the username and password using a colon `:` in base64.
+Sometimes your backends are protected, and you need Velonetics to provide a user and password to connect. The basic authentication requires you to provide a header with the form `Authorization: Basic <credentials>`. The credentials are the concatenation of the username and password using a colon `:` in base64.
 
 For instance, if your username is `user` and your password `pa55w0rd`, you should generate the base64 as follows:
 
@@ -219,7 +219,7 @@ For more complex examples of authentication using Martian, see the example [Addi
 ## All Martian modifiers, verifiers, and filters
 The Martian library comes with [+25 modifiers](https://github.com/google/martian) you can use. We are not listing all the options in the documentation. Instead, we provided the modifiers that are key when using Martian.
 
-For the complete list of modifiers and usage, see [Google's Martian repository](https://github.com/google/martian). These are the packages included in KrakenD-CE:
+For the complete list of modifiers and usage, see [Google's Martian repository](https://github.com/google/martian). These are the packages included in Velonetics-CE:
 
 - [github.com/google/martian/body](https://github.com/google/martian/tree/master/body)
 - [github.com/google/martian/cookie](https://github.com/google/martian/tree/master/cookie)

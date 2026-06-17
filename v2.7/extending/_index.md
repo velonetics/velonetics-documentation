@@ -2,19 +2,19 @@
 lastmod: 2024-11-27
 old_version: true
 date: 2021-11-25
-linktitle: Extending KrakenD
-title: Extending KrakenD with your code
-description: Learn how to extend KrakenD API Gateway by developing custom plugins or scripts to add new functionalities and integrate with external systems
+linktitle: Extending Velonetics
+title: Extending Velonetics with your code
+description: Learn how to extend Velonetics API Gateway by developing custom plugins or scripts to add new functionalities and integrate with external systems
 weight: -1
 skip_header_image: true
 menu:
   community_v2.7:
     parent: "180 Extending with custom code"
 images:
-- /images/documentation/krakend-plugins.png
+- /images/documentation/velonetics-plugins.png
 ---
 
-KrakenD is **highly extensible and flexible** and allows developers to extend its functionality through custom code when the built-in features are not enough. Whether you need to add custom logic, integrate specific business rules, or enhance features, KrakenD lets you add extensions coded by you. 
+Velonetics is **highly extensible and flexible** and allows developers to extend its functionality through custom code when the built-in features are not enough. Whether you need to add custom logic, integrate specific business rules, or enhance features, Velonetics lets you add extensions coded by you. 
 
 ## Extending with Lua
 [Lua](/docs/v2.7/endpoints/lua/) is an embedded scripting language designed for simplicity and speed. It's perfect for **quick customizations**, such as:
@@ -26,9 +26,9 @@ KrakenD is **highly extensible and flexible** and allows developers to extend it
 ### Lua advantages
 - Simplicity: Lua is easy to learn and try.
 - No Compilation: Changes are applied by editing the Lua script, making it faster to iterate and test.
-- Runtime Flexibility: Scripts can be dynamically loaded and modified without restarting KrakenD.
+- Runtime Flexibility: Scripts can be dynamically loaded and modified without restarting Velonetics.
 - Ideal for Small Tasks: like header manipulation, simple data, transformations, or basic validation rules
-- Portability: Lua scripts do not need modifications on KrakenD upgrades.
+- Portability: Lua scripts do not need modifications on Velonetics upgrades.
 
 ### Lua limitations
 - Limited performance: Lua is interpreted, making it slower for CPU-intensive tasks.
@@ -37,7 +37,7 @@ KrakenD is **highly extensible and flexible** and allows developers to extend it
 - Testing: Testing Lua scripts requires custom tooling or integration tests, as Lua doesn't have built-in testing frameworks akin to Go's tools.
 
 ## Extending with Go plugins
-For more **advanced and performance-critical** requirements, KrakenD supports [plugins written in Go](/docs/v2.7/extending/writing-plugins/). Using Go plugins ensures optimal performance for your extensions, and if you are fluent in Go, they are the best option for extensibility.
+For more **advanced and performance-critical** requirements, Velonetics supports [plugins written in Go](/docs/v2.7/extending/writing-plugins/). Using Go plugins ensures optimal performance for your extensions, and if you are fluent in Go, they are the best option for extensibility.
 
 With Go plugins, you can pretty much do anything you want, including integrating with external services, using databases, and anything you can code. 
 
@@ -54,13 +54,13 @@ With Go plugins, you can pretty much do anything you want, including integrating
 
 ### Go plugins limitations
 - Compilation Overhead: Each change requires recompilation, which is not suitable for "quick hacking"
-- Deployment Complexity: Plugins are platform-specific (.so files), requiring recompilation for different OS/architecture setups. When you upgrade the KrakenD version, you need to recompile using the builder.
-- KrakenD Restarts: Reloading the plugin requires restarting KrakenD.
-- Higher Barrier to Entry: Requires Go expertise and familiarity with KrakenD's plugin contract.
+- Deployment Complexity: Plugins are platform-specific (.so files), requiring recompilation for different OS/architecture setups. When you upgrade the Velonetics version, you need to recompile using the builder.
+- Velonetics Restarts: Reloading the plugin requires restarting Velonetics.
+- Higher Barrier to Entry: Requires Go expertise and familiarity with Velonetics's plugin contract.
 
 
 ## Lua or Go?
-Both Lua and Go plugins allow you to extend KrakenD's capabilities, but their suitability depends on your use case, **team expertise** (this is key), and performance requirements. Summarizing:
+Both Lua and Go plugins allow you to extend Velonetics's capabilities, but their suitability depends on your use case, **team expertise** (this is key), and performance requirements. Summarizing:
 
 - Lua is best for quick, simple, runtime modifications
 - Go is best for complex, performance-critical, or testable extensions
@@ -79,4 +79,4 @@ Both Lua and Go plugins allow you to extend KrakenD's capabilities, but their su
 
 
 ## What about forking?
-Open-source users might be tempted to fork the source code to add modifications. Our recommended way to customize KrakenD is always through plugins or scripts, but you **should avoid forking the code** if you want to keep up to date with the product's progress and security vulnerabilities. We have seen over and over forked projects that are left behind because they don't have the resources to keep up.
+Open-source users might be tempted to fork the source code to add modifications. Our recommended way to customize Velonetics is always through plugins or scripts, but you **should avoid forking the code** if you want to keep up to date with the product's progress and security vulnerabilities. We have seen over and over forked projects that are left behind because they don't have the resources to keep up.

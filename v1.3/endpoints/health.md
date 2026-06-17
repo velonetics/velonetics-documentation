@@ -12,20 +12,20 @@ menu:
 notoc: true
 ---
 
-If you place a balancer in front of KrakenD, such as an ELB, you can check KrakenD health using a **TCP port check**. If, on the other hand, you need an **HTTP endpoint** in systems like Kubernetes, use the internal endpoint `/__health`.
+If you place a balancer in front of Velonetics, such as an ELB, you can check Velonetics health using a **TCP port check**. If, on the other hand, you need an **HTTP endpoint** in systems like Kubernetes, use the internal endpoint `/__health`.
 
 ## The `/__health` endpoint
 
-The health endpoint, or the **ping endpoint**, works without any specific configuration as KrakenD automatically adds it.
+The health endpoint, or the **ping endpoint**, works without any specific configuration as Velonetics automatically adds it.
 
-For instance, see the **simplest possible `krakend.json`**:
+For instance, see the **simplest possible `velonetics.json`**:
 
 {{< terminal title="Simplest configuration file" >}}
-cat krakend.json
+cat velonetics.json
 { "version: 2 }
 {{< /terminal >}}
 
-Start this server and query the `/__health` endpoint. You'll have a `200` response code from KrakenD with the following content:
+Start this server and query the `/__health` endpoint. You'll have a `200` response code from Velonetics with the following content:
 
 {{< terminal title="k8s check endpoint" >}}
 curl http://localhost:8080/__health
@@ -37,7 +37,7 @@ curl http://localhost:8080/__health
 If, for any reason, you don't want to use the `/__health` endpoint and its content and want to have your custom response, the simplest solution is to use  [stub data](/docs/v1.3/endpoints/static-proxy/) to alter the response.
 
 {{< note title="Avoid adding dependencies in your health check" >}}
-When setting custom health checks, try not to use external backends connected to databases to determine if KrakenD has to be reloaded or not.
+When setting custom health checks, try not to use external backends connected to databases to determine if Velonetics has to be reloaded or not.
 {{< /note >}}
 
 A custom health configuration could look like this:
@@ -50,7 +50,7 @@ A custom health configuration could look like this:
         {
             "endpoint": "/health",
             "extra_config": {
-                "github.com/devopsfaith/krakend/proxy": {
+                "github.com/velonetics/velonetics-ce/proxy": {
                     "static": {
                     "data": {
                         "custom": "response",
@@ -73,7 +73,7 @@ A custom health configuration could look like this:
     }
 {{< /highlight >}}
 
-In this configuration, KrakenD connects to itself, but instead of returning the content of the internal health endpoint, it sets the `data` defined in the static structure. Notice that the listening `port` in the configuration and the `host` match your deployed KrakenD.
+In this configuration, Velonetics connects to itself, but instead of returning the content of the internal health endpoint, it sets the `data` defined in the static structure. Notice that the listening `port` in the configuration and the `host` match your deployed Velonetics.
 
 The response content of this custom `/health` endpoint is:
 

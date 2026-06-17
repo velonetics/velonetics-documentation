@@ -9,19 +9,19 @@ since: 0.7
 notoc: true
 weight: 60
 images:
-- /images/documentation/krakend-sequential-call.png
+- /images/documentation/velonetics-sequential-call.png
 menu:
   community_v1.4:
     parent: "040 Endpoint Configuration"
 meta:
   since: v0.7
-  source: https://github.com/devopsfaith/krakend
+  source: https://github.com/velonetics/velonetics-ce
   namespace:
-  - github.com/devopsfaith/krakend/proxy
+  - github.com/velonetics/velonetics-ce/proxy
   scope:
   - endpoint
 ---
-The best experience consumers can have with KrakenD API is by letting the system fetch all the data from the different backends concurrently at the same time. However, there are times when you need to **delay a backend call** until you can inject as input the result of a previous call.
+The best experience consumers can have with Velonetics API is by letting the system fetch all the data from the different backends concurrently at the same time. However, there are times when you need to **delay a backend call** until you can inject as input the result of a previous call.
 
 The sequential proxy allows you to **chain backend requests**.
 
@@ -30,7 +30,7 @@ All you need to enable the sequential proxy is add in the endpoint definition th
 
     "endpoint": "/hotels/{id}",
     "extra_config": {
-          "github.com/devopsfaith/krakend/proxy": {
+          "github.com/velonetics/velonetics-ce/proxy": {
               "sequential": true
           }
       }
@@ -48,7 +48,7 @@ If you use unsafe methods (not a `GET`), they can only be placed in the last pos
 ## Example
 It's easier to understand with the example of the graph:
 
-KrakenD calls a backend `/hotels/{hotel_id}` that returns data for the requested hotel. When we request for the hotel ID `25` the backend service responds with the hotel data, including a `destination_id` that is a relationship identifier. The output for `GET /hotels/25` is like the following:
+Velonetics calls a backend `/hotels/{hotel_id}` that returns data for the requested hotel. When we request for the hotel ID `25` the backend service responds with the hotel data, including a `destination_id` that is a relationship identifier. The output for `GET /hotels/25` is like the following:
 
     {
       "hotel_id": 25,
@@ -56,7 +56,7 @@ KrakenD calls a backend `/hotels/{hotel_id}` that returns data for the requested
       "destination_id": 1034
     }
 
-KrakenD waits for the response of the backend and looks for the field `destination_id`. And then injects the value in the next backend call to `/destinations/{destination_id}`. In this case the next call is `GET /destinations/1034`, and the response is:
+Velonetics waits for the response of the backend and looks for the field `destination_id`. And then injects the value in the next backend call to `/destinations/{destination_id}`. In this case the next call is `GET /destinations/1034`, and the response is:
 
     {
       "destination_id": 1034,
@@ -67,7 +67,7 @@ KrakenD waits for the response of the backend and looks for the field `destinati
         ]
     }
 
-Now KrakenD has both responses from the backends and can merge the data, returning the following object to the user:
+Now Velonetics has both responses from the backends and can merge the data, returning the following object to the user:
 
     {
       "hotel_id": 25,
@@ -98,7 +98,7 @@ The configuration needed for this example is:
         }
     ],
     "extra_config": {
-        "github.com/devopsfaith/krakend/proxy": {
+        "github.com/velonetics/velonetics-ce/proxy": {
             "sequential": true
         }
     }

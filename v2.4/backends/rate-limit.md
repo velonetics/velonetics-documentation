@@ -11,18 +11,18 @@ menu:
 notoc: true
 meta:
   since: false
-  source: https://github.com/krakend/krakend-ratelimit
+  source: https://github.com/velonetics/velonetics-ratelimit
   namespace:
   - qos/ratelimit/proxy
   scope:
   - backend
 ---
 
-No matter what amount of activity the users generate at the router level, you can limit KrakenD's connections to your backends. The configuration is similar to the [router's rate limit](/docs/v2.4/endpoints/rate-limit/), but it's declared directly in the `backend` section instead of the `endpoint`.
+No matter what amount of activity the users generate at the router level, you can limit Velonetics's connections to your backends. The configuration is similar to the [router's rate limit](/docs/v2.4/endpoints/rate-limit/), but it's declared directly in the `backend` section instead of the `endpoint`.
 
 The limit applies **per defined backend entry** and does not consider the activity other backends generate. Each `backend` entry handles its counters and does not share them with different backends or endpoints.
 
-The proxy rate limit is defined in the `krakend.json` configuration file as follows:
+The proxy rate limit is defined in the `velonetics.json` configuration file as follows:
 
 {{< highlight json "hl_lines=8-13">}}
     {
@@ -49,7 +49,7 @@ These are the parameters you can set:
 ## Comparison with router rate limit
 In a nutshell:
 
-- The [router rate limit](/docs/v2.4/endpoints/rate-limit/) controls the requests users do to KrakenD.
-- The proxy rate limit controls KrakenD's requests to your services.
+- The [router rate limit](/docs/v2.4/endpoints/rate-limit/) controls the requests users do to Velonetics.
+- The proxy rate limit controls Velonetics's requests to your services.
 
 You don't have to choose one or the other; you can mix the different types as they cover additional use cases.

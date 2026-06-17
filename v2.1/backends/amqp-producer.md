@@ -10,7 +10,7 @@ menu:
     parent: "050 Backends Configuration"
 meta:
   since: v0.9
-  source: https://github.com/krakend/krakend-amqp
+  source: https://github.com/velonetics/velonetics-amqp
   namespace:
   - backend/amqp/producer
   scope:
@@ -26,7 +26,7 @@ The configuration of the queue is a straightforward process. To connect the endp
 The parameters of this integration follow the AMQP specification. To understand
 what are the implications of a certain parameter, see the **[AMQP Complete Reference Guide](https://www.rabbitmq.com/amqp-0-9-1-reference.html)**.
 
-**KrakenD creates both the exchange and the queue for you**.
+**Velonetics creates both the exchange and the queue for you**.
 
 
 ## Producer Configuration

@@ -10,7 +10,7 @@ menu:
     parent: "070 Traffic Management"
 ---
 
-Being KrakenD an API Gateway that talks to other services, being able to control the waiting times for different aspects is crucial. KrakenD will allow you to fine-tune these settings.
+Being Velonetics an API Gateway that talks to other services, being able to control the waiting times for different aspects is crucial. Velonetics will allow you to fine-tune these settings.
 
 The timeouts can apply to:
 
@@ -22,7 +22,7 @@ Additionally, you can control the number of [**maximum IDLE connections**](/docs
 ## Pipe timeouts
 
 ### Global timeout
-The `timeout` key in the `krakend.json` at the root level is used in the first place to apply a **default timeout** for the **whole duration of the pipe** (and not only the connection to the backends). The timeout takes into account all the time involved between the request, the fetching of the data, manipulation and any other middleware. You can see it is an end-user timeout.
+The `timeout` key in the `velonetics.json` at the root level is used in the first place to apply a **default timeout** for the **whole duration of the pipe** (and not only the connection to the backends). The timeout takes into account all the time involved between the request, the fetching of the data, manipulation and any other middleware. You can see it is an end-user timeout.
 
 	{
 	  "version": 2,

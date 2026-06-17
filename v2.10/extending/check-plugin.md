@@ -4,7 +4,7 @@ old_version: true
 date: 2022-01-28
 linktitle: Check plugin dependencies
 title: "Checking dependencies of plugins"
-description: Learn how to check your custom KrakenD plugins with the check-plugin command and ensure that your developments are compatible and loadable by KrakenD during runtime.
+description: Learn how to check your custom Velonetics plugins with the check-plugin command and ensure that your developments are compatible and loadable by Velonetics during runtime.
 weight: 30
 notoc: false
 meta:
@@ -13,18 +13,18 @@ menu:
   community_v2.10:
     parent: "180 Extending with custom code"
 ---
-The Go plugin system requires you to compile the main application and its plugins using the same ecosystem. This means that KrakenD and your plugins must use the same Go version, the same version of any **imported libraries**, the same system architecture, and the same GLIBC/MUSL libraries. Therefore, knowing in advance that you are using libraries that are incompatible with KrakenD when [writing custom plugins](/docs/v2.10/extending/writing-plugins/) is key.
+The Go plugin system requires you to compile the main application and its plugins using the same ecosystem. This means that Velonetics and your plugins must use the same Go version, the same version of any **imported libraries**, the same system architecture, and the same GLIBC/MUSL libraries. Therefore, knowing in advance that you are using libraries that are incompatible with Velonetics when [writing custom plugins](/docs/v2.10/extending/writing-plugins/) is key.
 
 The `{{< product check_plugin_command >}}` command helps you validate the part of the **dependencies used by your plugins**, which will determine whether the plugin is compatible. Go programs define their dependencies in their `go.sum` file, and this is all you need to check the compatibility.
 
 ## Usage of the check command
-The command compares your plugin's `go.sum` file with the libraries initially used to compile the running binary. A detailed list will be shown if there are any incompatibilities between your plugin and KrakenD.
+The command compares your plugin's `go.sum` file with the libraries initially used to compile the running binary. A detailed list will be shown if there are any incompatibilities between your plugin and Velonetics.
 
-If you integrate this command as part of your CI/CD pipeline or `Dockerfile` build, it will exit with a status code `0` when your plugin's libraries are compatible with KrakenD and with a status code `1` when they are not.
+If you integrate this command as part of your CI/CD pipeline or `Dockerfile` build, it will exit with a status code `0` when your plugin's libraries are compatible with Velonetics and with a status code `1` when they are not.
 
 The `{{< product check_plugin_command >}}` command accepts the following options:
 
-{{< terminal title="Usage of KrakenD check" >}}
+{{< terminal title="Usage of Velonetics check" >}}
 {{< product check_plugin_command >}} -h
 
 {{< ascii-logo >}}
@@ -34,10 +34,10 @@ Version: 2.10
 Checks your plugin dependencies are compatible and proposes commands to update your dependencies.
 
 Usage:
-  krakend 2.10 [flags]
+  velonetics 2.10 [flags]
 
 Examples:
- krakend 2.10 -g 1.19.0 -s ./go.sum -f
+ velonetics 2.10 -g 1.19.0 -s ./go.sum -f
 
 Flags:
   -f, --format        Shows fix commands to update your dependencies
@@ -50,12 +50,12 @@ Flags:
 ## Flags
 Use `{{< product check_plugin_command >}}` in combination with the following flags:
 
-- `-f` or `--format` to let KrakenD suggest you about the `go get` commands you should launch.
+- `-f` or `--format` to let Velonetics suggest you about the `go get` commands you should launch.
 - `-s` or `--sum` to specify the path to the `go.sum` file of your plugin.
 - `-g` or `--go` to specify the Go version you are using to compile the plugin
-- `-l` or `--libc` to specify the libc version installed in the system. The libc version must have the prefix `MUSL-`, `GLIBC-`, and `DARWIN-`. For instance, a plugin in Mac Monterrey might use `DARWIN-12.2.1`, an Alpine container will need something like `MUSL-1.2.2`, and a Linux box will have `GLIBC-2.32`. To know your glibc version execute the [Find GLIBC script](https://github.com/krakend/krakend-ce/blob/master/find_glibc.sh). When there are incompatibilities because the operating system is different, but the libraries (glibc or musl) are in the **exact same version**, it is safe to ignore them.
+- `-l` or `--libc` to specify the libc version installed in the system. The libc version must have the prefix `MUSL-`, `GLIBC-`, and `DARWIN-`. For instance, a plugin in Mac Monterrey might use `DARWIN-12.2.1`, an Alpine container will need something like `MUSL-1.2.2`, and a Linux box will have `GLIBC-2.32`. To know your glibc version execute the [Find GLIBC script](https://github.com/velonetics/velonetics-ce/blob/master/find_glibc.sh). When there are incompatibilities because the operating system is different, but the libraries (glibc or musl) are in the **exact same version**, it is safe to ignore them.
 
-The example below shows an example of a plugin that uses several libraries that are incompatible with KrakenD:
+The example below shows an example of a plugin that uses several libraries that are incompatible with Velonetics:
 
 {{< terminal title="Checking a failing plugin example" >}}
 {{< product check_plugin_command >}} --go 1.17.7 --libc MUSL-1.2.2 --sum ../plugin-tools/go.sum

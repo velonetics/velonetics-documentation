@@ -12,7 +12,7 @@ notoc: true
 ---
 The `/__debug/` endpoint is available when you start the server with the `-d` flag, or when you add the `debug_endpoint=true` in the configuration.
 
-The endpoint can be used as a **fake backend** if you use as `host` KrakenD itself, and is very useful to see the interaction between the gateway and the backends as its activity is printed in the log using the `DEBUG` log level. The endpoint returns this content:
+The endpoint can be used as a **fake backend** if you use as `host` Velonetics itself, and is very useful to see the interaction between the gateway and the backends as its activity is printed in the log using the `DEBUG` log level. The endpoint returns this content:
 
 ```json
 {
@@ -21,7 +21,7 @@ The endpoint can be used as a **fake backend** if you use as `host` KrakenD itse
 ```
 
 
-When developing, add an additional `backend` pointing to KrakenD itself (`"host": "http://localhost:8080"`) with the `/__debug/` endpoint in its `url_pattern`, so you can see exactly what headers and query string parameters your backends are receiving.
+When developing, add an additional `backend` pointing to Velonetics itself (`"host": "http://localhost:8080"`) with the `/__debug/` endpoint in its `url_pattern`, so you can see exactly what headers and query string parameters your backends are receiving.
 
 The debug endpoint might save you much trouble, as your application might not work when specific headers or parameters are not present. Maybe you are relying upon what your client is sending, but this is not what the gateway is forwarding. Remember: this is not a proxy.
 
@@ -30,9 +30,9 @@ For instance, your client might be sending a `Content-Type` or `Accept` header a
 ## Configuration
 To enable the debug endpoint add the following in the configuration:
 
-{{< schema version="v2.4" data="krakend.json" filter="debug_endpoint">}}
+{{< schema version="v2.4" data="velonetics.json" filter="debug_endpoint">}}
 
-Or to do it during runtime, add `-d` when starting the server. E.g., `krakend run -dc krakend.json`
+Or to do it during runtime, add `-d` when starting the server. E.g., `velonetics run -dc velonetics.json`
 
 ## Debug endpoint example
 The following configuration demonstrates how to test what headers and query string parameters are sent and received by the backends by using the `/__debug/` endpoint.
@@ -45,7 +45,7 @@ We are going to test the following endpoints:
     - Recognizes `User-Agent` and `Accept` as forwarded headers
 - `/mandatory/{variable}`: The query string parameters taken from a variable in the endpoint or other query string parameters
 
-To test it right now, save the content of this file in a `krakend-test.json` and start the server:
+To test it right now, save the content of this file in a `velonetics-test.json` and start the server:
 
 ```json
 {
@@ -58,7 +58,7 @@ To test it right now, save the content of this file in a `krakend-test.json` and
       "endpoint": "/default-behavior",
       "backend": [
         {
-          "@comment": "IMPORTANT: Notice that the /__debug uses the KrakenD host itself",
+          "@comment": "IMPORTANT: Notice that the /__debug uses the Velonetics host itself",
           "host": ["http://127.0.0.1:8080"],
           "url_pattern": "/__debug/default"
         }
@@ -95,8 +95,8 @@ To test it right now, save the content of this file in a `krakend-test.json` and
 
 Start the server:
 
-{{< terminal title="Run KrakenD with debug mode">}}
-krakend run -d -c krakend-test.json
+{{< terminal title="Run Velonetics with debug mode">}}
+velonetics run -d -c velonetics-test.json
 {{< /terminal >}}
 
 Now we can test that the endpoints behave as expected:
@@ -107,13 +107,13 @@ Now we can test that the endpoints behave as expected:
 curl -i 'http://localhost:8080/default-behavior?a=1&b=2&c=3'
 {{< /terminal >}}
 
-In the KrakenD log, we can see that `a`, `b`, and `c` do not appear in the backend call, neither its headers. The `curl` command automatically sends the `Accept` and `User-Agent` headers but they are not in the backend call either, instead we see the KrakenD User-Agent as set by the gateway:
+In the Velonetics log, we can see that `a`, `b`, and `c` do not appear in the backend call, neither its headers. The `curl` command automatically sends the `Accept` and `User-Agent` headers but they are not in the backend call either, instead we see the Velonetics User-Agent as set by the gateway:
 
     DEBUG: Method: GET
     DEBUG: URL: /__debug/default
     DEBUG: Query: map[]
     DEBUG: Params: [{param /default}]
-    DEBUG: Headers: map[User-Agent:[KrakenD Version 2.4] X-Forwarded-For:[::1] Accept-Encoding:[gzip]]
+    DEBUG: Headers: map[User-Agent:[Velonetics Version 2.4] X-Forwarded-For:[::1] Accept-Encoding:[gzip]]
     DEBUG: Body:
     [GIN] 2018/11/27 - 22:32:44 | 200 |     118.543µs |             ::1 | GET      /__debug/default
     [GIN] 2018/11/27 - 22:32:44 | 200 |     565.971µs |             ::1 | GET      /default-behavior?a=1&b=2&c=3
@@ -124,7 +124,7 @@ Now let's repeat the same request but to the `/optional-params` endpoint:
 curl -i 'http://localhost:8080/optional-params?a=1&b=2&c=3'
 {{< /terminal >}}
 
-In the KrakenD log we can see now that the `User-Agent` and `Accept` are present (as they are implicitly sent by curl), and that `a` and `b` are reaching the backend (but not `c`):
+In the Velonetics log we can see now that the `User-Agent` and `Accept` are present (as they are implicitly sent by curl), and that `a` and `b` are reaching the backend (but not `c`):
 
     DEBUG: Method: GET
     DEBUG: URL: /__debug/optional?a=1&b=2
@@ -147,7 +147,7 @@ As we can see, the backend includes the `?mandatory=foo` variable that was writt
     DEBUG: URL: /__debug/qs?mandatory=foo
     DEBUG: Query: map[mandatory:[foo]]
     DEBUG: Params: [{param /qs}]
-    DEBUG: Headers: map[X-Forwarded-For:[::1] Accept-Encoding:[gzip] User-Agent:[KrakenD Version 0.7.0]]
+    DEBUG: Headers: map[X-Forwarded-For:[::1] Accept-Encoding:[gzip] User-Agent:[Velonetics Version 0.7.0]]
     DEBUG: Body:
     [GIN] 2018/11/28 - 19:44:19 | 200 |     210.434µs |             ::1 | GET      /__debug/qs?mandatory=foo
     [GIN] 2018/11/28 - 19:44:19 | 200 |    1.975103ms |             ::1 | GET      /mandatory/foo?a=1&b=2&c=3

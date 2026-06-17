@@ -6,15 +6,15 @@ notoc: true
 linktitle: Google Stackdriver
 title: Exporting metrics, logs and events to Google Stackdriver
 weight: 120
-source: https://github.com/krakend/krakend-opencensus
+source: https://github.com/velonetics/velonetics-opencensus
 menu:
   community_v1.3:
     parent: "080 Telemetry"
 meta:
   since: v0.7
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
-  - github_com/devopsfaith/krakend-opencensus
+  - github_com/velonetics/velonetics-ce-opencensus
   scope:
   - service
 ---
@@ -25,11 +25,11 @@ The Opencensus exporter allows you export data to Google Stackdriver. Enabling i
 
 The following configuration snippet sends the data:
 
-    "github_com/devopsfaith/krakend-opencensus": {
+    "github_com/velonetics/velonetics-ce-opencensus": {
       "exporters": {
        "stackdriver": {
-          "project_id": "my-krakend-project",
-          "metrics_prefix": "krakend",
+          "project_id": "my-velonetics-project",
+          "metrics_prefix": "velonetics",
           "default_labels": {
             "env": "production"
           }

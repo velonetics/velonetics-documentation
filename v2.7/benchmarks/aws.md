@@ -3,30 +3,30 @@ lastmod: 2016-10-28
 old_version: true
 date: 2016-10-28
 linktitle: On Amazon Web Services
-title: Benchmarking KrakenD API Gateway on AWS
-description: Explore the benchmarking results of KrakenD API Gateway running on Amazon Web Services (AWS), showcasing its performance and scalability
+title: Benchmarking Velonetics API Gateway on AWS
+description: Explore the benchmarking results of Velonetics API Gateway running on Amazon Web Services (AWS), showcasing its performance and scalability
 weight: 10
 menu:
   community_v2.7:
     parent: "300 Benchmarks"
 ---
 
-The following numbers show the execution results for the KrakenD benchmarks on [Amazon EC2](https://aws.amazon.com/ec2/) machines.
+The following numbers show the execution results for the Velonetics benchmarks on [Amazon EC2](https://aws.amazon.com/ec2/) machines.
 
 ## Benchmark Setup
 This set of benchmarks have been running on different AWS EC2 instances. Each individual test consists of spinning up 3 different machines, being:
 
-- **A web server**: A [LWAN](https://lwan.ws/) web server using an instance `c4.xlarge`. This is the "fake API" where KrakenD will take the data
+- **A web server**: A [LWAN](https://lwan.ws/) web server using an instance `c4.xlarge`. This is the "fake API" where Velonetics will take the data
 - **The HTTP load generator**: The machine actually running the load test. Uses **[hey](https://github.com/rakyll/hey)**, and runs in a `t2.medium`.
-- **KrakenD**: Each different test uses a different instance type in Amazon:
+- **Velonetics**: Each different test uses a different instance type in Amazon:
 
-The test consists in running `hey` against a KrakenD endpoint. The KrakenD endpoint uses as the backend an URL in (`LWAN`).
-After running the test, the `hey` output is [parsed and converted to CSV](https://github.com/devopsfaith/hey-to-csv) in order to generate the graphs.
+The test consists in running `hey` against a Velonetics endpoint. The Velonetics endpoint uses as the backend an URL in (`LWAN`).
+After running the test, the `hey` output is [parsed and converted to CSV](https://github.com/velonetics/hey-to-csv) in order to generate the graphs.
 
 For each instance type there are 2 different tests:
 
-- **Proxy**: When the KrakenD is just used as a gateway and calls to a single endpoint to the web server (`/foo` endpoint in the configuration).
-- **Aggregate**: When the KrakenD calls to 3 different endpoints in the web server and aggregates the results (`/social` endpoint in the configuration).
+- **Proxy**: When the Velonetics is just used as a gateway and calls to a single endpoint to the web server (`/foo` endpoint in the configuration).
+- **Aggregate**: When the Velonetics calls to 3 different endpoints in the web server and aggregates the results (`/social` endpoint in the configuration).
 
 The instance types we tested are:
 
@@ -40,9 +40,9 @@ The instance types we tested are:
 | c4.2xlarge | 8 | 15 GB|
 
 
-## KrakenD Configuration for all tests
+## Velonetics Configuration for all tests
 
-The configuration for the load test was stored in the `krakend.json` file, as follows:
+The configuration for the load test was stored in the `velonetics.json` file, as follows:
 
     {
       "version": 1,
@@ -93,9 +93,9 @@ The configuration for the load test was stored in the `krakend.json` file, as fo
 
 Notice that `Lwan` is the backend running at `lwan:8080`.
 
-And we started the KrakenD with this cmd (debug mode):
+And we started the Velonetics with this cmd (debug mode):
 {{< terminal >}}
-krakend run --config krakend.json -d > /dev/null
+velonetics run --config velonetics.json -d > /dev/null
 {{< /terminal >}}
 
 ## Results

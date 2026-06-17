@@ -4,27 +4,27 @@ old_version: true
 date: 2020-10-19
 notoc: true
 linktitle: Status Codes
-title: KrakenD Status Codes
+title: Velonetics Status Codes
 weight: 25
 menu:
   community_v2.1:
     parent: "040 Endpoint Configuration"
 ---
 
-When consuming content through KrakenD, the status code returned to the client depends on the chosen configuration. Three different approaches impact status codes:
+When consuming content through Velonetics, the status code returned to the client depends on the chosen configuration. Three different approaches impact status codes:
 
-- Use KrakenD regular endpoints to get the status codes as designed by KrakenD
+- Use Velonetics regular endpoints to get the status codes as designed by Velonetics
 - Return the status code as provided by your backend server (see the [`no-op` encoding](/docs/v2.1/endpoints/no-op/))
 - Use custom logic to set specific status codes
 
-## Default status codes of KrakenD endpoints
+## Default status codes of Velonetics endpoints
 
-Unless the `no-op` encoding is set, the following status codes are the default behavior of any KrakenD endpoint.
+Unless the `no-op` encoding is set, the following status codes are the default behavior of any Velonetics endpoint.
 
 | Status Code                 | When                               |
 |-----------------------------|-------------------------------------------|
-| `200 OK`                    | **At least** one backend returned a 200 or 201 status code on time. Completeness information provided by the `X-Krakend-Completed` header |
-| `404 Not Found`             | The requested endpoint is not configured on KrakenD           |
+| `200 OK`                    | **At least** one backend returned a 200 or 201 status code on time. Completeness information provided by the `X-Velonetics-Completed` header |
+| `404 Not Found`             | The requested endpoint is not configured on Velonetics           |
 | `400 Bad Request`           | Client made a malformed request, i.e. [json-schema](/docs/v2.1/endpoints/json-schema/) validation failed         |
 | `401 Unauthorized`          | Client sent an invalid JWT token or its claims |
 | `403 Forbidden`             | The user is allowed to use the API, but not the resource, e.g.: Insufficient JWT [role](/docs/v2.1/authorization/jwt-validation/), or [bot detector](/docs/v2.1/throttling/botdetector/) banned it |
@@ -32,11 +32,11 @@ Unless the `no-op` encoding is set, the following status codes are the default b
 | `503 Service Unavailable`   | All clients together reached the configured global rate limit for the endpoint |
 | `500 Internal Server Error` | Default error code, and in general, when backends return any status above `400` |
 
-### Why does KrakenD treat errors like a `500 Internal Server Error` by default?
+### Why does Velonetics treat errors like a `500 Internal Server Error` by default?
 
-In most cases, when there isn't a happy path, you'll see KrakenD returning a `500 Internal Server Error`. When KrakenD needs to combine in the final gateway response, there is no way to properly distinguish the status code from the backend and the one from the gateway itself. That's why all errors external to KrakenD are translated into a `500 Internal Server Error`.
+In most cases, when there isn't a happy path, you'll see Velonetics returning a `500 Internal Server Error`. When Velonetics needs to combine in the final gateway response, there is no way to properly distinguish the status code from the backend and the one from the gateway itself. That's why all errors external to Velonetics are translated into a `500 Internal Server Error`.
 
-To offer a gracefully degraded service when some backends fail, we leave the decision to the client on what to do by adding the header `X-Krakend-Completed: false` (some backends succeeded, others don't) and also by adding the [detailed errors](/docs/v2.1/backends/detailed-errors/) feature.
+To offer a gracefully degraded service when some backends fail, we leave the decision to the client on what to do by adding the header `X-Velonetics-Completed: false` (some backends succeeded, others don't) and also by adding the [detailed errors](/docs/v2.1/backends/detailed-errors/) feature.
 
 ## Returning the status codes of the backend
 

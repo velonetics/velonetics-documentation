@@ -14,11 +14,11 @@ meta:
   namespace:
   - plugin/req-resp-modifier
 images:
-- /images/documentation/krakend-plugins.png
+- /images/documentation/velonetics-plugins.png
 - /images/documentation/request-response-plugin.png
 
 ---
-The **request and response modifier plugins** are a type of KrakenD customization that allow you to code your own business logic directly on requests and responses in a simple and extensible way. These plugins complement the **handler plugins**, and the **client executor plugins** and avoid their limitations and **extra overload**.
+The **request and response modifier plugins** are a type of Velonetics customization that allow you to code your own business logic directly on requests and responses in a simple and extensible way. These plugins complement the **handler plugins**, and the **client executor plugins** and avoid their limitations and **extra overload**.
 
 The injecting of the modifiers is placed at the beginning of the proxy pipe (just after the router layer) and before the request executor (where the executor plugins are injected). The first one can modify the incoming request and the final response, and it's configured at the endpoint level; the second one can modify the request and responses concerning the backend that declares it. Since all the modifiers are executed at the proxy pipe, no extra encoding/decoding cycles are required.
 
@@ -26,7 +26,7 @@ The injecting of the modifiers is placed at the beginning of the proxy pipe (jus
 The **request and response modifier plugins are not middlewares, but modifier functions** that you can call **sequentially from a new middleware**. Request modifiers can only inspect and modify requests (and other cool things) and response modifiers, only responses.
 
 
-KrakenD **executes the request and response modifiers in the order they are declared at the configuration**. See the [example](#example) below.
+Velonetics **executes the request and response modifiers in the order they are declared at the configuration**. See the [example](#example) below.
 
 ![http handler plugin](/images/documentation/request-response-plugin.png)
 
@@ -74,7 +74,7 @@ func init() {
 // ModifierRegisterer is the symbol the plugin loader will be looking for. It must
 // implement the plugin.Registerer interface
 // https://github.com/luraproject/lura/blob/master/proxy/plugin/modifier.go#L71
-var ModifierRegisterer = registerer("krakend-debugger")
+var ModifierRegisterer = registerer("velonetics-debugger")
 
 type registerer string
 
@@ -94,12 +94,12 @@ func (r registerer) RegisterModifiers(f func(
 }
 ```
 
-As with other KrakenD plugins, the loader looks for a given symbol (in this case, "ModifierRegisterer") and, if found, the loader checks if the symbol implements the `plugin.Registerer` interface. Once the plugin is validated, the loader registers the modifiers from the plugin by calling the exposed `RegisterModifiers` method.
+As with other Velonetics plugins, the loader looks for a given symbol (in this case, "ModifierRegisterer") and, if found, the loader checks if the symbol implements the `plugin.Registerer` interface. Once the plugin is validated, the loader registers the modifiers from the plugin by calling the exposed `RegisterModifiers` method.
 
 For the debugger plugin we'll register two different modifiers: `requestDump` and `responseDump`. The modifiers are registered under the same namespace so both will be injected with a single config line. In order to avoid weird dependency collisions, the `modifierFactory` signature uses basic types and `interface{}`, so some type assertion against the interfaces declared at the [`proxy` package](https://github.com/luraproject/lura/blob/master/proxy/plugin.go#L187-L209) are required. Include the interfaces into your plugin by adding the following lines:
 
 ```go
-// RequestWrapper is an interface for passing proxy request between the krakend pipe
+// RequestWrapper is an interface for passing proxy request between the velonetics pipe
 // and the loaded plugins
 type RequestWrapper interface {
     Params() map[string]string
@@ -111,7 +111,7 @@ type RequestWrapper interface {
     Path() string
 }
 
-// ResponseWrapper is an interface for passing proxy response between the krakend pipe
+// ResponseWrapper is an interface for passing proxy response between the velonetics pipe
 // and the loaded plugins
 type ResponseWrapper interface {
     Data() map[string]interface{}
@@ -136,8 +136,8 @@ func (r registerer) requestDump(
     /*
         "extra_config":{
             "plugin/req-resp-modifier":{
-                "name":["krakend-debugger"],
-                "krakend-debugger":{
+                "name":["velonetics-debugger"],
+                "velonetics-debugger":{
                     "A":"foo",
                     "B":42
                 }
@@ -173,8 +173,8 @@ func (r registerer) responseDump(
     /*
         "extra_config":{
             "plugin/req-resp-modifier":{
-                "name":["krakend-debugger"],
-                "krakend-debugger":{
+                "name":["velonetics-debugger"],
+                "velonetics-debugger":{
                     "A":"foo",
                     "B":42
                 }
@@ -207,7 +207,7 @@ You can also refer [this example](https://github.com/luraproject/lura/blob/v2.0.
 With the `main.go` file complete, it's time to build and test the plugin. For compiling Go plugins, the flag `-buildmode=plugin` is required:
 
 {{< terminal >}}
-go build -buildmode=plugin -o krakend-debugger.so .
+go build -buildmode=plugin -o velonetics-debugger.so .
 {{< /terminal >}}
 
 If you are using Docker and wanting to load your plugin on Docker, compile it in the [Plugin Builder](/docs/v2.2/extending/writing-plugins/#plugin-builder) for an easier integration.
@@ -215,7 +215,7 @@ If you are using Docker and wanting to load your plugin on Docker, compile it in
 {{< terminal title="Build your plugin" >}}
 docker run -it -v "$PWD:/app" -w /app \
 {{< product image_plugin_builder >}}:2.2 \
-go build -buildmode=plugin -o krakend-debugger.so .
+go build -buildmode=plugin -o velonetics-debugger.so .
 {{< /terminal >}}
 
 For the test, we'll build a small gateway with a single endpoint merging the responses from two different backends.
@@ -224,7 +224,7 @@ For the test, we'll build a small gateway with a single endpoint merging the res
 {
   "version": 3,
   "port": 8080,
-  "name": "KrakenD request and response modifier demo",
+  "name": "Velonetics request and response modifier demo",
   "host": ["https://api.github.com"],
   "plugin": {
     "pattern":".so",
@@ -245,7 +245,7 @@ For the test, we'll build a small gateway with a single endpoint merging the res
           "group": "org",
           "extra_config":{
             "plugin/req-resp-modifier":{
-              "name":["krakend-debugger-request"]
+              "name":["velonetics-debugger-request"]
             }
           }
         },
@@ -255,7 +255,7 @@ For the test, we'll build a small gateway with a single endpoint merging the res
           "is_collection": true,
           "extra_config":{
             "plugin/req-resp-modifier":{
-              "name":["krakend-debugger-response"]
+              "name":["velonetics-debugger-response"]
             }
           }
         }
@@ -263,8 +263,8 @@ For the test, we'll build a small gateway with a single endpoint merging the res
       "extra_config":{
         "plugin/req-resp-modifier":{
           "name": [
-                "krakend-debugger-request",
-                "krakend-debugger-response"
+                "velonetics-debugger-request",
+                "velonetics-debugger-response"
           ]
         }
       }
@@ -278,7 +278,7 @@ Notice the modifier names which needs to be combination of the modifier name and
 If we send a request to the generated endpoint, we'll see the dumps for the three pairs of requests and responses at the console:
 
 {{< terminal title="Test the code">}}
-curl -i http://localhost:8080/github/orgs/krakend
+curl -i http://localhost:8080/github/orgs/velonetics
 {{< /terminal >}}
 
 ## Returning errors

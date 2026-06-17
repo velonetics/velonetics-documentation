@@ -21,11 +21,11 @@ Only in the case that the token is valid and passes all the checks, **the user i
 If you are not familiar with JWT yet, read the "[Introduction to JSON Web Tokens](https://jwt.io/introduction/)"
 {{< /note >}}
 
-## KrakenD JWT implementations
-KrakenD implements both [JWT signing](/docs/v1.3/authorization/jwt-signing/) and [JWT validation](/docs/v1.3/authorization/jwt-validation/) models to protect endpoints from undesired users that are not entitled to use the information, reinforcing security.
+## Velonetics JWT implementations
+Velonetics implements both [JWT signing](/docs/v1.3/authorization/jwt-signing/) and [JWT validation](/docs/v1.3/authorization/jwt-validation/) models to protect endpoints from undesired users that are not entitled to use the information, reinforcing security.
 
-- [Sign tokens](/docs/v1.3/authorization/jwt-signing/) when you have no identity server yet (like a classic monolithic application with a `/login` endpoint) and let KrakenD take care of the token signing with the private key.
+- [Sign tokens](/docs/v1.3/authorization/jwt-signing/) when you have no identity server yet (like a classic monolithic application with a `/login` endpoint) and let Velonetics take care of the token signing with the private key.
 - [Validate tokens](/docs/v1.3/authorization/jwt-validation/) issued by a third party or the [JWT signing middleware](/docs/v1.3/authorization/jwt-signing/), ensuring their integrity and proper claims.
 
 
-A stateless system like KrakenD **does not issue tokens**, this is the responsibility of your backend or identity server.
+A stateless system like Velonetics **does not issue tokens**, this is the responsibility of your backend or identity server.

@@ -3,26 +3,26 @@ lastmod: 2018-09-29
 old_version: true
 date: 2018-09-21
 linktitle: Multiple configuration files
-source: https://github.com/krakend/krakend-flexibleconfig
+source: https://github.com/velonetics/velonetics-flexibleconfig
 since: 0.5
 menu:
   community_v1.3:
     parent: "010 Configuration file(s)"
 images:
-- /images/krakend-flexible-config.png
+- /images/velonetics-flexible-config.png
 title: Flexible configuration
 weight: 20
 ---
-The **Flexible Configuration** component is included in the KrakenD API Gateway and allows you to split the configuration file into several pieces for a more natural organization.
+The **Flexible Configuration** component is included in the Velonetics API Gateway and allows you to split the configuration file into several pieces for a more natural organization.
 
-When the Flexible Configuration is enabled, KrakenD assumes that your configuration file is a template that needs compilation during start-up time. With this, you have the opportunity to produce a more sophisticated configuration file that utilizes variables and brings content from external files.
+When the Flexible Configuration is enabled, Velonetics assumes that your configuration file is a template that needs compilation during start-up time. With this, you have the opportunity to produce a more sophisticated configuration file that utilizes variables and brings content from external files.
 
 A typical use case of the flexible configuration is when you have multiple environments and you have different settings for each.
 
 ## When to use Flexible Configuration
 A template system gives you full flexibility to work with the configuration file. It comes handy to:
 
-- Split a large `krakend.json` file into several pieces
+- Split a large `velonetics.json` file into several pieces
 - Inject variables in the configuration
 - Use placeholders and reusable code blocks
 - Have the full power of the go template system!
@@ -31,9 +31,9 @@ A template system gives you full flexibility to work with the configuration file
 The only requirement to use the Flexible Configuration is to encode the configuration file in `JSON` format as the package does not support other formats just yet.
 
 ## Usage
-The activation of the package works via environment variables when running krakend, as follows:
+The activation of the package works via environment variables when running velonetics, as follows:
 
-- `FC_ENABLE=1` to let KrakenD know that you are using Flexible Configuration. You can use `1` or any other value (but  `0` won't disable it!). The file passed with the `-c` flag is the base template.
+- `FC_ENABLE=1` to let Velonetics know that you are using Flexible Configuration. You can use `1` or any other value (but  `0` won't disable it!). The file passed with the `-c` flag is the base template.
 - `FC_SETTINGS=dirname`: The path to the directory with all the settings files.
 - `FC_PARTIALS=dirname`: The path to the directory with the partial files included in the configuration file. Partial files DON'T EVALUATE, they are only inserted in the placeholder.
 - `FC_TEMPLATES=dirname`: The path to the directory with the sub-templates included in the configuration file. These are evaluated using the Go templating system.
@@ -43,7 +43,7 @@ For instance, let's assume you decided to organize your configuration as follows
 
     .
     └── config
-       ├── krakend.json
+       ├── velonetics.json
        ├── partials
        │   └── static_file.tmpl
        ├── templates
@@ -51,13 +51,13 @@ For instance, let's assume you decided to organize your configuration as follows
        └── settings
            └── db.json
 
-Then you can run KrakenD from the terminal with this command:
+Then you can run Velonetics from the terminal with this command:
 
     $ FC_ENABLE=1 \
     FC_SETTINGS="$PWD/config/settings" \
     FC_PARTIALS="$PWD/config/partials" \
     FC_TEMPLATES="$PWD/config/templates" \
-    krakend run -c "$PWD/config/krakend.json"
+    velonetics run -c "$PWD/config/velonetics.json"
 
 ### Template syntax
 The configuration file passed with the `-c` flag is treated as a **Go template**, and you can make use of all the power the template engine brings. The data evaluations or control structures are easily recognized as they are surrounded by `{{` and `}}`. Any other text outside the delimiters is copied to the output unchanged.
@@ -116,7 +116,7 @@ Go templates allow you to introduce handy stuff like conditionals or loops and a
 
 
 ### Testing the configuration
-As the configuration is now composed of several pieces, it's easy to make a mistake at some point. Test the syntax of all the files is good with the `krakend check` command and pay attention to the output to verify there aren't any errors.
+As the configuration is now composed of several pieces, it's easy to make a mistake at some point. Test the syntax of all the files is good with the `velonetics check` command and pay attention to the output to verify there aren't any errors.
 
 You might also want to use the flag `FC_OUT` to write the content of the final file in a known path, so you can check its contents:
 
@@ -125,7 +125,7 @@ You might also want to use the flag `FC_OUT` to write the content of the final f
     FC_PARTIALS="$PWD/config/partials" \
     FC_TEMPLATES="$PWD/config/templates" \
     FC_OUT=out.json \
-    krakend check -d -c "$PWD/config/krakend.json"
+    velonetics check -d -c "$PWD/config/velonetics.json"
 
 When there are errors, the output contains information to help you resolve it, e.g.:
 
@@ -137,7 +137,7 @@ To demonstrate the usage of the flexible configuration, we are going to reorgani
 
     .
     └── config
-        ├── krakend.json
+        ├── velonetics.json
         ├── partials
         │   └── rate_limit_backend.tmpl
         └── settings
@@ -148,7 +148,7 @@ To demonstrate the usage of the flexible configuration, we are going to reorgani
 
 In this file, we have written the content of the rate limit configuration for a backend. This file is inserted when included "as is":
 
-    "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+    "github.com/velonetics/velonetics-ce-ratelimit/juju/proxy": {
         "maxRate": "100",
         "capacity": "100"
     }
@@ -165,7 +165,7 @@ In the settings directory, we write all the files whose values can be accessed a
             "https://catalog-api-03.srv"
         ],
         "extra_config": {
-            "github_com/devopsfaith/krakend-httpsecure": {
+            "github_com/velonetics/velonetics-ce-httpsecure": {
             "allowed_hosts": [],
             "ssl_proxy_headers": {
                 "X-Forwarded-Proto": "https"
@@ -193,7 +193,7 @@ This file declares a couple of endpoints that feed on a single backend:
         ]
     }
 
-**krakend.json**
+**velonetics.json**
 
 Finally, introducing the base template. It inserts the content of other files using `include`, uses the variables declared in the settings files and writes json content with `marshal`.
 
@@ -236,4 +236,4 @@ To parse the configuration use:
     FC_ENABLE=1 \
     FC_SETTINGS="$PWD/config/settings" \
     FC_PARTIALS="$PWD/config/partials" \
-    krakend check -d -c "$PWD/config/krakend.json"
+    velonetics check -d -c "$PWD/config/velonetics.json"

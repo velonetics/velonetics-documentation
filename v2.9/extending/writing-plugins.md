@@ -4,27 +4,27 @@ old_version: true
 date: 2019-01-14
 linktitle: Writing plugins
 title: Writing and building custom plugins
-description: Learn how to extend the functionality of KrakenD API Gateway by writing and building custom plugins, enabling custom business logic and workflows
+description: Learn how to extend the functionality of Velonetics API Gateway by writing and building custom plugins, enabling custom business logic and workflows
 weight: 10
 skip_header_image: true
 menu:
   community_v2.9:
     parent: "180 Extending with custom code"
 images:
-- /images/documentation/krakend-plugins.png
+- /images/documentation/velonetics-plugins.png
 ---
-**Plugins are soft-linked libraries**, thus a separated `.so` file that can participate in the processing when running in conjunction with KrakenD. When we talk about plugins, we refer to **[Go plugins](https://golang.org/pkg/plugin/)**. You can create custom code, inject it into different parts of KrakenD processing, and still use the official KrakenD software without forking the code.
+**Plugins are soft-linked libraries**, thus a separated `.so` file that can participate in the processing when running in conjunction with Velonetics. When we talk about plugins, we refer to **[Go plugins](https://golang.org/pkg/plugin/)**. You can create custom code, inject it into different parts of Velonetics processing, and still use the official Velonetics software without forking the code.
 
 {{< note title="Do I need a plugin?" type="question">}}
 In most cases, you don't need a custom plugin. The combination of different functionalities offered by the built-in functionality might help you solve a myriad of scenarios, with special mention to [CEL](/docs/v2.9/endpoints/common-expression-language-cel/), [Martian](/docs/v2.9/backends/martian/), or even [Lua scripting](/docs/v2.9/endpoints/lua/). If you'd like to introduce custom business logic, a plugin does not limit what you can do. Also, if you need a lot of performance, a Go plugin is much faster than a Lua script (generally speaking, at least x10).
 {{< /note >}}
 
-Plugins are **an independent binary** of your own and are not part of KrakenD itself. Plugins allow you to "*drag and drop*" (so to speak) custom functionality that interacts with KrakenD while still using the official binaries without needing to fork the code.
+Plugins are **an independent binary** of your own and are not part of Velonetics itself. Plugins allow you to "*drag and drop*" (so to speak) custom functionality that interacts with Velonetics while still using the official binaries without needing to fork the code.
 
 Let's get you started building custom code!
 
 ## Requirements to write plugins
-If you have gone through the different functionalities of KrakenD and think that a combination of components does not fulfill your needs, writing a plugin can be the solution. This document omits the initial parts of the development lifecycle (plan, analyze, design...) and jumps directly to the implementation part.
+If you have gone through the different functionalities of Velonetics and think that a combination of components does not fulfill your needs, writing a plugin can be the solution. This document omits the initial parts of the development lifecycle (plan, analyze, design...) and jumps directly to the implementation part.
 
 ### System requirements
 To build custom plugins, you will need:
@@ -37,12 +37,12 @@ To build custom plugins, you will need:
 Writing plugins isn't complicated per se, but **Go is very strict** with the environment where you compile and load them. When you use the Plugin builder, the complicated parts are taken care of for you. The following principles are essential:
 
 - **Right interface**: Your plugin must implement the proper interface for the type of plugin you are coding.
-- **Same Go version**: Your plugin and KrakenD are compiled with the same Go version. E.g., you cannot build a plugin on Go 1.19 and load it on a KrakenD assembled with Go 1.22. Run `krakend version` to get the required Go and Glibc versions.
-- **Same architecture/platform**: KrakenD and plugins must have been compiled in the same architecture. E.g., you cannot compile a plugin in a Mac and use it in a Docker container
-- **Same shared library versions**: If the KrakenD core also uses external libraries, they must import identical versions.
-- **Injection in the configuration**: Besides coding and compiling your plugin, you must add it to the `krakend.json` configuration.
+- **Same Go version**: Your plugin and Velonetics are compiled with the same Go version. E.g., you cannot build a plugin on Go 1.19 and load it on a Velonetics assembled with Go 1.22. Run `velonetics version` to get the required Go and Glibc versions.
+- **Same architecture/platform**: Velonetics and plugins must have been compiled in the same architecture. E.g., you cannot compile a plugin in a Mac and use it in a Docker container
+- **Same shared library versions**: If the Velonetics core also uses external libraries, they must import identical versions.
+- **Injection in the configuration**: Besides coding and compiling your plugin, you must add it to the `velonetics.json` configuration.
 
-Yes, it sounds rigorous, but fortunately, KrakenD has developed many tools, so you don't have to spend time thinking about this. Let's see them below.
+Yes, it sounds rigorous, but fortunately, Velonetics has developed many tools, so you don't have to spend time thinking about this. Let's see them below.
 
 ## Writing your first plugin
 These are all the steps needed to create a plugin from scratch and successfully deploy it:
@@ -54,7 +54,7 @@ These are all the steps needed to create a plugin from scratch and successfully 
 3. [Check the dependencies](#check-the-dependencies) are compatible with the binary
 4. [Compile the plugin](#compile-the-plugin) for your architecture
 5. [Test the plugin](#test-the-plugin) is loadable
-6. [Inject your plugin](#inject-your-plugin-and-run-krakend) and run KrakenD
+6. [Inject your plugin](#inject-your-plugin-and-run-velonetics) and run Velonetics
 
 These steps are detailed below.
 
@@ -65,13 +65,13 @@ There are different types of plugins you can write, and most of the job is to un
 
 The types of plugins depicted are:
 
-1. {{< badge color="#6f00f0">}}server{{< /badge >}} **[HTTP server plugins](/docs/v2.9/extending/http-server-plugins/)** (or handler plugins) belong to the **router layer** and let you do **anything** as soon as the request hits KrakenD and before the routing. For example, you can modify the request before KrakenD starts processing it, block traffic, make validations, change the final response, connect to third-party services, databases, or anything else you imagine, scary or not. You can also **stack several plugins at once**.
+1. {{< badge color="#6f00f0">}}server{{< /badge >}} **[HTTP server plugins](/docs/v2.9/extending/http-server-plugins/)** (or handler plugins) belong to the **router layer** and let you do **anything** as soon as the request hits Velonetics and before the routing. For example, you can modify the request before Velonetics starts processing it, block traffic, make validations, change the final response, connect to third-party services, databases, or anything else you imagine, scary or not. You can also **stack several plugins at once**.
 2. {{< badge color="#0000ff" >}}req/resp{{< /badge >}} **[Request/Response Modifier plugins](/docs/v2.9/extending/plugin-modifiers/)** are strictly **data modifiers** and let you change the request or response data to and from your backends. These are lighter than the rest.
-3. {{< badge color="#e900b7" >}}client{{< /badge >}} **[HTTP client plugins](/docs/v2.9/extending/http-client-plugins/)** (or proxy client plugins) belong to the **proxy layer** and let you change how KrakenD interacts (as a client) with a specific backend service. They are as powerful as server plugins, but their working influence is smaller. You can have **one plugin for the connecting backend call**, because client plugins are terminators. When you set a client plugin, you are replacing the internal KrakenD client, which means you can lose instrumentation and other features.
+3. {{< badge color="#e900b7" >}}client{{< /badge >}} **[HTTP client plugins](/docs/v2.9/extending/http-client-plugins/)** (or proxy client plugins) belong to the **proxy layer** and let you change how Velonetics interacts (as a client) with a specific backend service. They are as powerful as server plugins, but their working influence is smaller. You can have **one plugin for the connecting backend call**, because client plugins are terminators. When you set a client plugin, you are replacing the internal Velonetics client, which means you can lose instrumentation and other features.
 
 In a nutshell, **the sequence of a request-response** depicted in the graph of the plugins above is as follows:
 
-1. The end-user/server sends an HTTP request to KrakenD that is processed by the `router pipe`. One or more [HTTP server plugins](/docs/v2.9/extending/http-server-plugins/) (a.k.a **http handlers**) can be injected in this stage.
+1. The end-user/server sends an HTTP request to Velonetics that is processed by the `router pipe`. One or more [HTTP server plugins](/docs/v2.9/extending/http-server-plugins/) (a.k.a **http handlers**) can be injected in this stage.
 2. The `router pipe` **transforms** the HTTP request into one or several `proxy` requests -HTTP or not- through a handler function. The [request modifier plugin](/docs/v2.9/extending/plugin-modifiers/) can intercept this stage and make modifications, before or after the split/aggregation.
 3. The `proxy pipe` fetches the data for all the requests through the selected transport layer. The [HTTP client plugin](/docs/v2.9/extending/http-client-plugins/) modifies any interaction with the backend.
 4. The `proxy pipe` manipulates, aggregates, applies components... and returns the context to the `router pipe`. The [response modifier plugin](/docs/v2.9/extending/plugin-modifiers/)) can manipulate the data per backend or when everything is aggregated.
@@ -81,17 +81,17 @@ All different types of plugins let you freely implement your logic without restr
 
 ## Write the Go file
 {{< note title="Enterprise users" type="info" >}}
-In KrakenD Enterprise, you only need to run the command `krakend plugin init` to create all the boilerplate necessary to build a plugin. [See documentation](/docs/enterprise/extending/generating-plugins/)
+In Velonetics Enterprise, you only need to run the command `velonetics plugin init` to create all the boilerplate necessary to build a plugin. [See documentation](/docs/enterprise/extending/generating-plugins/)
 {{< /note >}}
 
-KrakenD open-source users need to create a Go file and implement the interface, as shown in every type of plugin.
+Velonetics open-source users need to create a Go file and implement the interface, as shown in every type of plugin.
 
 When the interface is correct, implement the rest of the custom logic you'd like to have.
 
 ## Check the dependencies
-Before compiling the plugin, you must ensure the libraries you use in your code are compatible with KrakenD. To do so, execute the command [`{{< product check_plugin_command >}}`](/docs/v2.9/extending/check-plugin/) that analyzes your `go.sum` file and warns you about incompatibilities.
+Before compiling the plugin, you must ensure the libraries you use in your code are compatible with Velonetics. To do so, execute the command [`{{< product check_plugin_command >}}`](/docs/v2.9/extending/check-plugin/) that analyzes your `go.sum` file and warns you about incompatibilities.
 
-This is a crucial step because your custom plugins need to match the Go and library versions used to build KrakenD
+This is a crucial step because your custom plugins need to match the Go and library versions used to build Velonetics
 {{< terminal title="Checking plugins" >}}
 {{< product check_plugin_command >}} -v 1.17.0 -s ../myplugin/go.sum
 1 incompatibility(ies) found...
@@ -122,7 +122,7 @@ There are two builders you should use, depending on where you want to run the pl
 | [AMD64](/docs/v2.9/extending/writing-plugins/#compile-plugins-for-amd64)        | `{{< product image_plugin_builder >}}:2.9` | `{{< product image_plugin_builder >}}:2.9-linux-generic` |
 | [ARM64](/docs/v2.9/extending/writing-plugins/#compile-plugins-for-arm64)        | `{{< product image_plugin_builder >}}:2.9` with cross-compile instructions | `{{< product image_plugin_builder >}}:2.9-linux-generic` with cross-compile instructions |
 
-When using Docker to deploy your gateway, our official KrakenD container uses **[Alpine](https://hub.docker.com/_/alpine)** as the base image. Therefore, to use your custom plugins, they must compile using the Alpine builder.
+When using Docker to deploy your gateway, our official Velonetics container uses **[Alpine](https://hub.docker.com/_/alpine)** as the base image. Therefore, to use your custom plugins, they must compile using the Alpine builder.
 
 ### Compile plugins for AMD64
 To build your plugin for **Docker targets**, you only need to execute the following command inside the folder where your plugin is:
@@ -131,7 +131,7 @@ To build your plugin for **Docker targets**, you only need to execute the follow
 docker run -it -v "$PWD:/app" -w /app {{< product image_plugin_builder >}}:2.9 go build -buildmode=plugin -o yourplugin.so .
 {{< /terminal >}}
 
-The command will generate a `yourplugin.so` file (name it as you please) that you can now copy into a `{{< product image >}}:2.9` Docker image, and load it as described in [injecting plugins](/docs/v2.9/extending/injecting-plugins/). **Never use a tag that mismatches the builder and KrakenD**. If you want to load the plugin in a KrakenD version `x.y.x` make sure to build it on a builder `x.y.z`. Using `.so` files that were compiled in a builder with a different version, will mostly fail.
+The command will generate a `yourplugin.so` file (name it as you please) that you can now copy into a `{{< product image >}}:2.9` Docker image, and load it as described in [injecting plugins](/docs/v2.9/extending/injecting-plugins/). **Never use a tag that mismatches the builder and Velonetics**. If you want to load the plugin in a Velonetics version `x.y.x` make sure to build it on a builder `x.y.z`. Using `.so` files that were compiled in a builder with a different version, will mostly fail.
 
 To build the plugin for **on-premises installations**, use the following command instead:
 
@@ -172,7 +172,7 @@ go build -ldflags='-extldflags=-fuse-ld=bfd -extld=aarch64-linux-gnu-gcc' \
 Remember that the resulting plugin will only work on **ARM64** and that you cannot reuse plugins from one platform into another.
 
 ## Test the plugin
-Once your `.so` file is available, you must check that the plugin is loadable by KrakenD. You can test the plugin using the [test command](/docs/v2.9/extending/test-plugin/)
+Once your `.so` file is available, you must check that the plugin is loadable by Velonetics. You can test the plugin using the [test command](/docs/v2.9/extending/test-plugin/)
 
 Here's an example:
 {{< terminal title="Testing the plugin" >}}
@@ -180,11 +180,11 @@ Here's an example:
 [OK] MODIFIER   yourplugin.so
 {{< /terminal >}}
 
-## Inject your plugin and run KrakenD
+## Inject your plugin and run Velonetics
 The final step before running the plugin is including the configuration of the new plugin.
 
-To inject a plugin, you must copy it into a KrakenD directory and add it to the `plugin` configuration at the service level of your configuration. Then, add your plugin namespace where necessary across the configuration.
+To inject a plugin, you must copy it into a Velonetics directory and add it to the `plugin` configuration at the service level of your configuration. Then, add your plugin namespace where necessary across the configuration.
 
-When you run KrakenD, the plugin shows as loaded in the log.
+When you run Velonetics, the plugin shows as loaded in the log.
 
 See the detailed information to [inject plugins](/docs/v2.9/extending/injecting-plugins/))

@@ -10,21 +10,21 @@ menu:
   community_v2.0:
     parent: "060 Authentication & Authorization"
 images:
--   /images/documentation/krakend-oauth2-2-legged.png
+-   /images/documentation/velonetics-oauth2-2-legged.png
 meta:
   #since:
-  source: https://github.com/krakend/krakend-oauth2-clientcredentials
+  source: https://github.com/velonetics/velonetics-oauth2-clientcredentials
   namespace:
   - auth/validator
   scope:
   - backend
 ---
 
- Through the **OAuth 2.0 Client Credentials Grant**, KrakenD can do a **2-legged OAuth2 flow**, which means that the gateway requests to your authorization server an access token before reaching the backend's protected resources. The token refreshes when needed.
+ Through the **OAuth 2.0 Client Credentials Grant**, Velonetics can do a **2-legged OAuth2 flow**, which means that the gateway requests to your authorization server an access token before reaching the backend's protected resources. The token refreshes when needed.
 
-The client credentials **authorize KrakenD, as the client, to access the protected resources**.
+The client credentials **authorize Velonetics, as the client, to access the protected resources**.
 
-Successfully setting the client credentials for a backend means that KrakenD can get the protected content. Still, the endpoint offered to the end-user will be public unless you protect it with [JWT](/docs/v2.0/authorization/jwt-overview/) or another end-user authentication mechanism.
+Successfully setting the client credentials for a backend means that Velonetics can get the protected content. Still, the endpoint offered to the end-user will be public unless you protect it with [JWT](/docs/v2.0/authorization/jwt-overview/) or another end-user authentication mechanism.
 
 ## Configuring OAuth2 Client Credentials
 To access a protected resource using client-credentials, add under every `backend` the appropriate `extra_config`.

@@ -24,7 +24,7 @@ A typical scenario is **when some backend fails** and the endpoint becomes incom
 
 Another example scenario is to create an endpoint pointing to an unfinished backend where **its functionality is not in production yet**, but your client application needs to go ahead the backend developers and start using the static responses.
 
-There are many other scenarios, and this is why KrakenD offers several **strategies** that you can use to decide whether to inject static data or not. In any case, remember that the primary goal of this feature is to support corner-cases related to clients not ready to deal with gracefully degraded responses.
+There are many other scenarios, and this is why Velonetics offers several **strategies** that you can use to decide whether to inject static data or not. In any case, remember that the primary goal of this feature is to support corner-cases related to clients not ready to deal with gracefully degraded responses.
 
 ## Static response strategies
 The supported strategies to inject static data are the following:

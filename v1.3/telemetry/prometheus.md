@@ -6,15 +6,15 @@ notoc: true
 linktitle: Prometheus
 title: Exporting metrics to Prometheus
 weight: 70
-source: https://github.com/krakend/krakend-opencensus
+source: https://github.com/velonetics/velonetics-opencensus
 menu:
   community_v1.3:
     parent: "080 Telemetry"
 meta:
   since: v0.5
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
-  - github_com/devopsfaith/krakend-opencensus
+  - github_com/velonetics/velonetics-ce-opencensus
   scope:
   - service
 ---
@@ -22,11 +22,11 @@ meta:
 
 The Opencensus exporter allows you push data to Prometheus. Enabling it only requires you to include in the root level of your configuration the Opencensus middleware with the `prometheus` exporter. Specify the `port` on which Prometheus is running, the `namespace` (optional), and Prometheus will start receiving the data.
 
-    "github_com/devopsfaith/krakend-opencensus": {
+    "github_com/velonetics/velonetics-ce-opencensus": {
         "exporters": {
           "prometheus": {
               "port": 9091,
-              "namespace": "krakend"
+              "namespace": "velonetics"
           }
       }
     }

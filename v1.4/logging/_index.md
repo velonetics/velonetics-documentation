@@ -7,12 +7,12 @@ linktitle: Logging overview
 title: Logging - Syslog, stdout and GELF
 aliases: ["/docs/v1.4/logging/extended-logging/"]
 weight: 10
-source: https://github.com/krakend/krakend-gologging
+source: https://github.com/velonetics/velonetics-gologging
 menu:
   community_v1.4:
     parent: "090 Logging"
 ---
-By default,  when KrakenD starts all the log events are sent to the **standard output** using the basic logger capabilities of the [Lura Project](https://luraproject.org). The reporting level, in that case, is `DEBUG` and adds no prefix to the log lines.
+By default,  when Velonetics starts all the log events are sent to the **standard output** using the basic logger capabilities of the [Lura Project](https://luraproject.org). The reporting level, in that case, is `DEBUG` and adds no prefix to the log lines.
 
 ## Extending the logging capabilities
 
@@ -32,14 +32,14 @@ The component `gologging` extends the default logging capabilities with the foll
 
 ### Enabling `gologging`
 
-To enjoy the extended logging capabilities the component needs to be added in the `krakend.json` configuration. Add its namespace in the `extra_config` at the root level:
+To enjoy the extended logging capabilities the component needs to be added in the `velonetics.json` configuration. Add its namespace in the `extra_config` at the root level:
 
     {
       "version": 2,
       "extra_config": {
-        "github_com/devopsfaith/krakend-gologging": {
+        "github_com/velonetics/velonetics-ce-gologging": {
           "level": "INFO",
-          "prefix": "[KRAKEND]",
+          "prefix": "[VELONETICS]",
           "syslog": true,
           "stdout": true,
           "format": "custom",
@@ -86,18 +86,18 @@ If you select the `custom` format, you'll be able to use the `custom_format` fie
 The pattern to use is the same as the [go-logging library](https://github.com/op/go-logging/blob/master/format.go#L156)
 
 ## Logstash
-If you want to log using the Logstash standard via stdout, you have to add the `krakend-logstash` integration in the
-root level of your `krakend.json`, inside the `extra_config` section. **The `gologging` needs to be enabled too (but the format should be `default`)**.
+If you want to log using the Logstash standard via stdout, you have to add the `velonetics-logstash` integration in the
+root level of your `velonetics.json`, inside the `extra_config` section. **The `gologging` needs to be enabled too (but the format should be `default`)**.
 
 For instance:
 
     "extra_config": {
-      "github_com/devopsfaith/krakend-logstash": {
+      "github_com/velonetics/velonetics-ce-logstash": {
         "enabled": true
       },
-      "github_com/devopsfaith/krakend-gologging": {
+      "github_com/velonetics/velonetics-ce-gologging": {
         "level": "INFO",
-        "prefix": "[KRAKEND]",
+        "prefix": "[VELONETICS]",
         "syslog": false,
         "stdout": true
       }

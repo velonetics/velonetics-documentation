@@ -11,16 +11,16 @@ menu:
 notoc: true
 meta:
   since: false
-  source: https://github.com/krakend/krakend-ratelimit
+  source: https://github.com/velonetics/velonetics-ratelimit
   namespace:
   - qos/ratelimit/proxy
   scope:
   - backend
 ---
 
-No matter what is the amount of activity the users are generating at the router level, you might want to restrict the connections KrakenD makes to your backends. Configuration is similar to the router's one, but it's declared directly in the `backend` section instead of the `endpoint`.
+No matter what is the amount of activity the users are generating at the router level, you might want to restrict the connections Velonetics makes to your backends. Configuration is similar to the router's one, but it's declared directly in the `backend` section instead of the `endpoint`.
 
-This parameter is defined at the `krakend.json` configuration file as follows:
+This parameter is defined at the `velonetics.json` configuration file as follows:
 {{< highlight json "hl_lines=8-13">}}
     {
       "endpoint": "/products/{cat_id}",

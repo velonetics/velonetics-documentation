@@ -7,15 +7,15 @@ notoc: true
 linktitle: OpenCensus Agent
 title: Exporting metrics, logs, and events to the OpenCensus Agent
 weight: 140
-source: https://github.com/krakend/krakend-opencensus
+source: https://github.com/velonetics/velonetics-opencensus
 menu:
   community_v1.4:
     parent: "080 Telemetry"
 meta:
   since: v1.1
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
-  - github_com/devopsfaith/krakend-opencensus
+  - github_com/velonetics/velonetics-ce-opencensus
   scope:
   - service
 ---
@@ -30,11 +30,11 @@ Enabling it only requires you to add the `ocagent` exporter in the [opencensus m
 
 The following configuration snippet sends the data:
 
-    "github_com/devopsfaith/krakend-opencensus": {
+    "github_com/velonetics/velonetics-ce-opencensus": {
       "exporters": {
        "ocagent": {
           "address": "collector",
-          "service_name": "krakend",
+          "service_name": "velonetics",
           "reconnection": "2s",
            "insecure": false,
           "enable_compression": true,

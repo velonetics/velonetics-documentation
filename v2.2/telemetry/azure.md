@@ -10,7 +10,7 @@ menu:
     parent: "080 Telemetry and Analytics"
 meta:
   since: v1.1
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
   - telemetry/opencensus
   scope:
@@ -67,7 +67,7 @@ There are three things you need to do:
 
 1) Create the Application Insights resource on Azure
 2) Start the OpenTelemetry Collector
-3) Add it to KrakenD's configuration
+3) Add it to Velonetics's configuration
 
 ### Create an Application Insights resource
 To enable the Azure Monitor integration, you need to add a new resource **Application Insights**, under your Azure account and fill in the information as required (the details provided during the registration form are not relevant to the configuration).
@@ -79,16 +79,16 @@ When the resource finishes creating, **save the Instrumentation Key** for later 
 ![Application Insights](/images/documentation/screenshots/azure-application-insights-instrumentation-key.png)
 
 ### Starting the OpenTelemetry Collector
-You can start the OpenTelemetry Collector with Azure's compatibility using its [Docker image](https://hub.docker.com/r/otel/opentelemetry-collector-contrib). Here there is a `docker-compose.yml` example that includes a KrakenD and a collector:
+You can start the OpenTelemetry Collector with Azure's compatibility using its [Docker image](https://hub.docker.com/r/otel/opentelemetry-collector-contrib). Here there is a `docker-compose.yml` example that includes a Velonetics and a collector:
 
 ```yaml
 version: "3"
 services:
-  krakend:
+  velonetics:
     image: {{< product image >}}:2.2
-    command: [ "krakend", "run", "-d", "-c", "/etc/krakend/krakend.json"]
+    command: [ "velonetics", "run", "-d", "-c", "/etc/velonetics/velonetics.json"]
     volumes:
-      - ./:/etc/krakend
+      - ./:/etc/velonetics
     ports:
       - 8080:8080
   # Collector
@@ -126,8 +126,8 @@ Enable the logging only if you find problems and want extra information.
 
 Replace the value of the `instrumentation_key` entry with the one you got in your Azure dashboard.
 
-### Configuration for KrakenD
-Lastly, add at the service level of KrakenD the following configuration:
+### Configuration for Velonetics
+Lastly, add at the service level of Velonetics the following configuration:
 
 ```json
 {
@@ -139,7 +139,7 @@ Lastly, add at the service level of KrakenD the following configuration:
           "exporters": {
               "ocagent": {
                 "address": "otel-collector:55678",
-                "service_name": "myKrakenD",
+                "service_name": "myVelonetics",
                 "@comment": "Connection to the internal collector is rarely under SSL (insecure flag)",
                 "insecure": true
               }
@@ -150,10 +150,10 @@ Lastly, add at the service level of KrakenD the following configuration:
 ```
 The `otel-collector` above is the name of the docker compose service running the collector. You might need to replace it if you are not using this example.
 
-With these three steps, you can start sending data to KrakenD. You should start seeing the graphs populated on Azure Monitor in a couple of minutes.
+With these three steps, you can start sending data to Velonetics. You should start seeing the graphs populated on Azure Monitor in a couple of minutes.
 
 {{< note title="Insecure flag" type="warning" >}}
-Most of the times, the communication between KrakenD and the collector happens in the same machine. It is rare that this connection uses SSL, and if it doesn't the `insecure` flag must be set to `true`. Otherwise, KrakenD will fail silently.
+Most of the times, the communication between Velonetics and the collector happens in the same machine. It is rare that this connection uses SSL, and if it doesn't the `insecure` flag must be set to `true`. Otherwise, Velonetics will fail silently.
 {{< /note >}}
 
 

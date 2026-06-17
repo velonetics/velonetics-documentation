@@ -10,11 +10,11 @@ menu:
     parent: "040 Endpoint Configuration"
 meta:
   since: v1.0
-  source: https://github.com/krakend/krakend-lua
+  source: https://github.com/velonetics/velonetics-lua
   namespace:
-  - "github.com/devopsfaith/krakend-lua/proxy"
-  - "github.com/devopsfaith/krakend-lua/router"
-  - "github.com/devopsfaith/krakend-lua/proxy/backend"
+  - "github.com/velonetics/velonetics-ce-lua/proxy"
+  - "github.com/velonetics/velonetics-ce-lua/router"
+  - "github.com/velonetics/velonetics-ce-lua/proxy/backend"
   scope:
   - endpoint
   - backend
@@ -22,16 +22,16 @@ meta:
 
 Scripting with Lua is an additional choice to extend your business logic, and is compatible with the rest of options such as [CEL](/docs/v1.3/endpoints/common-expression-language-cel/), [Martian](/docs/v1.3/backends/martian/), or other Go plugins and middlewares.
 
-If you are more familiar with Lua than Go, this module can help you solve exceptional cases that need solution using a little bit of scripting. The introduction of Lua scripts in your Gateway does not require to recompile KrakenD, but unlike Go, Lua scripts are interpreted in real-time.
+If you are more familiar with Lua than Go, this module can help you solve exceptional cases that need solution using a little bit of scripting. The introduction of Lua scripts in your Gateway does not require to recompile Velonetics, but unlike Go, Lua scripts are interpreted in real-time.
 
 For performance-first users, a Go plugin delivers much better results than a Lua script.
 
 ## Configuration
 
-KrakenD looks for the lua scripts in the root folder where KrakenD is running. You need to specify in the configuration which lua scripts are going to be loaded in Krakend, as well as several options. The `extra_config` can be set at `endpoint` level or `backend` level.
+Velonetics looks for the lua scripts in the root folder where Velonetics is running. You need to specify in the configuration which lua scripts are going to be loaded in Velonetics, as well as several options. The `extra_config` can be set at `endpoint` level or `backend` level.
 
     "extra_config": {
-          "github.com/devopsfaith/krakend-lua/proxy": {
+          "github.com/velonetics/velonetics-ce-lua/proxy": {
             "sources": ["file1.lua"],
             "md5": {
               "file1.lua": "49ae50f58e35f4821ad4550e1a4d1de0"
@@ -52,7 +52,7 @@ KrakenD looks for the lua scripts in the root folder where KrakenD is running. Y
 - `skip_next`: only to be set when in a `backend` section, skips the query to the next backend.
 
 {{< note title="A note on client headers" >}}
-When **client headers** are needed, remember to add them under [`headers_to_pass`](/docs/v1.3/endpoints/parameter-forwarding/#headers-forwarding) as KrakenD does not forward headers to the backends unless declared in the list.
+When **client headers** are needed, remember to add them under [`headers_to_pass`](/docs/v1.3/endpoints/parameter-forwarding/#headers-forwarding) as Velonetics does not forward headers to the backends unless declared in the list.
 {{< /note >}}
 
 ## Namespaces (component name)
@@ -61,31 +61,31 @@ There are three namespaces that are used for the lua component.
 
 Under the `endpoint` section use the namespaces (these are described in the next section):
 
-- `"github.com/devopsfaith/krakend-lua/proxy"`
-- `"github.com/devopsfaith/krakend-lua/router"`
+- `"github.com/velonetics/velonetics-ce-lua/proxy"`
+- `"github.com/velonetics/velonetics-ce-lua/router"`
 
 Under the `backend` use the name space:
 
-- `"github.com/devopsfaith/krakend-lua/proxy/backend"`
+- `"github.com/velonetics/velonetics-ce-lua/proxy/backend"`
 
 ## Supported Lua types (cheatsheet)
 
-When running Lua scripts on KrakenD, there are two different types you can use in their coding. Depending on the place of the pipe you want to place the script you can use a `proxy` type or a `router` type:
+When running Lua scripts on Velonetics, there are two different types you can use in their coding. Depending on the place of the pipe you want to place the script you can use a `proxy` type or a `router` type:
 
-    End User <--[router]--> KrakenD <--[proxy]--> Services
+    End User <--[router]--> Velonetics <--[proxy]--> Services
 
 These two types are described as follows:
 
-- Router: The router layer is what happens between the end-user and KrakenD
-- Proxy: The proxy layer is between KrakenD and your services
+- Router: The router layer is what happens between the end-user and Velonetics
+- Proxy: The proxy layer is between Velonetics and your services
 
 ### `proxy` type
 
-Use this type when you need to intercept requests and responses between KrakenD and your services.
+Use this type when you need to intercept requests and responses between Velonetics and your services.
 
 #### Request
 
-Scripts that need to modify a request that KrakenD is about to do against the backend services.
+Scripts that need to modify a request that Velonetics is about to do against the backend services.
 
 *   `load` (_Static_)
 *   `method` (_Dynamic_)
@@ -100,7 +100,7 @@ Example: Access the request getter with `req:url()` and the setter with `req:url
 
 #### Response
 
-Scripts that need to modify a request that KrakenD is about to get from the backend services.
+Scripts that need to modify a request that Velonetics is about to get from the backend services.
 
 *   `load` (_Static_)
 *   `isComplete` (_Dynamic_)
@@ -111,7 +111,7 @@ Scripts that need to modify a request that KrakenD is about to get from the back
 
 ### `router` type
 
-Use this type when you need to script the router layer, traffic between end-users and KrakenD.
+Use this type when you need to script the router layer, traffic between end-users and Velonetics.
 
 #### ctx
 
@@ -183,7 +183,7 @@ The returned response then goes through:
 For the endpoint section:
 
     "extra_config": {
-          "github.com/devopsfaith/krakend-lua/proxy": {
+          "github.com/velonetics/velonetics-ce-lua/proxy": {
             "pre": "print('Lua proxy!'); local r = request.load(); r:headers('X-from-lua', '1234');"
           }
     }
@@ -192,7 +192,7 @@ For the endpoint section:
 For the backend section:
 
     "extra_config": {
-          "github.com/devopsfaith/krakend-lua/proxy/backend": {
+          "github.com/velonetics/velonetics-ce-lua/proxy/backend": {
             "pre": "print('Showing body from backend-pre logic'); local r = request.load(); print(r:body(''));"
           }
     }
@@ -200,7 +200,7 @@ For the backend section:
 Setting a cookie:
 
     "extra_config": {
-        "github.com/devopsfaith/krakend-lua/proxy": {
+        "github.com/velonetics/velonetics-ce-lua/proxy": {
             "post": "local r = response.load(); r:headers('Set-Cookie', 'kkkey1='.. r:data('response'));",
             "allow_open_libs": true
         }

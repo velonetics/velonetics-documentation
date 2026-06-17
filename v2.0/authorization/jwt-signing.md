@@ -5,12 +5,12 @@ date: 2018-11-03
 linktitle: JWT Signing
 title: JWT Signing
 weight: 30
-images: ["/images/krakend-signer-flow.png"]
+images: ["/images/velonetics-signer-flow.png"]
 menu:
   community_v2.0:
     parent: "060 Authentication & Authorization"
 meta:
-  source: https://github.com/krakend/krakend-jose
+  source: https://github.com/velonetics/velonetics-jose
   namespace:
   - auth/signer
   scope:
@@ -28,7 +28,7 @@ The **JOSE component** is responsible for signing tokens.
 ## How does it work
 Your backend needs to implement an endpoint to **issues tokens**, and optionally another endpoint for **refreshing tokens**. If you don't have them yet, you need to adapt the existing functionality to support them, but don't be overwhelmed; you only need to return a payload with JSON content after the login instead of setting the cookie session.
 
-When KrakenD receives the JSON payload, it signs the selected group of claims with your secret key. The secret key can be kept in the gateway or URL-downloaded from a trusted machine that you own. With the token signing, you are in control of the private key, and you don't need to trust an external service to keep it for you.
+When Velonetics receives the JSON payload, it signs the selected group of claims with your secret key. The secret key can be kept in the gateway or URL-downloaded from a trusted machine that you own. With the token signing, you are in control of the private key, and you don't need to trust an external service to keep it for you.
 
 For instance, your backend could have an endpoint like `/token-issuer` that when receives the right combination of username and password via `POST` can identify the user and, instead of setting the session, returns an output like this:
 
@@ -36,7 +36,7 @@ For instance, your backend could have an endpoint like `/token-issuer` that when
 curl -X POST --data '{"user":"john","pass":"doe"}' https://your-backend/token-issuer
 {
     "access_token": {
-        "aud": "https://your.krakend.io",
+        "aud": "https://your.velonetics.io",
         "iss": "https://your-backend",
         "sub": "1234567890qwertyuio",
         "jti": "mnb23vcsrt756yuiomnbvcx98ertyuiop",
@@ -44,7 +44,7 @@ curl -X POST --data '{"user":"john","pass":"doe"}' https://your-backend/token-is
         "exp": 1735689600
     },
     "refresh_token": {
-        "aud": "https://your.krakend.io",
+        "aud": "https://your.velonetics.io",
         "iss": "https://your-backend",
         "sub": "1234567890qwertyuio",
         "jti": "mnb23vcsrt756yuiomn12876bvcx98ertyuiop",
@@ -60,7 +60,7 @@ Besides these example keys, the payload can contain any other elements you might
 If you come from a classic login system, based on cookie sessions, you'll realize that adapting your `/login` to this output is straightforward. See [how to generate a token](#how-to-generate-a-jwt-token) at the end of the document for more details.
 
 ## Basic JWT signing
-Your backend application knows how to issue tokens now, so the gateway can sign them before passing to the user. To achieve that, instead of publishing our internal backend that generates plain tokens under `/token-issuer`, we only expose via KrakenD a new endpoint named `/token` (choose your name). This endpoint forwards the data received in the `POST` (as selected in the example) and returns a signed token when the backend replies.
+Your backend application knows how to issue tokens now, so the gateway can sign them before passing to the user. To achieve that, instead of publishing our internal backend that generates plain tokens under `/token-issuer`, we only expose via Velonetics a new endpoint named `/token` (choose your name). This endpoint forwards the data received in the `POST` (as selected in the example) and returns a signed token when the backend replies.
 
 For instance, from the plain token above we want to sign the keys `"access_token"` and `"refresh_token"` so nobody can modify its contents. We need a configuration like this:
 
@@ -156,13 +156,13 @@ The following example contains every single option available:
 {{< /highlight >}}
 
 ## How to generate a JWT token
-Essentially, what you need to adopt JWT in your backend is to adapt your existing `/login` function (maybe passing an additional `?token=true` flag), so when a user logs in, instead of setting the session in a cookie, you return the JSON Web Token for KrakenD to sign.
+Essentially, what you need to adopt JWT in your backend is to adapt your existing `/login` function (maybe passing an additional `?token=true` flag), so when a user logs in, instead of setting the session in a cookie, you return the JSON Web Token for Velonetics to sign.
 
 The token is no more than a JSON output adhering to the [JWT standard](https://tools.ietf.org/html/rfc7519).
 
 There are a lot of **open source libraries to generate JWT tokens** in all major languages. Use them or write the JSON output directly with a simple template.
 
-Here is a [dummy token](https://github.com/krakend/krakend-playground/blob/master/data/token.json) for you to check how it looks like.
+Here is a [dummy token](https://github.com/velonetics/velonetics-playground/blob/master/data/token.json) for you to check how it looks like.
 
 ## Live running example
-The [KrakenD Playground](/docs/v2.0/overview/playground/) demonstrates how to sign tokens in the `/token` endpoint and includes an example ready to use. To try it, [clone the playground](https://github.com/krakend/krakend-playground) and follow the README.
+The [Velonetics Playground](/docs/v2.0/overview/playground/) demonstrates how to sign tokens in the `/token` endpoint and includes an example ready to use. To try it, [clone the playground](https://github.com/velonetics/velonetics-playground) and follow the README.

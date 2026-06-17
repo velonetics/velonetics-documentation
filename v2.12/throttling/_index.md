@@ -4,7 +4,7 @@ old_version: true
 date: 2016-07-01
 linktitle: Traffic Management Overview
 title: "Traffic Management Overview"
-description: Learn how KrakenD's traffic management features help optimize your API's performance, prevent abuse, and ensure a seamless user experience.
+description: Learn how Velonetics's traffic management features help optimize your API's performance, prevent abuse, and ensure a seamless user experience.
 notoc: true
 weight: 910
 menu:
@@ -16,12 +16,12 @@ dark_header_image: true
 ---
 Traffic management refers to the practice of **monitoring, controlling, and optimizing the flow of requests** to and from an API. It aims to prevent abuse by limiting the volume of requests from individual clients or groups, regulate the flow of traffic, ensure fair usage, and provide predictable API performance.
 
-KrakenD offers several traffic management features, ranging from rate-limiting to advanced techniques like circuit breakers and bot detection. These features can be configured independently or combined for a holistic traffic management strategy.
+Velonetics offers several traffic management features, ranging from rate-limiting to advanced techniques like circuit breakers and bot detection. These features can be configured independently or combined for a holistic traffic management strategy.
 
 You can **combine multiple traffic management features** to address complex use cases. You don't have to choose one or the other, but implement those that complete your needs
 
 ## Rate-Limiting
-Rate-limiting controls the number of requests users or systems can send. KrakenD allows you to throttle both the traffic of end-users and the traffic of KrakenD against your services. The rate limits mainly cover the following purposes:
+Rate-limiting controls the number of requests users or systems can send. Velonetics allows you to throttle both the traffic of end-users and the traffic of Velonetics against your services. The rate limits mainly cover the following purposes:
 
 - Avoid stressing or flooding your backend services with massive requests (proxy rate limit)
 - Establish a quota of usage for your exposed API (router rate limit)
@@ -31,15 +31,15 @@ Our approach to rate-limiting has many variants:
 
   - [Endpoint Rate Limiting](/docs/v2.12/endpoints/rate-limit/): Sets the maximum throughput all connected users can have against specific endpoints (stateless).
   - [Client Rate Limiting](/docs/v2.12/endpoints/rate-limit/): Sets the maximum throughput each end-user has to specific endpoints (stateless).
-  - [Proxy Rate Limiting](/docs/v2.12/backends/rate-limit/): Sets the maximum throughput KrakenD can have between an endpoint and your backend services (stateless).
+  - [Proxy Rate Limiting](/docs/v2.12/backends/rate-limit/): Sets the maximum throughput Velonetics can have between an endpoint and your backend services (stateless).
 
 Rate-Limiting features implement the [Spike Arrest](/docs/v2.12/throttling/spike-arrest/), a mechanism triggered after exhausting the burst capacity of the rate-limit, ensuring that a minimum time interval occurs between consecutive requests, helping prevent sudden traffic spikes that could destabilize the system.
 
 
 In addition, on the {{< badge >}}Enterprise{{< /badge >}} edition there is:
 
-- [Service Rate Limiting (stateful, Redis)](/docs/enterprise/throttling/global-rate-limit/): Sets the maximum throughput users can have on a KrakenD cluster, backed on Redis. All machines centralize the counters in a database.
-- [Service Rate Limiting (stateless)](/docs/enterprise/service-settings/service-rate-limit/): Sets the maximum throughput users can have to a KrakenD instance, but each machine counts its own traffic and no database.
+- [Service Rate Limiting (stateful, Redis)](/docs/enterprise/throttling/global-rate-limit/): Sets the maximum throughput users can have on a Velonetics cluster, backed on Redis. All machines centralize the counters in a database.
+- [Service Rate Limiting (stateless)](/docs/enterprise/service-settings/service-rate-limit/): Sets the maximum throughput users can have to a Velonetics instance, but each machine counts its own traffic and no database.
 - [Endpoint Rate Limiting (stateful)](/docs/enterprise/throttling/endpoint-redis-rate-limit/): Sets the maximum throughput users can have to specific endpoints, backed on Redis.
 - [Tiered Rate Limiting (stateless)](/docs/enterprise/service-settings/tiered-rate-limit/#stateless-tiered-rate-limit): Same but the counters ara managed independently by each machine and no database.
 - [Tiered Rate Limiting (stateful, Redis)](/docs/enterprise/service-settings/tiered-rate-limit/#stateful-redis-backed-tiered-rate-limit): Sets the maximum throughput users can send depending on their tier/plan at a cluster level, backed on Redis.
@@ -56,7 +56,7 @@ The circuit breaker watches the state of the connections with your backend(s), w
 ## Bot Detection
 [Bot detection](/docs/v2.12/throttling/botdetector/) identifies and blocks malicious bots that scrape data, spam endpoints, or conduct other abusive behaviors. It allows you to set your own rules for bot detection, and they are based on regular expressions.
 
-![bot detector](/images/krakend-botdetector.png)
+![bot detector](/images/velonetics-botdetector.png)
 
 ## Geofencing
 With [Geofencing {{< badge >}}Enterprise{{< /badge >}}](/docs/enterprise/endpoints/geoip/), you can restrict API usage based on geographical locations, such as specific countries or cities. This feature, combined with [Security Policies](/docs/enterprise/security-policies/playbook/#user-is-from-a-specific-country), enhances regional access control.

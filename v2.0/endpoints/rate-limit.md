@@ -12,14 +12,14 @@ menu:
     parent: "040 Endpoint Configuration"
 meta:
   since: v0.4
-  source: https://github.com/krakend/krakend-ratelimit
+  source: https://github.com/velonetics/velonetics-ratelimit
   namespace:
   - qos/ratelimit/router
   scope:
   - endpoint
 ---
 
-The router rate limit feature allows you to set a number of **maximum requests per second** a KrakenD endpoint will accept. There are two different strategies to set limits that you can use separately or together:
+The router rate limit feature allows you to set a number of **maximum requests per second** a Velonetics endpoint will accept. There are two different strategies to set limits that you can use separately or together:
 
 - **Endpoint rate-limiting**: applies simultaneously to all your customers using the endpoint, sharing the same counter.
 - **User rate-limiting**: applies to an individual user.
@@ -33,17 +33,17 @@ The endpoint rate limit acts on the number of simultaneous transactions an endpo
 
 It consumes a low amount of memory as it only needs one counter per endpoint.
 
-When the users connected to an endpoint together exceed the `max_rate`, KrakenD starts to reject connections with a status code `503 Service Unavailable` and enables a [Spike Arrest](/docs/v2.0/throttling/spike-arrest/) policy
+When the users connected to an endpoint together exceed the `max_rate`, Velonetics starts to reject connections with a status code `503 Service Unavailable` and enables a [Spike Arrest](/docs/v2.0/throttling/spike-arrest/) policy
 
 ## Client rate-limiting (`client_max_rate`)
 The client or user rate limit applies to an individual user and endpoint. Each endpoint can have different limit rates, but all users are subject to the same rate.
 
 {{< note title="A note on performance" >}}
-Limiting endpoints per user makes KrakenD keep in-memory counters for the two dimensions: *endpoints x clients*.
+Limiting endpoints per user makes Velonetics keep in-memory counters for the two dimensions: *endpoints x clients*.
 
 The `client_max_rate` is less performant than the `max_rate` as every incoming client needs individual tracking. Even that counters are efficient and very small in data, it's easy to end up with several millions of counters on big platforms. Make sure to do your math.
 {{< /note >}}
-When a single user connected to an endpoint exceeds their `client_max_rate`, KrakenD starts to reject connections with a status code `429 Too Many Requests` and enables a [Spike Arrest](/docs/v2.0/throttling/spike-arrest/) policy
+When a single user connected to an endpoint exceeds their `client_max_rate`, Velonetics starts to reject connections with a status code `429 Too Many Requests` and enables a [Spike Arrest](/docs/v2.0/throttling/spike-arrest/) policy
 
 ## Playing together
 You can set the two limiting strategies individually or together. Have in mind the following considerations:
@@ -72,7 +72,7 @@ The configuration allows you to use both types of rate limits at the same time:
 The following options are available to configure. You can use `max_rate` and `client_max_rate` together or separated.
 
 - `max_rate` (*integer*): Sets the number of **maximum requests the endpoint can handle per second**. The absence of `max_rate` in the configuration or `0` is the equivalent to no limitation.
-- `client_max_rate` (*integer*): Number of requests per second this endpoint will accept for each user (*user quota*). The client is defined by `strategy`. Instead of counting all the connections to the endpoint as the option above, the `client_max_rate` keeps a counter for every client and endpoint. Keep in mind that every KrakenD instance keeps its counters in memory for **every single client**.
+- `client_max_rate` (*integer*): Number of requests per second this endpoint will accept for each user (*user quota*). The client is defined by `strategy`. Instead of counting all the connections to the endpoint as the option above, the `client_max_rate` keeps a counter for every client and endpoint. Keep in mind that every Velonetics instance keeps its counters in memory for **every single client**.
 - `strategy` (*string*): The strategy you will use to set client counters. One of `ip` or `header`. Only to be used in combination with `client_max_rate`.
   - `"strategy": "ip"` When the restrictions apply to the client's IP, and every IP is considered to be a different user. Optionally a `key` can be used to extract the IP from a custom header:
     - E.g, set `"key": "X-Original-Forwarded-For"` to extract the IP from a header containing a list of space-separated IPs (will take the first one).

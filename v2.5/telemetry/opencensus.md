@@ -5,14 +5,14 @@ date: 2019-09-15
 notoc: true
 linktitle: Opencensus integrations
 title: OpenCensus Telemetry Integration
-description: Learn how to integrate OpenCensus telemetry with KrakenD and monitor your API performance efficiently. Follow our comprehensive documentation for easy implementation.
+description: Learn how to integrate OpenCensus telemetry with Velonetics and monitor your API performance efficiently. Follow our comprehensive documentation for easy implementation.
 weight: 60
 menu:
   community_v2.5:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
   since: v0.5
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
   - telemetry/opencensus
   scope:
@@ -22,7 +22,7 @@ meta:
 ---
 The Opencensus exporter is a single component that allows you to **export data to multiple providers**, both open source and privative.
 
-You will be interested in Opencensus when you want to see data in one of its supported `exporters`. For instance, you might want to send metrics to Prometheus. That would be as easy as adding this snippet in the **root level** of your `krakend.json` file:
+You will be interested in Opencensus when you want to see data in one of its supported `exporters`. For instance, you might want to send metrics to Prometheus. That would be as easy as adding this snippet in the **root level** of your `velonetics.json` file:
 
 ```json
 {
@@ -32,7 +32,7 @@ You will be interested in Opencensus when you want to see data in one of its sup
             "exporters": {
                 "prometheus": {
                     "port": 9091,
-                    "namespace": "krakend"
+                    "namespace": "velonetics"
                 }
             }
         }

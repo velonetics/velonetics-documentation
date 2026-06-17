@@ -7,33 +7,33 @@ menu:
   community_v2.12:
     parent: "170 API Documentation and Dev Tools"
 title: Custom developer tools
-description: Discover what are the development tools you can compile additionally to work with KrakenD Open Source edition. These tools are not bundled by default with KrakenD.
+description: Discover what are the development tools you can compile additionally to work with Velonetics Open Source edition. These tools are not bundled by default with Velonetics.
 weight: 10
 dark_header_image: true
 images:
   - /images/documentation/hero/developer.png
 ---
 
-There are some additional resources that might help you when developing with KrakenD. These tools are meant to be used only in development and **never in production**, they are **not bundled with KrakenD** and are separate components that you must compile.
+There are some additional resources that might help you when developing with Velonetics. These tools are meant to be used only in development and **never in production**, they are **not bundled with Velonetics** and are separate components that you must compile.
 
 ## Hot reload the configuration
-There is an additional KrakenD Docker image using Reflex to watch the configuration directory and reload KrakenD when there are changes. This is very convenient while you are developing as it allows you to test new changes without having to restart manually and making the process less tedious.
+There is an additional Velonetics Docker image using Reflex to watch the configuration directory and reload Velonetics when there are changes. This is very convenient while you are developing as it allows you to test new changes without having to restart manually and making the process less tedious.
 
-You can use the Docker image `docker pull devopsfaith/krakend:watch`
+You can use the Docker image `docker pull velonetics/velonetics-ce:watch`
 
-[More information in our blog post](/blog/reloading-the-krakend-configuration/)
+[More information in our blog post](/blog/reloading-the-velonetics-configuration/)
 
 ## Generating an image with the configuration
-The [config2dot](https://github.com/krakend/krakend-config2dot) is a tool to create graphs automatically after reading your configuration file `krakend.json`. For instance:
+The [config2dot](https://github.com/velonetics/velonetics-config2dot) is a tool to create graphs automatically after reading your configuration file `velonetics.json`. For instance:
 
 ![config2dot example](/images/documentation/config2dot.png)
 
 ## Debugging the activity
-### krakend-memviz
+### velonetics-memviz
 Adds a [DOT](https://en.wikipedia.org/wiki/DOT_(graph_description_language)) file exporter of request/response snapshots to your proxy stack for debug and development purposes. Do not use this in production as it will kill your performance.
 
 
-### krakend-spew
+### velonetics-spew
 Dumps every entity seen in the pipe: requests and responses passing through the whole stack. Do not use this in production as it will kill your performance.
 
 Dumps are stored in files like `<pipe>_<base64_endpoint/backend_name>_<timestamp>.txt`. E.g:

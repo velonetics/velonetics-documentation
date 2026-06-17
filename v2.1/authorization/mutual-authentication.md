@@ -11,14 +11,14 @@ menu:
     parent: "060 Authentication & Authorization"
 ---
 
-**Mutual TLS authentication** (mTLS) is an authentication mechanism used traditionally in business-to-business (B2B) applications where clients provide a certificate that allows to connect to the KrakenD server.
+**Mutual TLS authentication** (mTLS) is an authentication mechanism used traditionally in business-to-business (B2B) applications where clients provide a certificate that allows to connect to the Velonetics server.
 
 The certificates must be recognized by your system's Certification Authority (CA) or be added under the `ca_certs` list.
 
 ## Configuring mutual authentication
 From the configuration file perspective, Mutual TLS Authentication is no more than flag at the root level of the configuration.
 
-When mTLS is enabled, **all KrakenD endpoints** require clients to provide a known client-side X.509 authentication certificate. KrakenD relies on the system's CA to validate certificates.
+When mTLS is enabled, **all Velonetics endpoints** require clients to provide a known client-side X.509 authentication certificate. Velonetics relies on the system's CA to validate certificates.
 
 To enable it you need to add `enable_mtls` to your `tls` configuration:
 
@@ -39,10 +39,10 @@ To enable it you need to add `enable_mtls` to your `tls` configuration:
 {{< schema version="v2.1" data="tls.json" >}}
 
 
-Connections not having a recognized certificate in KrakenD's system CA, will be rejected. For further documentation on TLS, see the [`TLS` documentation](/docs/v2.1/service-settings/tls/)
+Connections not having a recognized certificate in Velonetics's system CA, will be rejected. For further documentation on TLS, see the [`TLS` documentation](/docs/v2.1/service-settings/tls/)
 
 ## mTLS example
-To use mTLS you need to generate the client and server certificates. The following script example creates the needed files to enable mTLS. Notice that in the `CN` of the certificates we are adding `localhost` as we want to connect to KrakenD from and to localhost.
+To use mTLS you need to generate the client and server certificates. The following script example creates the needed files to enable mTLS. Notice that in the `CN` of the certificates we are adding `localhost` as we want to connect to Velonetics from and to localhost.
 
 ```sh
 # Private key for the certificate authority
@@ -65,12 +65,12 @@ openssl req -new -key server.key -out server.csr -subj "/C=US/ST=California/L=Mo
 openssl x509 -req -in server.csr -extensions server -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out server.crt -days 500 -sha256
 ```
 
-The KrakenD configuration needed is as follows (no endpoints used for this demo):
+The Velonetics configuration needed is as follows (no endpoints used for this demo):
 
 ```json
 {
     "version": 3,
-    "$schema": "https://www.krakend.io/schema/v2.1/krakend.json",
+    "$schema": "https://www.velonetics.io/schema/v2.1/velonetics.json",
     "port": 443,
     "tls": {
         "public_key": "./server.crt",
@@ -84,7 +84,7 @@ The KrakenD configuration needed is as follows (no endpoints used for this demo)
 }
 ```
 
-At this moment KrakenD accepts only clients passing a valid certificate. Let's connect to the `/__health` endpoint:
+At this moment Velonetics accepts only clients passing a valid certificate. Let's connect to the `/__health` endpoint:
 
 {{< terminal title="Connect using mTLS" >}}
 curl \

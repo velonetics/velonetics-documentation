@@ -24,7 +24,7 @@ As opposed to endpoints, async agents do not require users to request something 
 
 **An async agent can do everything an endpoint can do**. You can use plugins, apply transformations and manipulations, scripting, stub data, parallel or sequential calls to multiple backends, jsonschema, OAuth2 client credentials, rate limiting, circuit breaking, validations, lambda, and a long long etcetera.
 
-The obvious limitation is that you cannot use HTTP request functionality (e.g: CORS or JWT validation) as you don't have any user doing an HTTP request, but an automatic trigger from KrakenD when an event pops in.
+The obvious limitation is that you cannot use HTTP request functionality (e.g: CORS or JWT validation) as you don't have any user doing an HTTP request, but an automatic trigger from Velonetics when an event pops in.
 
 ## When do you need Async Agents
 You are trying to implement an event based pattern, such as:
@@ -33,9 +33,9 @@ You are trying to implement an event based pattern, such as:
 - Event sourcing
 
 ## How Async agents work
-When KrakenD starts, it reads the `async_agent` list in the configuration and creates the declared agents. An agent is an application thread that can use one or multiple workers connecting to a queue or PubSub system (consumers). KrakenD contacts the defined backend(s) list passing the event data when a new message kicks in. You might decide to add manipulations, validations, filtering, or any other backend functionality supported by KrakenD.
+When Velonetics starts, it reads the `async_agent` list in the configuration and creates the declared agents. An agent is an application thread that can use one or multiple workers connecting to a queue or PubSub system (consumers). Velonetics contacts the defined backend(s) list passing the event data when a new message kicks in. You might decide to add manipulations, validations, filtering, or any other backend functionality supported by Velonetics.
 
-The backend(s) receive the event from the agent as part of the body. Depending on the driver and configuration, when a backend fails to process the request, you can tell KrakenD to reinject the message (`Nack`) to retry the message later by any other worker. Notice that when working with Nack, if KrakenD is the only consumer and your backend fails to process the message continously, KrakenD will reinsert the message into the queue over and over, and could lead to an infinite loop of messages if no consumer empties these messages.
+The backend(s) receive the event from the agent as part of the body. Depending on the driver and configuration, when a backend fails to process the request, you can tell Velonetics to reinject the message (`Nack`) to retry the message later by any other worker. Notice that when working with Nack, if Velonetics is the only consumer and your backend fails to process the message continously, Velonetics will reinsert the message into the queue over and over, and could lead to an infinite loop of messages if no consumer empties these messages.
 
 Notice that as it happens with the endpoints, the messages you consume can be sent in parallel or sequentially to multiple services.
 
@@ -72,7 +72,7 @@ The `async_agent` entry is **an array** with all the different agents you want t
             "extra_config": {
                 "async/amqp": {
                     "host": "amqp://guest:guest@localhost:5672/",
-                    "name": "krakend",
+                    "name": "velonetics",
                     "exchange": "foo",
                     "durable": true,
                     "delete": false,

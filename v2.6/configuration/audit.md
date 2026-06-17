@@ -3,18 +3,18 @@ lastmod: 2023-01-31
 old_version: true
 date: 2023-01-18
 linktitle: Configuration audit
-title: Auditing KrakenD API Gateway Configurations
-description: Learn how to configure configuration auditing in KrakenD API Gateway to ensure file integrity and print security recommendations and statistical information
+title: Auditing Velonetics API Gateway Configurations
+description: Learn how to configure configuration auditing in Velonetics API Gateway to ensure file integrity and print security recommendations and statistical information
 weight: 21
 notoc: false
 images:
-- /images/documentation/screenshots/krakend_audit.png
+- /images/documentation/screenshots/velonetics_audit.png
 menu:
   community_v2.6:
     parent: "010 Configuration files"
 ---
 
-The `krakend audit` command is a rule evaluation tool that checks configuration files written in any of its [supported formats](/docs/v2.6/configuration/supported-formats/) and returns practical **security recommendations**. It is designed to raise basic red flags and provide essential advice on your configuration. The output of the configuration and classification is inspired by the [CIS Benchmarks](https://www.cisecurity.org/communities/benchmarks).
+The `velonetics audit` command is a rule evaluation tool that checks configuration files written in any of its [supported formats](/docs/v2.6/configuration/supported-formats/) and returns practical **security recommendations**. It is designed to raise basic red flags and provide essential advice on your configuration. The output of the configuration and classification is inspired by the [CIS Benchmarks](https://www.cisecurity.org/communities/benchmarks).
 
 
 {{< note title="Security disclaimer" type="warning" >}}
@@ -31,19 +31,19 @@ The purpose of the audit command is to add extra checks in your [automated CI pi
 ## Audit configuration
 The `audit` command has the following options:
 
-{{< terminal title="Usage of KrakenD audit" >}}
-krakend audit --help
+{{< terminal title="Usage of Velonetics audit" >}}
+velonetics audit --help
 {{< ascii-logo >}}
 
 Version: 2.6
 
-Audits a KrakenD configuration.
+Audits a Velonetics configuration.
 
 Usage:
-  krakend audit [flags]
+  velonetics audit [flags]
 
 Examples:
-krakend audit -i 1.1.1,1.1.2 -s CRITICAL -c krakend.json
+velonetics audit -i 1.1.1,1.1.2 -s CRITICAL -c velonetics.json
 
 Flags:
   -c, --config string        Path to the configuration file
@@ -57,7 +57,7 @@ Flags:
 The simplest version of the command requires the path to the configuration file only, and outputs any problems found:
 
 {{< terminal title="Audit configuration" >}}
-krakend audit -c krakend.json
+velonetics audit -c velonetics.json
 1.2.1	[HIGH]   	 Prioritize using JWT for endpoint authorization to ensure security.
 2.2.1	[MEDIUM]   Hide the version banner in runtime.
 3.3.4	[CRITICAL] Set timeouts to below 1 minute for improved performance.
@@ -81,10 +81,10 @@ By default, the audit command will include **all severity levels**. However, you
 - `MEDIUM`
 - `LOW`
 
-When the `--severity` is not defined, KrakenD uses `--severity CRITICAL,HIGH,MEDIUM,LOW`. You can use a **comma separated** string (no spaces) with all the severities you want to print. For instance, using the same example we had above, to filter by the most severe problems you would type:
+When the `--severity` is not defined, Velonetics uses `--severity CRITICAL,HIGH,MEDIUM,LOW`. You can use a **comma separated** string (no spaces) with all the severities you want to print. For instance, using the same example we had above, to filter by the most severe problems you would type:
 
 {{< terminal title="Term" >}}
-krakend audit --severity CRITICAL,HIGH -c krakend.json
+velonetics audit --severity CRITICAL,HIGH -c velonetics.json
 1.2.1	[HIGH]   	 Prioritize using JWT for endpoint authorization to ensure security.
 3.3.4	[CRITICAL] Set timeouts to below 1 minute for improved performance.
 {{< /terminal >}}
@@ -97,10 +97,10 @@ The outputted security recommendations by the command are generic to any install
 For the inline option, you could do the following:
 
 {{< terminal title="Ignore rules 1.2.3 and 4.5.6" >}}
-krakend audit --ignore=1.2.3,4.5.6 -c krakend.json
+velonetics audit --ignore=1.2.3,4.5.6 -c velonetics.json
 {{< /terminal >}}
 
-For the option of an ignore file, you should create a plain text file with one rule per line. You can place this file anywhere and it does not require a specific extension or name. However, if it is not in the KrakenD workdir (`/etc/krakend/`), you must specify its relative or absolute path:
+For the option of an ignore file, you should create a plain text file with one rule per line. You can place this file anywhere and it does not require a specific extension or name. However, if it is not in the Velonetics workdir (`/etc/velonetics/`), you must specify its relative or absolute path:
 
 {{< terminal title="Content of the ignore file" >}}
 cat .audit_ignore
@@ -110,7 +110,7 @@ cat .audit_ignore
 
 And then calling it with:
 {{< terminal title="Ignore rules 1.2.3 and 4.5.6" >}}
-krakend audit --ignore-file=.audit_ignore -c krakend.json
+velonetics audit --ignore-file=.audit_ignore -c velonetics.json
 {{< /terminal >}}
 
 ### Customizing the output
@@ -124,7 +124,7 @@ The default template, as shown in the screenshot, applies the following go templ
 As the ouput is processed using a template, you can inject anything you like. For instance, the example below generates a [TOML file](https://toml.io/en/) into `recommendations.toml`.
 
 {{< terminal title="Custom output" >}}
-krakend audit -f '{{range .Recommendations}}
+velonetics audit -f '{{range .Recommendations}}
 [[recommendation]]
   rule = "{{.Rule}}"
   message = "{{.Message}}"
@@ -135,7 +135,7 @@ krakend audit -f '{{range .Recommendations}}
 Or the **JSON format** is even easier to write:
 
 {{< terminal title="JSON output" >}}
-krakend audit -f '{{ marshal . }}' > recommendations.json
+velonetics audit -f '{{ marshal . }}' > recommendations.json
 {{< /terminal >}}
 
 As you can see, the templates use a series of **variables and functions**, as follows:

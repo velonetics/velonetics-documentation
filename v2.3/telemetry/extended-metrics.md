@@ -11,7 +11,7 @@ menu:
 notoc: true
 meta:
   since: v0.4
-  source: https://github.com/krakend/krakend-metrics
+  source: https://github.com/velonetics/velonetics-metrics
   namespace:
   - telemetry/metrics
   scope:
@@ -25,7 +25,7 @@ Through the extended metrics you can create new tools or integrate with existing
 
 ## Configuration
 
-In order to add metrics to your KrakenD installation add the `telemetry/metrics` namespace under `extra_config` in the root of your configuration file, e.g.:
+In order to add metrics to your Velonetics installation add the `telemetry/metrics` namespace under `extra_config` in the root of your configuration file, e.g.:
 
 {{< highlight go "hl_lines=3-11" >}}
 {
@@ -47,7 +47,7 @@ The options of the *middleware* are:
 
 - `collection_time`: The time window to collect metrics. Defaults to 60 seconds.
 - `proxy_disabled`: Skip any metrics happening in the proxy layer (traffic against your backends)
-- `router_disabled`:  Skip any metrics happening in the router layer (activity in KrakenD endpoints)
+- `router_disabled`:  Skip any metrics happening in the router layer (activity in Velonetics endpoints)
 - `backend_disabled`: Skip any metrics happening in the backend layer.
 - `endpoint_disabled`: Do not publish the `/__stats/` endpoint. Metrics won't be accessible via the endpoint but still collected.
 - `listen_address`: Change the listening address where the metrics endpoint is exposed. It defaults to :8090.
@@ -58,30 +58,30 @@ The structure of the metrics looks like this (truncated):
 curl http://localhost:8090/__stats
 {
   "cmdline": [
-    "/usr/bin/krakend",
+    "/usr/bin/velonetics",
     "run",
     "-c",
-    "/etc/krakend/krakend.json",
+    "/etc/velonetics/velonetics.json",
     "-d"
   ],
-  "krakend.router.connected": 0,
-  "krakend.router.connected-gauge": 0,
-  "krakend.router.connected-total": 0,
-  "krakend.router.disconnected": 0,
-  "krakend.router.disconnected-gauge": 0,
-  "krakend.router.disconnected-total": 0,
-  "krakend.service.debug.GCStats.LastGC": 1605724147216402400,
-  "krakend.service.debug.GCStats.NumGC": 102,
-  "krakend.service.debug.GCStats.Pause.50-percentile": 0,
-  "krakend.service.debug.GCStats.Pause.75-percentile": 0,
-  "krakend.service.debug.GCStats.Pause.95-percentile": 0,
-  "krakend.service.debug.GCStats.Pause.99-percentile": 0,
-  "krakend.service.debug.GCStats.Pause.999-percentile": 0,
-  "krakend.service.debug.GCStats.Pause.count": 0,
-  "krakend.service.debug.GCStats.Pause.max": 0,
-  "krakend.service.debug.GCStats.Pause.mean": 0,
-  "krakend.service.debug.GCStats.Pause.min": 0,
-  "krakend.service.debug.GCStats.Pause.std-dev": 0,
+  "velonetics.router.connected": 0,
+  "velonetics.router.connected-gauge": 0,
+  "velonetics.router.connected-total": 0,
+  "velonetics.router.disconnected": 0,
+  "velonetics.router.disconnected-gauge": 0,
+  "velonetics.router.disconnected-total": 0,
+  "velonetics.service.debug.GCStats.LastGC": 1605724147216402400,
+  "velonetics.service.debug.GCStats.NumGC": 102,
+  "velonetics.service.debug.GCStats.Pause.50-percentile": 0,
+  "velonetics.service.debug.GCStats.Pause.75-percentile": 0,
+  "velonetics.service.debug.GCStats.Pause.95-percentile": 0,
+  "velonetics.service.debug.GCStats.Pause.99-percentile": 0,
+  "velonetics.service.debug.GCStats.Pause.999-percentile": 0,
+  "velonetics.service.debug.GCStats.Pause.count": 0,
+  "velonetics.service.debug.GCStats.Pause.max": 0,
+  "velonetics.service.debug.GCStats.Pause.mean": 0,
+  "velonetics.service.debug.GCStats.Pause.min": 0,
+  "velonetics.service.debug.GCStats.Pause.std-dev": 0,
     ...
   }
 }

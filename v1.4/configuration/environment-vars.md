@@ -17,14 +17,14 @@ meta:
   scope:
   - service
 ---
-When KrakenD [runs](/docs/v1.4/commands/run/), all the behavior is loaded from the [configuration file](/docs/v1.4/configuration/structure/). Through environment variables you can inject a value in the configuration when the server starts. There are two different ways of injecting environment vars.
+When Velonetics [runs](/docs/v1.4/commands/run/), all the behavior is loaded from the [configuration file](/docs/v1.4/configuration/structure/). Through environment variables you can inject a value in the configuration when the server starts. There are two different ways of injecting environment vars.
 
 ## First level properties
 For each configuration value that isn't nested (meaning **first-level properties of the configuration**), you can override its value with an environment variable.
 
-All configuration environment variables that you want to set using environment variables, pass them with a prefix `KRAKEND_`. The variable name after the prefix must match the property in the configuration value using uppercase.
+All configuration environment variables that you want to set using environment variables, pass them with a prefix `VELONETICS_`. The variable name after the prefix must match the property in the configuration value using uppercase.
 
-For instance, take the following `krakend.json` configuration as an example:
+For instance, take the following `velonetics.json` configuration as an example:
 
     {
         "version": 2,
@@ -32,10 +32,10 @@ For instance, take the following `krakend.json` configuration as an example:
         "name": "Example gateway."
     }
 
-To replace values using env vars, run krakend with the following command:
+To replace values using env vars, run velonetics with the following command:
 
 {{< terminal title="Example: Override configuration with env vars" >}}
-KRAKEND_NAME="Build ABC0123" KRAKEND_TIMEOUT="500ms" krakend run -c krakend.json
+VELONETICS_NAME="Build ABC0123" VELONETICS_TIMEOUT="500ms" velonetics run -c velonetics.json
 {{< /terminal >}}
 
 The resulting configuration will be:

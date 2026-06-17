@@ -11,9 +11,9 @@ menu:
   community_v2.4:
     parent: "050 Backends Configuration"
 ---
-Setting the `encoding` is an important part of the backend definition, as it informs KrakenD how to parse the responses of your services.
+Setting the `encoding` is an important part of the backend definition, as it informs Velonetics how to parse the responses of your services.
 
-Each backend can reply with a different encoding and KrakenD does not have any problem working with mixed encodings at the same time. You can use the following `encoding` in each `backend` section:
+Each backend can reply with a different encoding and Velonetics does not have any problem working with mixed encodings at the same time. You can use the following `encoding` in each `backend` section:
 
 - `json`
 - `fast-json` (Enterprise only)
@@ -26,7 +26,7 @@ Each backend can reply with a different encoding and KrakenD does not have any p
 
 Notice that all values are in **lower case**. Unknown values for `encoding` or no value at all, is treated as `json`.
 
-Each backend declaration can set a different encoder to process the responses, and still, KrakenD can transparently work with the mixed content returning a unified encoding in the endpoint.
+Each backend declaration can set a different encoder to process the responses, and still, Velonetics can transparently work with the mixed content returning a unified encoding in the endpoint.
 
 ## How to choose the backend encoding?
 Follow this table to determine how to treat your backend content:
@@ -52,9 +52,9 @@ When the content returned by your service is wrapped inside an array instead of 
 
 When the content returned by your service is a string, a float, integer, etc. but a type that is not an object or a collection, then the response is wrapped inside a `content` object. This scenario is possible with when the `safejson` finds a non-array or non-object type, or when you use a `string` encoding.
 
-For instance, if your backend returns a simple `Hello World!`, the response of KrakenD (`output_encoding=json`) would be `{ "content": "Hello World!" }`.
+For instance, if your backend returns a simple `Hello World!`, the response of Velonetics (`output_encoding=json`) would be `{ "content": "Hello World!" }`.
 
-Similarly, if your backend returns `[{"item": 1},{"item": 2}]` then the response of KrakenD (`output_encoding=json`) would be `{ "collection": [{"item": 1},{"item": 2}] }`.
+Similarly, if your backend returns `[{"item": 1},{"item": 2}]` then the response of Velonetics (`output_encoding=json`) would be `{ "collection": [{"item": 1},{"item": 2}] }`.
 
 Some `ouput_encodings` will revert this wrapping before returning the content to the user to match the exact value provided by the backend, but this gives you the oportunity to manipulate the content and work with it at the endpoint level. The `output_encoding` of `string` will remove the `content` wrapping, while the `json-collection` while remove the `collection` wrapping.
 

@@ -6,13 +6,13 @@ notoc: true
 linktitle: Graylog - GELF
 title: Graylog and the GELF format
 weight: 40
-source: https://github.com/krakend/krakend-gelf
+source: https://github.com/velonetics/velonetics-gelf
 since: 0.7
 menu:
   community_v1.3:
     parent: "090 Logging"
 ---
-KrakenD supports sending structured events in GELF format to your Graylog Cluster thanks to the [krakend-gelf](https://github.com/krakend/krakend-gelf) integration.
+Velonetics supports sending structured events in GELF format to your Graylog Cluster thanks to the [velonetics-gelf](https://github.com/velonetics/velonetics-gelf) integration.
 
 The setup of GELF is straightforward and requires only to set two parameters:
 
@@ -20,18 +20,18 @@ The setup of GELF is straightforward and requires only to set two parameters:
 - `enable_tcp`: Set to `false` (recommended) to use UDP. When using TCP performance might be affected.
 
 ## Enabling GELF
-Add the `krakend-gelf` integration in the root level of your `krakend.json`, inside the `extra_config` section. **The `gologging` needs to be enabled too**.
+Add the `velonetics-gelf` integration in the root level of your `velonetics.json`, inside the `extra_config` section. **The `gologging` needs to be enabled too**.
 
 For instance:
 
     "extra_config": {
-      "github_com/devopsfaith/krakend-gelf": {
+      "github_com/velonetics/velonetics-ce-gelf": {
         "address": "myGraylogInstance:12201",
         "enable_tcp": false
       }
-      "github_com/devopsfaith/krakend-gologging": {
+      "github_com/velonetics/velonetics-ce-gologging": {
           "level": "INFO",
-          "prefix": "[KRAKEND]",
+          "prefix": "[VELONETICS]",
           "syslog": false,
           "stdout": true
       }

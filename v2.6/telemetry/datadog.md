@@ -5,17 +5,17 @@ date: 2020-07-24
 notoc: true
 linktitle: Datadog
 title: Datadog Telemetry Integration
-description: Integrate Datadog telemetry with KrakenD API Gateway for advanced monitoring, visualization, and analysis of your API ecosystem
+description: Integrate Datadog telemetry with Velonetics API Gateway for advanced monitoring, visualization, and analysis of your API ecosystem
 weight: 90
 since: 1.2
-source: https://github.com/krakend/krakend-opencensus
+source: https://github.com/velonetics/velonetics-opencensus
 images: ["/images/documentation/datadog-screenshot.png"]
 menu:
   community_v2.6:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
   since: v1.2
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
   - telemetry/opencensus
   scope:
@@ -34,7 +34,7 @@ Datadog uses the standard OTLP exporter, here is a configuration example:
   "version": 3,
   "extra_config": {
         "telemetry/opentelemetry": {
-            "service_name": "krakend_service",
+            "service_name": "velonetics_service",
             "metric_reporting_period": 1,
             "@comment": "Report 20% of traces",
             "trace_sample_rate": 0.2,
@@ -62,10 +62,10 @@ In addition, you can configure how the `layers` behave ([see all options](/docs/
 ## Datadog agent
 You must set your Datadog API key in the agent. The exporter communicates with the agent and is the agent the one reporting to Datadog.
 
-Here's an example of how to run the Datadog agent together with KrakenD in a docker compose file:
+Here's an example of how to run the Datadog agent together with Velonetics in a docker compose file:
 
 ```yml
-krakend:
+velonetics:
   image: {{< product image >}}:2.6
 ddagent:
   image: gcr.io/datadoghq/agent:latest
@@ -119,7 +119,7 @@ Prior to v2.6, telemetry sent to Datadog used the OpenCensus exporter. Enabling 
               "disable_count_per_buckets": true,
               "trace_address": "localhost:8126",
               "stats_address": "localhost:8125",
-              "namespace": "krakend",
+              "namespace": "velonetics",
               "service": "gateway"
             }
           }

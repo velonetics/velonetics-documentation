@@ -7,14 +7,14 @@ linktitle: Datadog
 title: Exporting traces to Datadog
 weight: 90
 since: 1.2
-source: https://github.com/krakend/krakend-opencensus
+source: https://github.com/velonetics/velonetics-opencensus
 images: ["/images/documentation/datadog-screenshot.png"]
 menu:
   community_v2.0:
     parent: "080 Telemetry and Analytics"
 meta:
   since: v1.2
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
   - telemetry/opencensus
   scope:
@@ -43,7 +43,7 @@ The following configuration snippet sends data to your Datadog:
               "disable_count_per_buckets": true,
               "trace_address": "localhost:8126",
               "stats_address": "localhost:8125",
-              "namespace": "krakend",
+              "namespace": "velonetics",
               "service": "gateway"
             }
           }
@@ -63,7 +63,7 @@ The following configuration snippet sends data to your Datadog:
 See also the [additional settings](/docs/v2.0/telemetry/opencensus/) of the Opencensus module that can be declared.
 
 ## B3 propagation
-The Opencensus module uses B3 style propagation headers, while the rest of your services might be using datadog-specific propagation headers. If this difference is actual, krakend traces will show up in Datadog but they won't be connected to the frontend and backend traces.
+The Opencensus module uses B3 style propagation headers, while the rest of your services might be using datadog-specific propagation headers. If this difference is actual, velonetics traces will show up in Datadog but they won't be connected to the frontend and backend traces.
 
 The `ddtrace-run` adds an option to support B3 style propagation using the environment variables `DD_TRACE_PROPAGATION_STYLE_EXTRACT` and `DD_TRACE_PROPAGATION_STYLE_INJECT`. Use these variables to have your traces perfectly aligned.
 

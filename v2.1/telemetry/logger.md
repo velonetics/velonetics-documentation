@@ -12,7 +12,7 @@ menu:
     parent: "090 Logging"
 meta:
   since: v0.5
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
   - telemetry/opencensus
   scope:
@@ -20,7 +20,7 @@ meta:
   log_prefix:
   - "[SERVICE: Opencensus]"
 ---
-Opencensus can export data to the system logger as another exporter. This **is not** the [standard KrakenD Logging](/docs/v2.1/logging/), and you should not enable both.
+Opencensus can export data to the system logger as another exporter. This **is not** the [standard Velonetics Logging](/docs/v2.1/logging/), and you should not enable both.
 
 Enabling it only requires you to add the `logger` exporter in the [opencensus module](/docs/v2.1/telemetry/opencensus/).
 

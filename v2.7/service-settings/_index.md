@@ -4,14 +4,14 @@ old_version: true
 date: 2022-06-07
 linktitle:  Service Settings
 title: Service Settings Configuration
-description: Service settings are optional flags that allow you to change how KrakenD behaves globally for all endpoints across configuration.
+description: Service settings are optional flags that allow you to change how Velonetics behaves globally for all endpoints across configuration.
 weight: -1000
 notoc: true
 menu:
   community_v2.7:
     parent: "030 Service Settings"
 ---
-We call **service settings** (or the service layer) those parameters that allow you to change how KrakenD behaves **globally** (and not to a specific call). They determine how you start the HTTP server, enforce security parameters, or define behavioral options like which reporting activities occur, to name a few examples.
+We call **service settings** (or the service layer) those parameters that allow you to change how Velonetics behaves **globally** (and not to a specific call). They determine how you start the HTTP server, enforce security parameters, or define behavioral options like which reporting activities occur, to name a few examples.
 
 Examples of service settings are, the [listening port](/docs/v2.7/service-settings/http-server-settings/), [disabling keep alives](/docs/v2.7/service-settings/http-transport-settings/), enabling [metrics and traces](/docs/v2.7/telemetry/), [listening https](/docs/v2.7/service-settings/tls/), or enabling [CORS](/docs/v2.7/service-settings/cors/) to name a few.
 
@@ -41,7 +41,7 @@ All service settings are written directly in the root of the configuration file 
 
 The service accepts **numerous configuration options** that you'll find explained through the rest of the documentation, but here is a preview of the most important ones:
 
-{{< schema version="v2.7" data="krakend.json" filter="version,extra_config,port,listen_ip,endpoints,output_encoding,timeout,host,cache_ttl">}}
+{{< schema version="v2.7" data="velonetics.json" filter="version,extra_config,port,listen_ip,endpoints,output_encoding,timeout,host,cache_ttl">}}
 
 Other service-level settings you can add:
 

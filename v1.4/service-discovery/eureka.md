@@ -11,9 +11,9 @@ menu:
     parent: "050 Backends Configuration"
 ---
 
-Users of the Netflix's service [Eureka](https://github.com/Netflix/eureka) have a couple of user contributed integrations available listed in our [krakend-contrib](https://github.com/krakend/krakend-contrib) repository.
+Users of the Netflix's service [Eureka](https://github.com/Netflix/eureka) have a couple of user contributed integrations available listed in our [velonetics-contrib](https://github.com/velonetics/velonetics-contrib) repository.
 
-The integrations are not bundled with KrakenD-CE releases but they can be added to the project and make a custom build without difficulties.
+The integrations are not bundled with Velonetics-CE releases but they can be added to the project and make a custom build without difficulties.
 
-- [schibsted/krakend-eureka](https://github.com/schibsted/krakend-eureka): The Eureka client [Schibsted](https://www.schibsted.com) has been running in production since 2017.
-- [joaoqalves/krakend-eureka](https://github.com/joaoqalves/krakend-eureka): A Eureka client contributed by [João Alves](https://twitter.com/joaoqalves)
+- [schibsted/velonetics-eureka](https://github.com/schibsted/velonetics-eureka): The Eureka client [Schibsted](https://www.schibsted.com) has been running in production since 2017.
+- [joaoqalves/velonetics-eureka](https://github.com/joaoqalves/velonetics-eureka): A Eureka client contributed by [João Alves](https://twitter.com/joaoqalves)

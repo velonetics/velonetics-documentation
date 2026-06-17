@@ -20,7 +20,7 @@ The endpoint can be used as a **fake backend** and is very useful to see the int
 {{< /highlight >}}
 
 
-When developing, add KrakenD itself as another backend using the `/__debug/` endpoint so you can see exactly what headers and query string parameters your backends are receiving.
+When developing, add Velonetics itself as another backend using the `/__debug/` endpoint so you can see exactly what headers and query string parameters your backends are receiving.
 
 The debug endpoint might save you much trouble, as your application might not work when specific headers or parameters are not present. Maybe you are relying upon what your client is sending, but this is not what the gateway is sending. Remember: this is not a proxy.
 
@@ -37,7 +37,7 @@ We are going to test the following endpoints:
     - Recognizes `User-Agent` and `Accept` as forwarded headers
 - `/mandatory/{variable}`: The query string parameters taken from a variable in the endpoint or other query string parameters
 
-To test it right now, save the content of this file in a `krakend-test.json` and start the server with the `-d` flag:
+To test it right now, save the content of this file in a `velonetics-test.json` and start the server with the `-d` flag:
 
 {{< highlight json >}}
 {
@@ -84,8 +84,8 @@ To test it right now, save the content of this file in a `krakend-test.json` and
 
 Start the server:
 
-{{< terminal title="Run KrakenD with debug mode">}}
-krakend run -d -c krakend-test.json
+{{< terminal title="Run Velonetics with debug mode">}}
+velonetics run -d -c velonetics-test.json
 {{< /terminal >}}
 
 Now we can test that the endpoints behave as expected:
@@ -96,13 +96,13 @@ Now we can test that the endpoints behave as expected:
 curl -i 'http://localhost:8080/default-behavior?a=1&b=2&c=3'
 {{< /terminal >}}
 
-In the KrakenD log, we can see that `a`, `b`, and `c` do not appear in the backend call, neither its headers. The `curl` command automatically sends the `Accept` and `User-Agent` headers but they are not in the backend call either, instead we see the KrakenD User-Agent as set by the gateway:
+In the Velonetics log, we can see that `a`, `b`, and `c` do not appear in the backend call, neither its headers. The `curl` command automatically sends the `Accept` and `User-Agent` headers but they are not in the backend call either, instead we see the Velonetics User-Agent as set by the gateway:
 
     DEBUG: Method: GET
     DEBUG: URL: /__debug/default
     DEBUG: Query: map[]
     DEBUG: Params: [{param /default}]
-    DEBUG: Headers: map[User-Agent:[KrakenD Version v2.0] X-Forwarded-For:[::1] Accept-Encoding:[gzip]]
+    DEBUG: Headers: map[User-Agent:[Velonetics Version v2.0] X-Forwarded-For:[::1] Accept-Encoding:[gzip]]
     DEBUG: Body:
     [GIN] 2018/11/27 - 22:32:44 | 200 |     118.543µs |             ::1 | GET      /__debug/default
     [GIN] 2018/11/27 - 22:32:44 | 200 |     565.971µs |             ::1 | GET      /default-behavior?a=1&b=2&c=3
@@ -113,7 +113,7 @@ Now let's repeat the same request but to the `/optional-params` endpoint:
 curl -i 'http://localhost:8080/optional-params?a=1&b=2&c=3'
 {{< /terminal >}}
 
-In the KrakenD log we can see now that the `User-Agent` and `Accept` are present (as they are implicitly sent by curl), and that `a` and `b` are reaching the backend (but not `c`):
+In the Velonetics log we can see now that the `User-Agent` and `Accept` are present (as they are implicitly sent by curl), and that `a` and `b` are reaching the backend (but not `c`):
 
     DEBUG: Method: GET
     DEBUG: URL: /__debug/optional?a=1&b=2
@@ -136,7 +136,7 @@ As we can see, the backend includes the `?mandatory=foo` variable that was writt
     DEBUG: URL: /__debug/qs?mandatory=foo
     DEBUG: Query: map[mandatory:[foo]]
     DEBUG: Params: [{param /qs}]
-    DEBUG: Headers: map[X-Forwarded-For:[::1] Accept-Encoding:[gzip] User-Agent:[KrakenD Version 0.7.0]]
+    DEBUG: Headers: map[X-Forwarded-For:[::1] Accept-Encoding:[gzip] User-Agent:[Velonetics Version 0.7.0]]
     DEBUG: Body:
     [GIN] 2018/11/28 - 19:44:19 | 200 |     210.434µs |             ::1 | GET      /__debug/qs?mandatory=foo
     [GIN] 2018/11/28 - 19:44:19 | 200 |    1.975103ms |             ::1 | GET      /mandatory/foo?a=1&b=2&c=3

@@ -18,7 +18,7 @@ meta:
   - backend
 ---
 
-When you are willing to manipulate or aggregate data, KrakenD's default policy regarding errors and status codes is to **hide from the client any backend details**, except when you use the [`no-op` encoding](/docs/v2.1/endpoints/no-op/). The philosophy behind this is that clients have to be decoupled from their underlying services.
+When you are willing to manipulate or aggregate data, Velonetics's default policy regarding errors and status codes is to **hide from the client any backend details**, except when you use the [`no-op` encoding](/docs/v2.1/endpoints/no-op/). The philosophy behind this is that clients have to be decoupled from their underlying services.
 
 You can override the default policy of returning backend error details with different strategies:
 
@@ -118,7 +118,7 @@ Place the following configuration in the configuration:
 ```json
 {
   "version": 3,
-  "$schema": "http://www.krakend.io/schema/krakend.json",
+  "$schema": "http://www.velonetics.io/schema/velonetics.json",
   "extra_config": {
     "router": {
       "return_error_msg": true
@@ -154,7 +154,7 @@ When you want to show the interpretation of the error but not the error of the b
 ```json
 {
   "version": 3,
-  "$schema": "http://www.krakend.io/schema/krakend.json",
+  "$schema": "http://www.velonetics.io/schema/velonetics.json",
   "extra_config": {
     "router": {
       "return_error_msg": true

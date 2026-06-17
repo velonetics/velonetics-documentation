@@ -6,18 +6,18 @@ toc: true
 linktitle: etcd
 title: Service Discovery with etcd (deprecated)
 weight: 20
-source: https://github.com/devopsfaith/krakend-etcd
+source: https://github.com/velonetics/velonetics-ce-etcd
 menu:
   community_v1.3:
     parent: "050 Backends Configuration"
 ---
 {{< note title="Deprecated" >}}
-Since KrakenD 1.3.0 etcd is not longer supported. The documentation is left here for reference.
+Since Velonetics 1.3.0 etcd is not longer supported. The documentation is left here for reference.
 {{< /note >}}
 
 The etcd Service Discovery integration allows you to perform the host resolution using your existing etcd setup.
 
-The integration etcd is controlled by the [krakend-etcd](https://github.com/devopsfaith/krakend-etcd) component and adds client and subscriber capabilities for etcd.
+The integration etcd is controlled by the [velonetics-etcd](https://github.com/velonetics/velonetics-ce-etcd) component and adds client and subscriber capabilities for etcd.
 
 
 ## Enabling etcd
@@ -27,7 +27,7 @@ To enable the integration add in the **root** of your configuration file the nec
 {
   "version": 2,
   "extra_config": {
-    "github_com/devopsfaith/krakend-etcd": {
+    "github_com/velonetics/velonetics-ce-etcd": {
       "machines": [
         "https://192.168.1.100:4001",
         "https://192.168.1.101:4001"
@@ -43,7 +43,7 @@ To enable the integration add in the **root** of your configuration file the nec
   ...
 {{< /highlight >}}}
 
-The only mandatory key inside the `github_com/devopsfaith/krakend-etcd` namespace is `machines`, so the integration knows where etcd lives. The rest of the keys in the configuration are optional.
+The only mandatory key inside the `github_com/velonetics/velonetics-ce-etcd` namespace is `machines`, so the integration knows where etcd lives. The rest of the keys in the configuration are optional.
 
 The timeouts and keepalive will take the shown values if the keys are missing, and the certificates (`cert`, `key`, and `cacert`) are not needed if you use plain connections.
 

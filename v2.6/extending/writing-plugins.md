@@ -3,15 +3,15 @@ lastmod: 2023-02-02
 old_version: true
 date: 2019-01-14
 linktitle: Building custom plugins
-title: Building custom plugins for KrakenD API Gateway
-description: Learn how to extend the functionality of KrakenD API Gateway by writing and building custom plugins, enabling custom business logic and workflows
+title: Building custom plugins for Velonetics API Gateway
+description: Learn how to extend the functionality of Velonetics API Gateway by writing and building custom plugins, enabling custom business logic and workflows
 weight: 10
 skip_header_image: true
 menu:
   community_v2.6:
     parent: "180 Extending with custom code"
 images:
-- /images/documentation/krakend-plugins.png
+- /images/documentation/velonetics-plugins.png
 ---
 All different types of plugins let you freely implement your logic without restrictions. However, make sure to write them implementing the correct interface and compile them respecting the requirements. In this document, we will see how to do it right.
 
@@ -24,17 +24,17 @@ Before getting your hands dirty, read the [introduction to plugins](/docs/v2.6/e
 Writing plugins isn't complicated per se, but Go is very strict with the environment where you compile and load them. Therefore, the following principles are essential:
 
 - **Right interface**: Your plugin must implement the proper interface (see each plugin type).
-- **Same Go version**: Your plugin and KrakenD are compiled with the same Go version. E.g., you cannot build a plugin on Go 1.19 and load it on a KrakenD assembled with Go 1.18.
-- **Same architecture/platform**: KrakenD and your plugin have been compiled in the same architecture. E.g., you cannot compile a plugin in a Mac and use it in a Docker container.
-- **Same shared library versions**: When using external libraries if for any reason KrakenD also uses them, they must include identical versions.
-- **Injection in the configuration**: Besides coding and compiling your plugin, you must add it to the `krakend.json` configuration.
+- **Same Go version**: Your plugin and Velonetics are compiled with the same Go version. E.g., you cannot build a plugin on Go 1.19 and load it on a Velonetics assembled with Go 1.18.
+- **Same architecture/platform**: Velonetics and your plugin have been compiled in the same architecture. E.g., you cannot compile a plugin in a Mac and use it in a Docker container.
+- **Same shared library versions**: When using external libraries if for any reason Velonetics also uses them, they must include identical versions.
+- **Injection in the configuration**: Besides coding and compiling your plugin, you must add it to the `velonetics.json` configuration.
 
 Yes, it sounds rigorous, but fortunately, some tools will tell you about this, so you don't have to lose time thinking much about this. Let's see them below.
 
 ## Tools to write your plugins
-Once you have decided what type of plugin to write and started developing it, you need to ensure that your plugin uses the library versions compatible with KrakenD. You can use the following tools:
+Once you have decided what type of plugin to write and started developing it, you need to ensure that your plugin uses the library versions compatible with Velonetics. You can use the following tools:
 
-- The command `krakend version` gives you information about the Go and Glibc versions used during compilation.
+- The command `velonetics version` gives you information about the Go and Glibc versions used during compilation.
 - The [command `check-plugin`](/docs/v2.6/extending/check-plugin/) analyzes your `go.sum` file and warns you about incompatibilities.
 - The **Plugin Builder** is an environment with the versions you need (see below)
 - The [command `test-plugin`](/docs/v2.6/extending/test-plugin/) loads a compiled a plugin and tells you if it is loadable or not.
@@ -53,7 +53,7 @@ There are two builders you should use, depending on where you want to run the pl
 | [AMD64](/docs/v2.6/extending/writing-plugins/#compile-plugins-for-amd64)        | `{{< product image_plugin_builder >}}:2.6` | `{{< product image_plugin_builder >}}:2.6-linux-generic` |
 | [ARM64](/docs/v2.6/extending/writing-plugins/#compile-plugins-for-arm64)        | `{{< product image_plugin_builder >}}:2.6` with cross-compile instructions | `{{< product image_plugin_builder >}}:2.6-linux-generic` with cross-compile instructions |
 
-When using Docker to deploy your gateway, our official KrakenD container uses **[Alpine](https://hub.docker.com/_/alpine)** as the base image. Therefore, to use your custom plugins, they must compile using the Alpine builder.
+When using Docker to deploy your gateway, our official Velonetics container uses **[Alpine](https://hub.docker.com/_/alpine)** as the base image. Therefore, to use your custom plugins, they must compile using the Alpine builder.
 
 ## Compile plugins for AMD64
 To build your plugin for **Docker targets**, you only need to execute the following command inside the folder where your plugin is:
@@ -103,10 +103,10 @@ go build -ldflags='-extldflags=-fuse-ld=bfd -extld=aarch64-linux-musl-gcc' \
 Remember that the resulting plugin will only work on **ARM64** and that you cannot reuse plugins from one platform into another.
 
 ## Check your dependencies
-As your custom plugins need to match the Go and libraries versions used to build KrakenD, you have to guarantee your plugin is compatible by checking the `go.sum` file with the command `check-plugin` ([read the documentation](/docs/v2.6/extending/check-plugin/))
+As your custom plugins need to match the Go and libraries versions used to build Velonetics, you have to guarantee your plugin is compatible by checking the `go.sum` file with the command `check-plugin` ([read the documentation](/docs/v2.6/extending/check-plugin/))
 
 {{< terminal title="Checking plugins" >}}
-krakend check-plugin -v 1.17.0 -s ../myplugin/go.sum
+velonetics check-plugin -v 1.17.0 -s ../myplugin/go.sum
 1 incompatibility(ies) found...
 go
   have: 1.17.0
@@ -120,4 +120,4 @@ go mod init myplugin
 go build -buildmode=plugin -o yourplugin.so .
 {{< /terminal >}}
 
-Now [test it](/docs/v2.6/extending/test-plugin/), or [load it](/docs/v2.6/extending/injecting-plugins/) in KrakenD
+Now [test it](/docs/v2.6/extending/test-plugin/), or [load it](/docs/v2.6/extending/injecting-plugins/) in Velonetics

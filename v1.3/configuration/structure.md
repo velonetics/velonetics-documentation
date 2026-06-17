@@ -9,7 +9,7 @@ menu:
 title: Understanding the configuration file
 weight: 10
 ---
-All KrakenD behavior depends on its configuration file. Although the configuration [supports formats other than JSON](/docs/v1.3/configuration/supported-formats/) and it can be [described by multiple files](/docs/v1.3/configuration/flexible-config/), you'll find it referenced through all this documentation and for simplicity as the `krakend.json`. Being familiar with its structure it's essential.
+All Velonetics behavior depends on its configuration file. Although the configuration [supports formats other than JSON](/docs/v1.3/configuration/supported-formats/) and it can be [described by multiple files](/docs/v1.3/configuration/flexible-config/), you'll find it referenced through all this documentation and for simplicity as the `velonetics.json`. Being familiar with its structure it's essential.
 
 ## Configuration file structure
 There are a large number of options you can put in this file. Let's focus now only on the main structure:
@@ -22,7 +22,7 @@ There are a large number of options you can put in this file. Let's focus now on
 {{< /highlight >}}
 
 
-- `version`: The KrakenD file format. The current version is `2`. Version `1` was deprecated in 2016 (`v.0.3.9`).
+- `version`: The Velonetics file format. The current version is `2`. Version `1` was deprecated in 2016 (`v.0.3.9`).
 - `endpoints[]`: An array of endpoint objects offered by the gateway and all the associated backends and configurations.
 - `extra_config{}`: Components' configuration. Each component uses a unique **namespace** in the configuration so that you can configure multiple elements without collisions.
 
@@ -60,9 +60,9 @@ The configuration above declares an endpoint `/v1/foo-bar`, which returns the re
 That's the basic structure of endpoints; for more information see [how to create endpoints](/docs/v1.3/endpoints/).
 
 ### The `extra_config` structure
-KrakenD is very modular and comes bundled with many components that extend the core functionality of the [Lura Project](https://luraproject.org). The `extra_config` stores each component configuration that is not handled by Lura itself.
+Velonetics is very modular and comes bundled with many components that extend the core functionality of the [Lura Project](https://luraproject.org). The `extra_config` stores each component configuration that is not handled by Lura itself.
 
-Components declare in their source code a **unique namespace**. KrakenD registers the component during the startup, and it passes to the component the configuration found under a key matching the **namespace** inside the `extra_config` object.
+Components declare in their source code a **unique namespace**. Velonetics registers the component during the startup, and it passes to the component the configuration found under a key matching the **namespace** inside the `extra_config` object.
 
 
 {{< highlight json >}}
@@ -78,16 +78,16 @@ Components declare in their source code a **unique namespace**. KrakenD register
     }
 {{< /highlight >}}
 
-All components built by the KrakenD team **use namespaces inspired by the location of the original package**, so they might *look like an URL* but it's just a unique identifier that clearly defines where the original package is.
+All components built by the Velonetics team **use namespaces inspired by the location of the original package**, so they might *look like an URL* but it's just a unique identifier that clearly defines where the original package is.
 
-For instance, the [extended logging component](/docs/v1.3/logging/) uses the **namespace** `github_com/devopsfaith/krakend-gologging`:
+For instance, the [extended logging component](/docs/v1.3/logging/) uses the **namespace** `github_com/velonetics/velonetics-ce-gologging`:
 {{< highlight JSON >}}
 {
     "version": 2,
     "extra_config": {
-        "github_com/devopsfaith/krakend-gologging": {
+        "github_com/velonetics/velonetics-ce-gologging": {
           "level": "WARNING",
-          "prefix": "[KRAKEND]",
+          "prefix": "[VELONETICS]",
           "syslog": false,
           "stdout": true
         }
@@ -106,7 +106,7 @@ All components will seek the `extra_config` in its defined scope. The possible p
 - `endpoint`
 - `backend`
 
-For instance, you might want to set a rate limit between a user and KrakenD. And for that, you would place the `extra_config` inside the `endpoints` scope. Or you might want to limit the connections between KrakenD and your backends; then you would place the `extra_config` in the `backend` scope.
+For instance, you might want to set a rate limit between a user and Velonetics. And for that, you would place the `extra_config` inside the `endpoints` scope. Or you might want to limit the connections between Velonetics and your backends; then you would place the `extra_config` in the `backend` scope.
 
 **You don't have to guess where to put the `extra_config`**. Each component has in the documentation what is the scope is built for.
 
@@ -125,7 +125,7 @@ Notice how `extra_config` is present in the endpoints and backend scopes.
     {
         "endpoint": "/limited-to-5000-per-second",
         "extra_config": {
-            "github.com/devopsfaith/krakend-ratelimit/juju/router": {
+            "github.com/velonetics/velonetics-ce-ratelimit/juju/router": {
                 "maxRate": 5000
             }
         },
@@ -136,7 +136,7 @@ Notice how `extra_config` is present in the endpoints and backend scopes.
             ],
             "url_pattern": "/slow/endpoint",
             "extra_config": {
-                "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                "github.com/velonetics/velonetics-ce-ratelimit/juju/proxy": {
                     "maxRate": 100,
                     "capacity": 1
                 }
@@ -153,7 +153,7 @@ Notice how `extra_config` is present in the endpoints and backend scopes.
 }
 {{< /highlight >}}
 
-Check [this larger sample file](https://github.com/krakend/krakend-ce/blob/master/krakend.json) (distributed with KrakenD) where you can see an example on how to modify the application headers, configure the circuit breaker, or apply rate limits.
+Check [this larger sample file](https://github.com/velonetics/velonetics-ce/blob/master/velonetics.json) (distributed with Velonetics) where you can see an example on how to modify the application headers, configure the circuit breaker, or apply rate limits.
 
 ### Advanced tips for shorter configurations
 To keep shorter configuration files, and easier to read, have a look at the best practices to do [housekeeping of your configuration files](/blog/housekeeping-configuration-file/)

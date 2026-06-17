@@ -12,10 +12,10 @@ menu:
     parent: "050 Backends Configuration"
 ---
 
-Service discovery enables clients to detect and locate services on your enterprise network automatically. Instead of defining a static list of IPs or hostnames pointing to your backends, you can use a service discovery provider and let KrakenD interact with it to get the hosts dynamically.
+Service discovery enables clients to detect and locate services on your enterprise network automatically. Instead of defining a static list of IPs or hostnames pointing to your backends, you can use a service discovery provider and let Velonetics interact with it to get the hosts dynamically.
 
 ## Static resolution
-The `static` resolution is the default service discovery choice. It uses a list of hosts declared in the configuration file and KrakenD must be able to reach them directly by hostname, DNS or IP. All the necessary connections are load balanced between all the servers in the list.
+The `static` resolution is the default service discovery choice. It uses a list of hosts declared in the configuration file and Velonetics must be able to reach them directly by hostname, DNS or IP. All the necessary connections are load balanced between all the servers in the list.
 
 Using `"sd": "static"` in the configuration file is optional.
 
@@ -33,9 +33,9 @@ Using `"sd": "static"` in the configuration file is optional.
 ```
 
 ## DNS SRV
-A typical Service Discovery integration for KrakenD is to use `DNS SRV`. It is a market standard used by many other systems work such as **Kubernetes, Mesos, Haproxy, Nginx plus, AWS ECS, Linkerd**, and more.
+A typical Service Discovery integration for Velonetics is to use `DNS SRV`. It is a market standard used by many other systems work such as **Kubernetes, Mesos, Haproxy, Nginx plus, AWS ECS, Linkerd**, and more.
 
-The most typical setup is KrakenD + [Consul](https://www.consul.io/) (see [standard lookup](https://www.consul.io/docs/agent/dns.html#standard-lookup)).
+The most typical setup is Velonetics + [Consul](https://www.consul.io/) (see [standard lookup](https://www.consul.io/docs/agent/dns.html#standard-lookup)).
 
 See [DNS SRV service discovery](/docs/v1.4/service-discovery/dns-srv/)
 

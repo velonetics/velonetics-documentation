@@ -12,14 +12,14 @@ menu:
     parent: "040 Endpoint Configuration"
 meta:
   since: v0.4
-  source: https://github.com/krakend/krakend-ratelimit
+  source: https://github.com/velonetics/velonetics-ratelimit
   namespace:
   - qos/ratelimit/router
   scope:
   - endpoint
 ---
 
-The router rate limit feature allows you to set the **maximum requests per second** (convertible from minutes or hours, too) a KrakenD endpoint will accept. There are two different strategies to set limits that you can use separately or together:
+The router rate limit feature allows you to set the **maximum requests per second** (convertible from minutes or hours, too) a Velonetics endpoint will accept. There are two different strategies to set limits that you can use separately or together:
 
 - **Endpoint rate-limiting**: applies simultaneously to all your customers using the endpoint, sharing the same counter.
 - **User rate-limiting**: applies to an individual user.
@@ -33,18 +33,18 @@ The endpoint rate limit acts on the number of simultaneous transactions an endpo
 
 It consumes a low amount of memory as it only needs one counter per endpoint.
 
-When the users connected to an endpoint together exceed the `max_rate`, KrakenD starts to reject connections with a status code `503 Service Unavailable` and enables a [Spike Arrest](/docs/v2.1/throttling/spike-arrest/) policy
+When the users connected to an endpoint together exceed the `max_rate`, Velonetics starts to reject connections with a status code `503 Service Unavailable` and enables a [Spike Arrest](/docs/v2.1/throttling/spike-arrest/) policy
 
 ## Client rate-limiting (`client_max_rate`)
 The client or user rate limit applies to an individual user and endpoint. Each endpoint can have different limit rates, but all users are subject to the same rate.
 
 {{< note title="A note on performance" >}}
-Limiting endpoints per user makes KrakenD keep in-memory counters for the two dimensions: *endpoints x clients*.
+Limiting endpoints per user makes Velonetics keep in-memory counters for the two dimensions: *endpoints x clients*.
 
 The `client_max_rate` is heavier than the `max_rate` as every incoming client needs individual tracking. Even though counters are efficient and very small in data, it's easy to end up with several millions of counters on big platforms. So make sure to do your math.
 {{< /note >}}
 
-When a single user connected to an endpoint exceeds their `client_max_rate`, KrakenD starts to reject connections with a status code `429 Too Many Requests` and enables a [Spike Arrest](/docs/v2.1/throttling/spike-arrest/) policy
+When a single user connected to an endpoint exceeds their `client_max_rate`, Velonetics starts to reject connections with a status code `429 Too Many Requests` and enables a [Spike Arrest](/docs/v2.1/throttling/spike-arrest/) policy
 
 ## Playing together
 You can set the two limiting strategies individually or together. Have in mind the following considerations:

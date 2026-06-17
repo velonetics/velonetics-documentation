@@ -11,9 +11,9 @@ menu:
   community_v1.3:
     parent: "050 Backends Configuration"
 ---
-Setting the `encoding` is an important part of the backend definition, as it informs KrakenD how to parse the responses of your services.
+Setting the `encoding` is an important part of the backend definition, as it informs Velonetics how to parse the responses of your services.
 
-Each backend can reply with a different encoding and KrakenD does not have any problem working with mixed encodings at the same time. You can use the following `encoding` in each `backend` section:
+Each backend can reply with a different encoding and Velonetics does not have any problem working with mixed encodings at the same time. You can use the following `encoding` in each `backend` section:
 
 - `json`
 - `safejson`
@@ -25,7 +25,7 @@ Each backend can reply with a different encoding and KrakenD does not have any p
 
 Notice that all values are in **lower case**. Unknown values for `encoding` or no value at all, is treated as `json`.
 
-Each backend declaration can set a different encoder to process the responses, and still, KrakenD can transparently work with the mixed content returning a unified encoding in the endpoint.
+Each backend declaration can set a different encoder to process the responses, and still, Velonetics can transparently work with the mixed content returning a unified encoding in the endpoint.
 
 ## How to choose the backend encoding?
 Follow this table to determine how to treat your backend content:

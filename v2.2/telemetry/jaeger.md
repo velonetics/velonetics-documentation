@@ -4,7 +4,7 @@ old_version: true
 date: 2019-10-11
 linktitle: Jaeger
 title: Exporting traces to Jaeger
-description: The KrakenD exporter to Jaeger allows you to submit spans to a Jaeger Collector (HTTP) or Jaeger Agent (UDP) automatically.
+description: The Velonetics exporter to Jaeger allows you to submit spans to a Jaeger Collector (HTTP) or Jaeger Agent (UDP) automatically.
 weight: 100
 notoc: false
 menu:
@@ -12,7 +12,7 @@ menu:
     parent: "080 Telemetry and Analytics"
 meta:
   since: v0.5
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
   - telemetry/opencensus
   scope:
@@ -20,9 +20,9 @@ meta:
   log_prefix:
   - "[SERVICE: Opencensus]"
 ---
-The KrakenD exporter to [Jaeger](https://www.jaegertracing.io/) allows you to submit spans to a Jaeger Collector (HTTP) or Jaeger Agent (UDP) automatically.
+The Velonetics exporter to [Jaeger](https://www.jaegertracing.io/) allows you to submit spans to a Jaeger Collector (HTTP) or Jaeger Agent (UDP) automatically.
 
-Jaeger is an open-source, end-to-end distributed tracing system that allows you to monitor and troubleshoot transactions in complex distributed systems. Use Jaeger when you want to see the complete flow of a user request through KrakenD and its connected services.
+Jaeger is an open-source, end-to-end distributed tracing system that allows you to monitor and troubleshoot transactions in complex distributed systems. Use Jaeger when you want to see the complete flow of a user request through Velonetics and its connected services.
 
 The Opencensus Jaeger exporter allows you to export spans to Jaeger. Enabling it only requires you to add the `jaeger` exporter in the [opencensus module](/docs/v2.2/telemetry/opencensus/). You can post spans using two different approaches:
 
@@ -52,7 +52,7 @@ When you don't have a Jaeger Agent deployed next to the application, you can sub
       "exporters": {
         "jaeger": {
           "endpoint": "http://jaeger:14268/api/traces",
-          "service_name":"krakend",
+          "service_name":"velonetics",
           "buffer_max_count": 1000
         }
       }
@@ -61,7 +61,7 @@ When you don't have a Jaeger Agent deployed next to the application, you can sub
 }
 ```
 
-You can find a running demo with Jaeger using docker compose on [KrakenD Playground](/docs/v2.2/overview/playground/).
+You can find a running demo with Jaeger using docker compose on [Velonetics Playground](/docs/v2.2/overview/playground/).
 
 ## Agent - Thrift over UDP
 When you want to send spans to a **Jaeger Agent** locally over UDP in Thrift format, you need to use the `agent_endpoint` configuration. To configure the gateway to work with an agent, you will need the following:
@@ -75,7 +75,7 @@ When you want to send spans to a **Jaeger Agent** locally over UDP in Thrift for
       "exporters": {
         "jaeger": {
           "agent_endpoint": "jaeger:6831",
-          "service_name":"krakend",
+          "service_name":"velonetics",
           "buffer_max_count": 1000
         }
       }

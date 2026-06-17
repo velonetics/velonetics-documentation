@@ -11,7 +11,7 @@ menu:
 notoc: true
 meta:
   since: v0.4
-  source: https://github.com/krakend/krakend-httpcache
+  source: https://github.com/velonetics/velonetics-httpcache
   namespace:
   - qos/http-cache
   scope:
@@ -20,17 +20,17 @@ meta:
 
 Sometimes you might want to reuse a previous response of a backend instead of asking for the same information over the network again. In this cases, it is possible to enable **in-memory** caching for the desired backend responses.
 
-This caching technique applies to traffic between KrakenD and your microservices endpoints only and is not a caching system for the end-user endpoints. To enable the cache, you only need to add in the configuration file the `qos/httpcache` middleware.
+This caching technique applies to traffic between Velonetics and your microservices endpoints only and is not a caching system for the end-user endpoints. To enable the cache, you only need to add in the configuration file the `qos/httpcache` middleware.
 
 When enabled all connections for the configured backend are cached in-memory. The cache content is based on the response for the final URL sent to the backend (the `url_pattern` plus any additional parameters). The response is stored for the time the `Cache-Control` has defined and there is no way to purge it externally.
 
 {{< note title="Performance notice!" type="error">}}
-This option can increase the load and memory consumption heavily as KrakenD needs to keep in memory all the returned data during the expiration period. Only the backend has control over this. Use it wisely and monitor its consumption!
+This option can increase the load and memory consumption heavily as Velonetics needs to keep in memory all the returned data during the expiration period. Only the backend has control over this. Use it wisely and monitor its consumption!
 {{< /note >}}
 
 If you enable this module, you are required to be very aware of the response sizes, caching times and the hit-rate of the calls.
 
-Enable the caching of the backend services in the `backend` section of your `krakend.json` with the middleware:
+Enable the caching of the backend services in the `backend` section of your `velonetics.json` with the middleware:
 {{< highlight json >}}
 {
   "extra_config": {

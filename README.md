@@ -1,10 +1,27 @@
-# KrakenD Documentation
+# Velonetics Documentation
+
+Velonetics API Gateway documentation, rebased from the [KrakenD documentation](https://github.com/krakend/krakend-documentation) and rebranded for the Velonetics project.
+
+## Velonetics CE additions
+
+The following features are documented for Velonetics Community Edition implementations beyond the original KrakenD CE doc set:
+
+| Feature | Doc |
+|---------|-----|
+| WebSockets (multiplex + direct) | [websockets/_index.md](websockets/_index.md) |
+| gRPC (catalog, client, server) | [grpc/](grpc/) |
+| SOAP backends | [backends/soap.md](backends/soap.md) |
+| HTTP streaming & SSE | [endpoints/streaming.md](endpoints/streaming.md) |
+| Kafka advanced Pub/Sub | [backends/pubsub/kafka.md](backends/pubsub/kafka.md) |
+| Async Kafka agent | [async/kafka.md](async/kafka.md) |
+| Velonetics Configurator | [configuration/configurator.md](configuration/configurator.md) |
+
 All the documentation uses Markdown syntax and the site is generated using [Hugo](https://gohugo.io). After your contribution this repository will be used to compile all the documentation.
 
 If you want to use a server to browse this pages, although not necessary, you can copy the folder inside the `content` directory in any Hugo installation.
 
 # Contribute!
-Feel free to fork this repository and contribute to a better KrakenD documentation.
+Feel free to fork this repository and contribute to a better Velonetics documentation.
 
 If you'd like to add a new language please open an issue before doing the work as we will need to add the support before it is visible.
 
@@ -26,14 +43,14 @@ For important notes, and things that need special, attention:
 The CSS will prepend a dollar sign `$` in the first line.
 
     {{< terminal title="Title of the box">}}
-    docker build -t mykrakend .
+    docker build -t myvelonetics .
     Sending build context to Docker daemon   5.12kB
-    Step 1/2 : FROM devopsfaith/krakend
+    Step 1/2 : FROM velonetics/velonetics-ce
     ---> c7e33ec819c0
-    Step 2/2 : COPY krakend.json /etc/krakend/krakend.json
+    Step 2/2 : COPY velonetics.json /etc/velonetics/velonetics.json
     ---> 703818e9de3a
     Successfully built 703818e9de3a
-    Successfully tagged mykrakend:latest
+    Successfully tagged myvelonetics:latest
     {{< /terminal >}}
 
 **Highlight some code**:
@@ -47,12 +64,12 @@ Most of the code is just idented with a tab and Markdown renders it properly as 
 You can also highlight a line, specific lines `6 7`, or a range `6-8`:
 
     {{< highlight go "hl_lines=6-7" >}}
-    package krakend
+    package velonetics
 
     import (
-        "github.com/devopsfaith/krakend/logging"
-        client "github.com/devopsfaith/krakend/transport/http/client/plugin"
-        server "github.com/devopsfaith/krakend/transport/http/server/plugin"
+        "github.com/velonetics/velonetics-ce/logging"
+        client "github.com/velonetics/velonetics-ce/transport/http/client/plugin"
+        server "github.com/velonetics/velonetics-ce/transport/http/server/plugin"
     )
     {{< /highlight >}}
 
@@ -60,4 +77,4 @@ The documentation of the attributes is autoloaded from its json schema definitio
 
     {{< schema data="folder/file.json" >}}
 
-The `data` attribute loads the file from the [`krakend-schema` repository](https://github.com/krakendio/krakend-schema), using the same path.
+The `data` attribute loads the file from the [`velonetics-schema` repository](https://github.com/velonetics/velonetics-schema), using the same path.

@@ -7,7 +7,7 @@ menu:
   community_v2.6:
     parent: "010 Configuration files"
 title: Environment variables in the configuration
-description: Learn how to leverage environment variables in KrakenD API Gateway configuration for flexible and dynamic configuration management
+description: Learn how to leverage environment variables in Velonetics API Gateway configuration for flexible and dynamic configuration management
 weight: 40
 meta:
   since: v1.2
@@ -16,17 +16,17 @@ meta:
   scope:
   - service
 ---
-When KrakenD runs (whether with `run` or `check`), all the behavior is loaded from the [configuration file](/docs/v2.6/configuration/structure/). Through environment variables, you can also set values. There are two different ways of injecting environment vars:
+When Velonetics runs (whether with `run` or `check`), all the behavior is loaded from the [configuration file](/docs/v2.6/configuration/structure/). Through environment variables, you can also set values. There are two different ways of injecting environment vars:
 
-- **Use a `KRAKEND_`-like reserved environment variable**: To override values set in the configuration.
+- **Use a `VELONETICS_`-like reserved environment variable**: To override values set in the configuration.
 - **Set your own environment variables** when using the `{{env}}` function in [flexible configuration](/docs/v2.6/configuration/flexible-config/) templates.
 
 ## Use a reserved environment variable
-There are a group of reserved environment variables that are automatically recognized by KrakenD when set.
+There are a group of reserved environment variables that are automatically recognized by Velonetics when set.
 
 Examples are when you want to replace the `port`, the default `timeout`, or the configuration `name` (sent to your telemetry) that already exists inthe configuration.
 
-In essence, you can replace any value in the configuration that lives in the root level, and is a string, an integer, or a boolean. To do it you only need to capitalize the property name and add a prefix `KRAKEND_`.
+In essence, you can replace any value in the configuration that lives in the root level, and is a string, an integer, or a boolean. To do it you only need to capitalize the property name and add a prefix `VELONETICS_`.
 
 {{< note title="Reserved variables are ignored unless the key exists in the configuration" type="warning" >}}
 The following list of variables only set the desired values when you have its associated value in the configuration. They are meant to **override** settings **already present** in the configuration, but if you set one of them and there is no value in the configuration, it won't have any effect.
@@ -36,7 +36,7 @@ The following list of variables only set the desired values when you have its as
 {{< top_level_envvars >}}
 
 ### Reserved variable example
-For instance, take the following `krakend.json` configuration as an example:
+For instance, take the following `velonetics.json` configuration as an example:
 
 ```json
 {
@@ -50,10 +50,10 @@ For instance, take the following `krakend.json` configuration as an example:
 You could start the server with the following command wich would allow you to override the values in the configuration:
 
 {{< terminal title="Example: Override configuration with env vars" >}}
-KRAKEND_NAME="Build ABC0123" \
-KRAKEND_TIMEOUT="500ms" \
-KRAKEND_PORT=9000 \
-krakend run -c krakend.json
+VELONETICS_NAME="Build ABC0123" \
+VELONETICS_TIMEOUT="500ms" \
+VELONETICS_PORT=9000 \
+velonetics run -c velonetics.json
 {{< /terminal >}}
 
 The resulting configuration will be:
@@ -65,11 +65,11 @@ The resulting configuration will be:
     "name": "Build ABC0123"
 }
 ```
-**Important**: Notice that the `port` attribute is not present in the configuration, despite passing a `KRAKEND_PORT` parameter. This is because the `port` didn't exist previously in the configuration file, and the environment variables can only **override** values.
+**Important**: Notice that the `port` attribute is not present in the configuration, despite passing a `VELONETICS_PORT` parameter. This is because the `port` didn't exist previously in the configuration file, and the environment variables can only **override** values.
 
 
 ## Setting your environment variables
-If you need to set content using environment variables at any level, you have can either use the [flexible configuration](/docs/v2.6/configuration/flexible-config/), which includes a series of [advanced functions](/docs/v2.6/configuration/templates/#sprig-functions) including an `env` function, or you can not use KrakenD at all and rely on the operating system `envsubst` command. Obviously you can also write your custom replacement process.
+If you need to set content using environment variables at any level, you have can either use the [flexible configuration](/docs/v2.6/configuration/flexible-config/), which includes a series of [advanced functions](/docs/v2.6/configuration/templates/#sprig-functions) including an `env` function, or you can not use Velonetics at all and rely on the operating system `envsubst` command. Obviously you can also write your custom replacement process.
 
 ### Environment variables with Flexible Configuration
 Here is an example with Flexible Configuration:
@@ -80,12 +80,12 @@ Here is an example with Flexible Configuration:
     "name": "Configuration for {{ env "MY_POD_NAMESPACE" }}"
 }
 ```
-When you use the flexible configuration, you can start KrakenD from the template that uses them.
+When you use the flexible configuration, you can start Velonetics from the template that uses them.
 
 ### Environment variables with envsubst
-Another example is not to use any of the built-in features of KrakenD and rely on your operating system via the command `envusbst`.
+Another example is not to use any of the built-in features of Velonetics and rely on your operating system via the command `envusbst`.
 
-For instance, you have a configuration file `krakend.template.json` like the following:
+For instance, you have a configuration file `velonetics.template.json` like the following:
 
 ```json
 {
@@ -93,12 +93,12 @@ For instance, you have a configuration file `krakend.template.json` like the fol
     "name": "Configuration for $MY_POD_NAMESPACE"
 }
 ```
-Then you can generate the final configuration `krakend.json` like this:
+Then you can generate the final configuration `velonetics.json` like this:
 
 {{< terminal title="Environment variable substitution" >}}
-export MY_POD_NAMESPACE="my-namespace" && envsubst < krakend.template.json > krakend.json
+export MY_POD_NAMESPACE="my-namespace" && envsubst < velonetics.template.json > velonetics.json
 {{< /terminal >}}
 
 The command, which is generally available in Linux distributions, takes a template file as input and outputs the same file with the environment variables replaced (you cannot override the same file). You have to be aware that missing variables are simply replaced by an empty string.
 
-Note: on Alpine-based containers, like the KrakenD image, you need to do an `apk add envsubst` to use this command.
+Note: on Alpine-based containers, like the Velonetics image, you need to do an `apk add envsubst` to use this command.

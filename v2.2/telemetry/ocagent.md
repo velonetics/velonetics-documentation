@@ -12,7 +12,7 @@ menu:
     parent: "080 Telemetry and Analytics"
 meta:
   since: v1.1
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
   - telemetry/opencensus
   scope:
@@ -40,7 +40,7 @@ The following configuration snippet sends the data:
       "exporters": {
        "ocagent": {
           "address": "collector",
-          "service_name": "krakend",
+          "service_name": "velonetics",
           "reconnection": "2s",
            "insecure": false,
           "enable_compression": true,

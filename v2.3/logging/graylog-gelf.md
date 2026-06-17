@@ -11,7 +11,7 @@ menu:
     parent: "090 Logging"
 meta:
   since: v0.7
-  source: https://github.com/krakend/krakend-gelf
+  source: https://github.com/velonetics/velonetics-gelf
   namespace:
   - telemetry/gelf
   scope:
@@ -19,7 +19,7 @@ meta:
 log_prefix:
   - "[SERVICE: Logging][GELF]"
 ---
-KrakenD supports sending structured events in GELF format to your Graylog Cluster thanks to the [krakend-gelf](https://github.com/krakend/krakend-gelf) integration.
+Velonetics supports sending structured events in GELF format to your Graylog Cluster thanks to the [velonetics-gelf](https://github.com/velonetics/velonetics-gelf) integration.
 
 The setup of GELF is straightforward and requires to add **two components** in the configuration:
 
@@ -37,7 +37,7 @@ The configuration you need to add is this, and explained below:
       },
       "telemetry/logging": {
           "level": "INFO",
-          "prefix": "[KRAKEND]",
+          "prefix": "[VELONETICS]",
           "syslog": false,
           "stdout": false
       }

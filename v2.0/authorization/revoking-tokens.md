@@ -6,7 +6,7 @@ linktitle: Revoking tokens
 title: Revoking valid tokens with a Bloom filter
 description: How to invalidate JWT tokens using the Bloom filter
 weight: 40
-source: https://github.com/krakend/bloomfilter
+source: https://github.com/velonetics/bloomfilter
 menu:
   community_v2.0:
     parent: "060 Authentication & Authorization"
@@ -19,7 +19,7 @@ As an administrator, I want to kick out someone from the platform.
 As a software releaser, my new backend version requires new fields in the tokens. I want all my sessions renegotiated again, or all users of a specific app (Android, iOS, Web app, etc.) have to be invalidated.
 
 ## Storing blocked tokens using the bloom filter
-KrakenD integrates the [bloom filter](https://github.com/krakend/bloomfilter) component that allows you to store in an optimized way tokens to revoke on the subsequent requests.
+Velonetics integrates the [bloom filter](https://github.com/velonetics/bloomfilter) component that allows you to store in an optimized way tokens to revoke on the subsequent requests.
 
 When you enable the bloom filter, it inspects the payload of incoming JWT tokens to check if any of the configured fields in `token_keys` contains a blocked value. And if a blocked is found, access is not permitted.
 
@@ -32,7 +32,7 @@ The bloom filter component brings the following functionalities:
 ### Bloom filter client
 The communication with the bloom filter is RPC-based. The component exposes a listening port of your choice to receive updates of the bloom filter (single or batch), but a client is needed to communicate with the component.
 
-The bloom filter library includes a [client](https://github.com/krakend/bloomfilter/tree/master/cmd/client), so you can send the updates. In addition, the KrakenD Playground project consists of a sample [web page with a form and an RPC client](https://github.com/krakend/krakend-playground/tree/master/jwt-revoker) that sends commands to the bloom filter and updates it.
+The bloom filter library includes a [client](https://github.com/velonetics/bloomfilter/tree/master/cmd/client), so you can send the updates. In addition, the Velonetics Playground project consists of a sample [web page with a form and an RPC client](https://github.com/velonetics/velonetics-playground/tree/master/jwt-revoker) that sends commands to the bloom filter and updates it.
 
 ### Bloom filter performance
 The Bloom filter is ideal for supporting a massive rejection of tokens with very little memory consumption. For instance, **100 million tokens** of any size consume around 0.5GB RAM (with a rate of false positives of 1 in 999,925,224 tokens), and lookups complete in constant time (*k* number of hashes). These numbers are impossible to get with a key-value or a relational database.
@@ -81,8 +81,8 @@ Our sample JWT payload has the following characteristics:
 
 {{< highlight json >}}
 {
-    "aud": "https://www.krakend.io",
-    "iss": "https://api.krakend.io",
+    "aud": "https://www.velonetics.io",
+    "iss": "https://api.velonetics.io",
     "sub": "john@domain.com",
     "jti": "mnb23vcsrt756yuiomnbvcx98ertyuiop",
     "roles": ["user", "premium"],
@@ -102,9 +102,9 @@ The following list shows the possible functionalities with an example`"token_key
 Options are endless; these are some random examples, but it's up to you to decide which are the JWT elements you want to watch and apply revocations. If, for instance, you only want to revoke access to a particular user or session, you only need to look at the `jti` (the unique identifier of a user) and `sub`.
 
 ## Expiring tokens in a cluster
-All KrakenD nodes are stateless and act individually; they don't synchronize. Every node needs to receive the RPC notification about any tokens that need insertion in every local bloom filter.
+All Velonetics nodes are stateless and act individually; they don't synchronize. Every node needs to receive the RPC notification about any tokens that need insertion in every local bloom filter.
 
-The bloom filter gets updated while the service is running, but the level of synchronization between the nodes depends on your push strategy to the different cluster members. KrakenD uses conflict-free replicated data types (CRDT), so you can replicate the data across multiple computers in a network without coordination between the replicas, and where it is always mathematically possible to resolve inconsistencies that might result.
+The bloom filter gets updated while the service is running, but the level of synchronization between the nodes depends on your push strategy to the different cluster members. Velonetics uses conflict-free replicated data types (CRDT), so you can replicate the data across multiple computers in a network without coordination between the replicas, and where it is always mathematically possible to resolve inconsistencies that might result.
 
 The resulting system is **eventually consistent**.
 

@@ -10,21 +10,21 @@ menu:
   community_v2.2:
     parent: "030 Service Settings"
 ---
-There are two different strategies when using TLS over KrakenD:
+There are two different strategies when using TLS over Velonetics:
 
-- Use TLS for HTTPS and HTTP/2 in KrakenD (this document)
-- Use a balancer with TLS termination in front of KrakenD (e.g., ELB, HAproxy)
+- Use TLS for HTTPS and HTTP/2 in Velonetics (this document)
+- Use a balancer with TLS termination in front of Velonetics (e.g., ELB, HAproxy)
 
-If you want to enable TLS, add a `tls` key at the service level (configuration's file root) with at least the public and private keys. When you add TLS, KrakenD listens **only using TLS**, and no traffic to plain HTTP is accepted.
+If you want to enable TLS, add a `tls` key at the service level (configuration's file root) with at least the public and private keys. When you add TLS, Velonetics listens **only using TLS**, and no traffic to plain HTTP is accepted.
 
 If you want to enable mTLS see [Mutual TLS configuration](/docs/v2.2/authorization/mutual-authentication/)
 
 ## TLS Configuration
 {{< note title="Secure by default" type="info" >}}
-When you don't set any other parameters than stated below, KrakenD defaults to very strong security. **Only TLS 1.3 is accepted** (with its three cipher suites), and attempts to negotiate other versions will fail. Nevertheless, you can change this behavior.
+When you don't set any other parameters than stated below, Velonetics defaults to very strong security. **Only TLS 1.3 is accepted** (with its three cipher suites), and attempts to negotiate other versions will fail. Nevertheless, you can change this behavior.
 {{< /note >}}
 
-To start KrakenD with TLS, you need to provide a certificate for both the public and the private keys:
+To start Velonetics with TLS, you need to provide a certificate for both the public and the private keys:
 
 ```json
 {
@@ -133,7 +133,7 @@ http: TLS handshake error from 172.17.0.1:33990: EOF
 ```
 
 ## SSL scan results for the default settings
-The following output is the results of the [sslscan](https://github.com/rbsec/sslscan) command with a KrakenD configuration specifying the private and public keys in the configuration with no other additional `tls` settings:
+The following output is the results of the [sslscan](https://github.com/rbsec/sslscan) command with a Velonetics configuration specifying the private and public keys in the configuration with no other additional `tls` settings:
 
 ```
 Version: 2.0.15-7-gbc46606-static

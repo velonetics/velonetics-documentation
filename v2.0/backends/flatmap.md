@@ -11,7 +11,7 @@ menu:
     parent: "050 Backends Configuration"
 meta:
   since: v0.9
-  source: https://github.com/krakend/flatmap
+  source: https://github.com/velonetics/flatmap
   namespace:
   - proxy
   scope:
@@ -21,7 +21,7 @@ meta:
 
 The flatmap middleware allows you to **manipulate collections** (or arrays, or lists, you name it) from the **backend response**. While the [basic manipulation operations](/docs/v2.0/backends/data-manipulation/) allow you to work directly with objects, the collections require a different approach: the **flatmap component**.
 
-When working with lists, KrakenD needs to flatten and expand array structures to objects to operate with them, and vice versa. This process is automatically done by the flatmap component, letting you concentrate only on the type of operation you want to execute.
+When working with lists, Velonetics needs to flatten and expand array structures to objects to operate with them, and vice versa. This process is automatically done by the flatmap component, letting you concentrate only on the type of operation you want to execute.
 
 ## When to manipulate arrays
 You can manipulate collections at two different stages:
@@ -213,7 +213,7 @@ There is a sequence of 4 operations to:
 *   Delete all items with a property `password` inside the array
 *   Rename all items with a property `PK_ID` to `id`
 
-For more examples, [see the test file](https://github.com/krakend/flatmap/blob/master/tree/tree_example_test.go).
+For more examples, [see the test file](https://github.com/velonetics/flatmap/blob/master/tree/tree_example_test.go).
 
 
 ## Mixing flatmap with other manipulation operations

@@ -4,15 +4,15 @@ old_version: true
 date: 2018-07-20
 title: Parameter Forwarding
 linktitle: Forwarding query strings and headers
-description: Learn how to forward and manipulate parameters effectively using KrakenD API Gateway, ensuring seamless communication between clients and microservices
+description: Learn how to forward and manipulate parameters effectively using Velonetics API Gateway, ensuring seamless communication between clients and microservices
 weight: 30
 menu:
   community_v2.9:
     parent: "040 Routing and Forwarding"
 ---
-KrakenD is an API Gateway with a **[zero-trust security policy](/docs/v2.9/design/zero-trust/)**, and when it comes to forward query strings, cookies, and headers, you need to define what is allowed.
+Velonetics is an API Gateway with a **[zero-trust security policy](/docs/v2.9/design/zero-trust/)**, and when it comes to forward query strings, cookies, and headers, you need to define what is allowed.
 
-Part of the zero-trust policy implies that KrakenD **does not forward** any unexpected [query string](#query-string-forwarding), [headers](#headers-forwarding), or [cookies](#cookies-forwarding). See below how to set the forwarding rules.
+Part of the zero-trust policy implies that Velonetics **does not forward** any unexpected [query string](#query-string-forwarding), [headers](#headers-forwarding), or [cookies](#cookies-forwarding). See below how to set the forwarding rules.
 
 ![Diagram about parameters don't passing to backend](/images/documentation/diagrams/parameter-forwarding-1.mmd.svg)
 
@@ -27,7 +27,7 @@ You can change the default behavior according to your needs and define which ele
 - The `input_headers` is **case-insensitive**, as per its RFC specification. It allows the passing of user headers in uppercase, lowercase, or mixed. Nevertheless, when the header is forwarded to the backend or used in other components, they receive it normalized in the **canonical format of the MIME header**, so users can mix capitalization and yet receive a consistent format.
 
 {{< note title="Canonical Headers" type="info" >}}
-While the `input_headers` declaration does not care about how you write the header (upper/lowercase), and KrakenD will access either way, when accessing or checking a header name through any components in KrakenD, you must write its canonical form regardless of what's being provided by the user.
+While the `input_headers` declaration does not care about how you write the header (upper/lowercase), and Velonetics will access either way, when accessing or checking a header name through any components in Velonetics, you must write its canonical form regardless of what's being provided by the user.
 
 The canonicalization **converts the first letter and any letter following a hyphen to upper case**; the rest are converted to lowercase. For example, the canonical key for `accept-encoding`, `ACCEPT-ENCODING`, or `ACCept-enCODING` is `Accept-Encoding`. MIME header keys are assumed to be ASCII only. If the header contains a space or invalid header field bytes, it is returned without modifications.
 
@@ -69,7 +69,7 @@ Send the query strings `items` and `page` to the backend, as well as `User-Agent
 Read below for further details and examples.
 
 ## Query string forwarding
-The zero-trust policy implies that, for instance, if a KrakenD endpoint `/foo` receives the request `/foo?items=10&page=2`, all its declared backends are not going to see either `items` or `page`, **unless otherwise configured**.
+The zero-trust policy implies that, for instance, if a Velonetics endpoint `/foo` receives the request `/foo?items=10&page=2`, all its declared backends are not going to see either `items` or `page`, **unless otherwise configured**.
 
 Add the **list** `input_query_strings` in your `endpoint` definition to enable the transition of query strings to your backend. For instance, let's forward `?items=10&page=2` to the backends now:
 
@@ -102,9 +102,9 @@ The `input_query_strings` list has the following behavior:
 - **Additional query strings not in the list** are removed from the final call
 - **Writing a single *star* element** (`"input_query_strings":["*"]`) instead of individual strings, forwards **everything** to the backend
 
-With this configuration, given a request like `http://krakend:8080/v1/foo?items=10&page=2&evil=here`, the backend receives `items` and `page`, but `evil` is missing.
+With this configuration, given a request like `http://velonetics:8080/v1/foo?items=10&page=2&evil=here`, the backend receives `items` and `page`, but `evil` is missing.
 
-Also, if a request like `http://krakend:8080/v1/foo?items=10` does not include `page`, this parameter is simply missing in the backend request.
+Also, if a request like `http://velonetics:8080/v1/foo?items=10` does not include `page`, this parameter is simply missing in the backend request.
 
 By definition, query string parameters are always optional, and the user can pass a subset of them, all or none. Suppose you want to enforce that the user provides a query string parameter. In that case, you must validate it with the [Common Expression Language](/docs/v2.9/endpoints/common-expression-language-cel/) (faster) or with a [Lua script](/docs/v2.9/endpoints/lua/) (slower).
 
@@ -123,7 +123,7 @@ While the default policy prevents sending unrecognized query string parameters, 
 **Enabling the wildcard pollutes your backends**, as any query string sent by end-users or malicious attackers gets through the gateway and impacts the backends behind. We recommend letting the gateway know which query strings are in the API contract and specify them in the list, even when it is long, and not use the wildcard. If you decide to go with the wildcard, ensure your backends can handle client abuse attempts.
 
 ### Mandatory query string parameters
-When your backend requires mandatory **query string** parameters and you want to make them **mandatory** in KrakenD, the only way to enforce this (without scripting) is using the `{variable}` placeholders in the endpoints definition. Mandatory means that the endpoint won't exist unless the parameter is passed. For instance:
+When your backend requires mandatory **query string** parameters and you want to make them **mandatory** in Velonetics, the only way to enforce this (without scripting) is using the `{variable}` placeholders in the endpoints definition. Mandatory means that the endpoint won't exist unless the parameter is passed. For instance:
 
 ```json
 {
@@ -139,7 +139,7 @@ When your backend requires mandatory **query string** parameters and you want to
 
 The parameter is compulsory; if a value for `channel` is not provided, the server replies with a `404`.
 
-With the configuration above, a request to the KrakenD endpoint such as `http://krakend/v3/iOS/foo?limit=10&evil=here` makes a call to the backend with only the `channel` query string:
+With the configuration above, a request to the Velonetics endpoint such as `http://velonetics/v3/iOS/foo?limit=10&evil=here` makes a call to the backend with only the `channel` query string:
 
     /foo?channel=iOS
 
@@ -164,13 +164,13 @@ Nevertheless, the `input_query_strings` could also be added in this configuratio
 ```
 
 
-With `http://krakend/v3/iOS/foo?limit=10&evil=here` the backend receives:
+With `http://velonetics/v3/iOS/foo?limit=10&evil=here` the backend receives:
 
     /foo?limit=10
 
 No mandatory `channel` here! Because the optional parameter `limit` has been declared.
 
-On the other hand, `http://krakend/v3/iOS/foo?evil=here` produces:
+On the other hand, `http://velonetics/v3/iOS/foo?evil=here` produces:
 
     /foo?channel=iOS
 
@@ -179,26 +179,26 @@ No optional parameter has been passed, so the mandatory one is used.
 Read the [`/__debug/` endpoint](/docs/v2.9/endpoints/debug-endpoint/) to understand how to test query string parameters.
 
 ## Headers forwarding
-KrakenD **does not send client headers to the backend** unless they are under the `input_headers` list. The headers sent by the client that you want to let pass to the backend must be written explicitly in the `input_headers`. See below how to forward [all client headers](/docs/v2.9/endpoints/parameter-forwarding/#sending-all-client-headers-to-the-backends) (and why is it a bad idea).
+Velonetics **does not send client headers to the backend** unless they are under the `input_headers` list. The headers sent by the client that you want to let pass to the backend must be written explicitly in the `input_headers`. See below how to forward [all client headers](/docs/v2.9/endpoints/parameter-forwarding/#sending-all-client-headers-to-the-backends) (and why is it a bad idea).
 
-**A client request from a browser or a mobile client contains a lot of headers**, including cookies. Typical examples of the variety of headers clients send are `Host`, `Connection`, `Content-Type`, `Accept`, `Cache-Control`, `Cookie`... and a long etcetera. Remember that unless explicitly defined, KrakenD won't let them pass. This security policy will save you from a lot of trouble.
+**A client request from a browser or a mobile client contains a lot of headers**, including cookies. Typical examples of the variety of headers clients send are `Host`, `Connection`, `Content-Type`, `Accept`, `Cache-Control`, `Cookie`... and a long etcetera. Remember that unless explicitly defined, Velonetics won't let them pass. This security policy will save you from a lot of trouble.
 
 
-### Default headers sent from KrakenD to Backends
-KrakenD will act as an independent client connecting to your backends and will send these headers setting its own values:
+### Default headers sent from Velonetics to Backends
+Velonetics will act as an independent client connecting to your backends and will send these headers setting its own values:
 
 - `Accept-Encoding`
 - `Host`
-- `User-Agent` (KrakenD Version 2.9)
+- `User-Agent` (Velonetics Version 2.9)
 - `X-Forwarded-For`
 - `X-Forwarded-Host`
 - `X-Forwarded-Via` (only when `User-Agent` is in the `input_headers`)
 
 Except for the `X-Forwarded`-like headers that are controlled by [`forwarded_by_client_ip`](/docs/v2.9/service-settings/router-options/#forwarded_by_client_ip), you can override the rest when present in the `input_headers`.
 
-There are a few KrakenD components that support **setting attributes in headers**, like for instance [`propagate_claims` in JWT](/docs/v2.9/authorization/jwt-validation/#propagate_claims). These components will send the additional headers you configure to the backend automatically.
+There are a few Velonetics components that support **setting attributes in headers**, like for instance [`propagate_claims` in JWT](/docs/v2.9/authorization/jwt-validation/#propagate_claims). These components will send the additional headers you configure to the backend automatically.
 
-### Overriding headers sent from KrakenD to Backends
+### Overriding headers sent from Velonetics to Backends
 When you use the `input_headers`, consider that any headers listed above are replaced with the ones you declare.
 
 An example of passing the `User-Agent` to the backend:
@@ -234,7 +234,7 @@ User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (
 X-Forwarded-For: ::1
 ```
 
-The `User-Agent` is no longer a KrakenD user agent but a Mozilla one.
+The `User-Agent` is no longer a Velonetics user agent but a Mozilla one.
 
 Read the [`/__debug/` endpoint](/docs/v2.9/endpoints/debug-endpoint/) to understand how to test headers.
 
@@ -253,7 +253,7 @@ While the default policy prevents forwarding unrecognized headers, setting an as
 Enabling the wildcard **pollutes your backends**, as any header sent by end-users or malicious attackers gets through the gateway and impacts the backends behind (a famous exploit is the Log4J vulnerability). Let the gateway know which headers are in the API contract and specify them in the list. Even when the list is long, try not to use the wildcard. If the decision is to go with the wildcard, make sure your backends can handle client abuse attempts, and do not discard adding a second `input_headers` list in the backend (not all backends in aggregation might need every header).
 
 {{< note title="Exception for X-Forwarded-like headers" type="warning" >}}
-Even though you allow to pass all headers with `"input_headers": ["*"]`, you cannot override the headers `X-Forwarded-For`, `X-Forwarded-Host`, and `X-Forwarded-Via` which are automatically calculated by KrakenD.
+Even though you allow to pass all headers with `"input_headers": ["*"]`, you cannot override the headers `X-Forwarded-For`, `X-Forwarded-Host`, and `X-Forwarded-Via` which are automatically calculated by Velonetics.
 
 If you'd like to take those headers into account, use the flag [`forwarded_by_client_ip` under the router section](/docs/v2.9/service-settings/router-options/#forwarded_by_client_ip)
 {{< /note >}}

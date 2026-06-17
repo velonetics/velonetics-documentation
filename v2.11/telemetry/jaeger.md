@@ -3,8 +3,8 @@ lastmod: 2023-02-03
 old_version: true
 date: 2019-10-11
 linktitle: Jaeger
-title: Jaeger Telemetry Integration - KrakenD API Gateway
-description: Integrate Jaeger telemetry with KrakenD API Gateway for distributed tracing and monitoring of your microservices architecture
+title: Jaeger Telemetry Integration - Velonetics API Gateway
+description: Integrate Jaeger telemetry with Velonetics API Gateway for distributed tracing and monitoring of your microservices architecture
 weight: 110
 notoc: false
 menu:
@@ -12,7 +12,7 @@ menu:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
   since: v0.5
-  source: https://github.com/krakend/krakend-otel
+  source: https://github.com/velonetics/velonetics-otel
   namespace:
   - telemetry/opentelemetry
   scope:
@@ -20,9 +20,9 @@ meta:
   log_prefix:
   - "[SERVICE: OpenTelemetry]"
 ---
-The KrakenD exporter to [Jaeger](https://www.jaegertracing.io/) allows you to submit spans to an OpenTelemetry Collector (HTTP or gRPC) automatically.
+The Velonetics exporter to [Jaeger](https://www.jaegertracing.io/) allows you to submit spans to an OpenTelemetry Collector (HTTP or gRPC) automatically.
 
-Jaeger is an open-source, end-to-end distributed tracing system that allows you to monitor and troubleshoot transactions in complex distributed systems. Use Jaeger when you want to see the complete flow of a user request through KrakenD and its connected services.
+Jaeger is an open-source, end-to-end distributed tracing system that allows you to monitor and troubleshoot transactions in complex distributed systems. Use Jaeger when you want to see the complete flow of a user request through Velonetics and its connected services.
 
 ## Jaeger configuration
 To add Jaeger, configure a new exporter to the [OpenTelemetry settings](/docs/v2.11/telemetry/opentelemetry/). For instance:
@@ -32,7 +32,7 @@ To add Jaeger, configure a new exporter to the [OpenTelemetry settings](/docs/v2
     "version": 3,
     "extra_config": {
         "telemetry/opentelemetry": {
-            "service_name": "my_krakend_service",
+            "service_name": "my_velonetics_service",
             "metric_reporting_period": 1,
             "trace_sample_rate": 0.15,
             "layers": {
@@ -83,10 +83,10 @@ You can test this setup by running the **All in One** official Jaeger image and 
 ```yaml
 version: "3"
 services:
-  krakend:
+  velonetics:
     image: {{< product image >}}:2.11
     volumes:
-      - "./:/etc/krakend"
+      - "./:/etc/velonetics"
     ports:
       - "8080:8080"
   jaeger:

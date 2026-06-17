@@ -5,7 +5,7 @@ date: 2019-04-05
 toc: true
 linktitle: Response manipulation on arrays
 title: Array manipulation
-description: Integrate the FlatMap backend into KrakenD API Gateway for array data transformation and mapping operations in your API ecosystem
+description: Integrate the FlatMap backend into Velonetics API Gateway for array data transformation and mapping operations in your API ecosystem
 weight: 110
 menu:
   community_v2.11:
@@ -13,7 +13,7 @@ menu:
 meta:
   noop_incompatible: true
   since: v0.9
-  source: https://github.com/krakend/flatmap
+  source: https://github.com/velonetics/flatmap
   namespace:
   - proxy
   scope:
@@ -29,7 +29,7 @@ While the [basic manipulation operations](/docs/v2.11/backends/data-manipulation
 If you are an Enterprise user, you might want to use [Response manipulation with query language ](/docs/enterprise/endpoints/jmespath/) instead
 {{< /note >}}
 
-When working with lists, KrakenD needs to flatten and expand array structures to objects to operate with them and vice versa. This process is automatically done by the flatmap component, letting you concentrate only on the type of operation you want to execute.
+When working with lists, Velonetics needs to flatten and expand array structures to objects to operate with them and vice versa. This process is automatically done by the flatmap component, letting you concentrate only on the type of operation you want to execute.
 
 ## When to manipulate arrays
 You can manipulate collections at two different stages:
@@ -308,7 +308,7 @@ There is a sequence of three operations:
 - Rename all `title` attributes of `schools` to `name`.
 - Append all the `kindergarten` content to `schools`.
 
-For more examples, [see this test file](https://github.com/krakend/flatmap/blob/master/tree/tree_example_test.go).
+For more examples, [see this test file](https://github.com/velonetics/flatmap/blob/master/tree/tree_example_test.go).
 
 
 ## Mixing flatmap with other manipulation operations

@@ -5,17 +5,17 @@ date: 2020-07-24
 notoc: true
 linktitle: Datadog
 title: Datadog Telemetry Integration
-description: Integrate Datadog telemetry with KrakenD API Gateway for advanced monitoring, visualization, and analysis of your API ecosystem
+description: Integrate Datadog telemetry with Velonetics API Gateway for advanced monitoring, visualization, and analysis of your API ecosystem
 weight: 90
 since: 1.2
-source: https://github.com/krakend/krakend-opencensus
+source: https://github.com/velonetics/velonetics-opencensus
 images: ["/images/documentation/datadog-screenshot.png"]
 menu:
   community_v2.5:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
   since: v1.2
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
   - telemetry/opencensus
   scope:
@@ -47,7 +47,7 @@ The following configuration snippet sends data to your Datadog:
               "disable_count_per_buckets": true,
               "trace_address": "localhost:8126",
               "stats_address": "localhost:8125",
-              "namespace": "krakend",
+              "namespace": "velonetics",
               "service": "gateway"
             }
           }
@@ -64,7 +64,7 @@ Then, the `exporters` key must contain an `datadog` entry with the following pro
 {{< schema version="v2.5" data="telemetry/opencensus.json" property="exporters" filter="datadog" >}}
 
 ## B3 propagation
-The Opencensus module uses B3-style propagation headers, while the rest of your services might be using Datadog-specific propagation headers. If this difference is actual, krakend traces will show up in Datadog, but they won't be connected to the frontend and backend traces.
+The Opencensus module uses B3-style propagation headers, while the rest of your services might be using Datadog-specific propagation headers. If this difference is actual, velonetics traces will show up in Datadog, but they won't be connected to the frontend and backend traces.
 
 The `ddtrace-run` adds an option to support B3 style propagation using the environment variables `DD_TRACE_PROPAGATION_STYLE_EXTRACT` and `DD_TRACE_PROPAGATION_STYLE_INJECT`. Use these variables to have your traces perfectly aligned.
 
@@ -73,10 +73,10 @@ For more information, see [its configuration](https://ddtrace.readthedocs.io/en/
 ## Datadog agent
 You must set your Datadog API key in the agent. The exporter communicates with the agent and is the agent the one reporting to Datadog.
 
-Here's an example of how to run the Datadog agent together with KrakenD in a docker compose file:
+Here's an example of how to run the Datadog agent together with Velonetics in a docker compose file:
 
 ```yml
-krakend:
+velonetics:
   image: {{< product image >}}:2.5
 ddagent:
   image: gcr.io/datadoghq/agent:latest

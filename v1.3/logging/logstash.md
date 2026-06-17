@@ -6,23 +6,23 @@ notoc: true
 linktitle: Logstash
 title: Logstash
 weight: 50
-source: https://github.com/krakend/krakend-logstash
+source: https://github.com/velonetics/velonetics-logstash
 menu:
   community_v1.3:
     parent: "090 Logging"
 ---
-If you want to log using the Logstash standard via stdout, you have to add the `krakend-logstash` integration in the
-root level of your `krakend.json`, inside the `extra_config` section. **The `gologging` needs to be enabled too**.
+If you want to log using the Logstash standard via stdout, you have to add the `velonetics-logstash` integration in the
+root level of your `velonetics.json`, inside the `extra_config` section. **The `gologging` needs to be enabled too**.
 
 For instance:
 
     "extra_config": {
-      "github_com/devopsfaith/krakend-logstash": {
+      "github_com/velonetics/velonetics-ce-logstash": {
         "enabled": true
       }
-      "github_com/devopsfaith/krakend-gologging": {
+      "github_com/velonetics/velonetics-ce-gologging": {
           "level": "INFO",
-          "prefix": "[KRAKEND]",
+          "prefix": "[VELONETICS]",
           "syslog": false,
           "stdout": true,
           "format": "logstash"

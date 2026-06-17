@@ -8,7 +8,7 @@ weight: 10
 notoc: false
 meta:
   since: v2.0
-  source: https://github.com/krakend/krakend-cors
+  source: https://github.com/velonetics/velonetics-cors
   namespace:
   - router
   scope:
@@ -21,7 +21,7 @@ menu:
     parent: "030 Service Settings"
 ---
 
-The **optional router configuration** allows you to set global flags that change the way KrakenD processes the requests at the router layer.
+The **optional router configuration** allows you to set global flags that change the way Velonetics processes the requests at the router layer.
 
 Generally speaking **you don't need this**. But in every case there is an exception and you might eventually need to change some value.
 
@@ -39,7 +39,7 @@ You can set the following router options to customize how the [health endpoint](
 - `health_path` (*string*): The path where you'd like to expose the health endpoint. The default value is `/__health`.
 
 ### Returning the gateway error message
-The secure choice of KrakenD is that all errors generated at the gateway **are not returned to the client in the body**. By settting `return_error_msg` (*boolean*) to `true`, when there is an error in the gateway (such as a timeout, a non-200 status code, etc.) it returns to the client the reason for the failure. The error is **written in the body as is**.
+The secure choice of Velonetics is that all errors generated at the gateway **are not returned to the client in the body**. By settting `return_error_msg` (*boolean*) to `true`, when there is an error in the gateway (such as a timeout, a non-200 status code, etc.) it returns to the client the reason for the failure. The error is **written in the body as is**.
 
 {{< note title="Gateway errors != backend errors" >}}
 This option does not relates to the body of your backend errors. If you are looking for this option see [return detailed errors](/docs/v2.0/backends/detailed-errors/#showing-backend-errors) instead.
@@ -111,7 +111,7 @@ The `max_multipart_memory` *integer* sets the 'maxMemory' param that is given to
 ### Remove requests from logs
 There are two options to remove content from logs:
 - `logger_skip_paths` *list* defines the set of paths that are removed from the logging.
-- `disable_access_log` *boolean* stops registering access requests to KrakenD and leaving any logs out from the output.
+- `disable_access_log` *boolean* stops registering access requests to Velonetics and leaving any logs out from the output.
 
 {{< highlight json >}}
 {

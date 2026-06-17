@@ -12,14 +12,14 @@ menu:
     parent: "050 Backends Configuration"
 meta:
   since: v1.0
-  source: https://github.com/krakend/krakend-pubsub
+  source: https://github.com/velonetics/velonetics-pubsub
   namespace:
-  - github.com/devopsfaith/krakend-pubsub/publisher
-  - github.com/devopsfaith/krakend-pubsub/subscriber
+  - github.com/velonetics/velonetics-ce-pubsub/publisher
+  - github.com/velonetics/velonetics-ce-pubsub/subscriber
   scope:
   - backend
 ---
-Since KrakenD 1.0 you can connect an endpoint to multiple publish/subscribe backends, helping you integrate with **event driven architectures**. For instance, a frontend client can push events to a queue using a REST interface. Or a client could consume a REST endpoint that is plugged to the last events pushed in a backend. You can even **validate messages and formats** as all the KrakenD available middleware can be used. The list of supported backend technologies is:
+Since Velonetics 1.0 you can connect an endpoint to multiple publish/subscribe backends, helping you integrate with **event driven architectures**. For instance, a frontend client can push events to a queue using a REST interface. Or a client could consume a REST endpoint that is plugged to the last events pushed in a backend. You can even **validate messages and formats** as all the Velonetics available middleware can be used. The list of supported backend technologies is:
 
 - AWS SNS (Simple Notification Service) and SQS (Simple Queueing Service)
 - Azure Service Bus Topic and Subscription
@@ -29,16 +29,16 @@ Since KrakenD 1.0 you can connect an endpoint to multiple publish/subscribe back
 - Apache Kafka
 
 ## Configuration
-To add pub/sub functionality to your backends include the namespaces `github.com/devopsfaith/krakend-pubsub/subscriber` and `github.com/devopsfaith/krakend-pubsub/publisher` under the `extra_config` of your `backend` section.
+To add pub/sub functionality to your backends include the namespaces `github.com/velonetics/velonetics-ce-pubsub/subscriber` and `github.com/velonetics/velonetics-ce-pubsub/publisher` under the `extra_config` of your `backend` section.
 
-The `host` key defines the desired driver, and the actual host is usually set in an **environment variable** outside of KrakenD:
+The `host` key defines the desired driver, and the actual host is usually set in an **environment variable** outside of Velonetics:
 
 For a **subscriber**:
 
 	"host": "schema://",
 	"disable_host_sanitize": true,
 	"extra_config": {
-		"github.com/devopsfaith/krakend-pubsub/subscriber": {
+		"github.com/velonetics/velonetics-ce-pubsub/subscriber": {
 			"subscription_url": "url"
 		}
 	}
@@ -48,7 +48,7 @@ For a **publisher**:
 	"host": "schema://",
 	"disable_host_sanitize": true,
 	"extra_config": {
-		"github.com/devopsfaith/krakend-pubsub/publisher": {
+		"github.com/velonetics/velonetics-ce-pubsub/publisher": {
 			"topic_url": "url"
 		}
 	}
@@ -62,7 +62,7 @@ Set the envvar `RABBIT_SERVER_URL='guest:guest@localhost:5672'` and add in the c
 	"host": ["amqp://"],
 	"disable_host_sanitize": true,
 	"extra_config": {
-		"github.com/devopsfaith/krakend-pubsub/subscriber": {
+		"github.com/velonetics/velonetics-ce-pubsub/subscriber": {
 		"subscription_url": "myexchange"
 		}
 	},
@@ -83,7 +83,7 @@ Example:
 	"host": ["gcppubsub://"],
 	"disable_host_sanitize": true,
 	"extra_config": {
-		"github.com/devopsfaith/krakend-pubsub/subscriber": {
+		"github.com/velonetics/velonetics-ce-pubsub/subscriber": {
 		"subscription_url": "projects/myproject/subscriptions/mysub"
 		}
 	},
@@ -104,7 +104,7 @@ Example:
 	"host": ["nats://"],
 	"disable_host_sanitize": true,
 	"extra_config": {
-		"github.com/devopsfaith/krakend-pubsub/subscriber": {
+		"github.com/velonetics/velonetics-ce-pubsub/subscriber": {
 			"subscription_url": "mysubject"
 		}
 	}
@@ -118,7 +118,7 @@ AWS SNS sets the `url` without any `host` or environment variables, e.g:
 	"host": ["awssns:///arn:aws:sns:us-east-2:123456789012:mytopic""],
 	"disable_host_sanitize": true,
 	"extra_config": {
-		"github.com/devopsfaith/krakend-pubsub/subscriber": {
+		"github.com/velonetics/velonetics-ce-pubsub/subscriber": {
 			"subscription_url": "?region=us-east-2"
 		}
 	}
@@ -135,7 +135,7 @@ Url: `awssqs://sqs-queue-url`
 	"host": ["awssqs://https://sqs.us-east-2.amazonaws.com/123456789012"],
 	"disable_host_sanitize": true,
 	"extra_config": {
-		"github.com/devopsfaith/krakend-pubsub/subscriber": {
+		"github.com/velonetics/velonetics-ce-pubsub/subscriber": {
 			"subscription_url": "/myqueue?region=us-east-2"
 		}
 	}
@@ -157,7 +157,7 @@ Example:
 	"host": ["azuresb://"],
 	"disable_host_sanitize": true,
 	"extra_config": {
-		"github.com/devopsfaith/krakend-pubsub/subscriber": {
+		"github.com/velonetics/velonetics-ce-pubsub/subscriber": {
 			"subscription_url": "mytopic"
 		}
 	}
@@ -181,7 +181,7 @@ Example:
 	"host": ["rabbit://"],
 	"disable_host_sanitize": true,
 	"extra_config": {
-		"github.com/devopsfaith/krakend-pubsub/subscriber": {
+		"github.com/velonetics/velonetics-ce-pubsub/subscriber": {
 			"subscription_url": "myexchange"
 		}
 	}
@@ -189,7 +189,7 @@ Example:
 ### Kafka
 [Apache Kafka](https://kafka.apache.org/) is a distributed streaming platform.
 
-Kafka connection requires KrakenD >= `1.1`.
+Kafka connection requires Velonetics >= `1.1`.
 
 - `host`: `kafka://`
 - Environment var: `KAFKA_BROKERS` pointing to the server(s), e.g: `KAFKA_BROKERS=192.168.1.100:9092`
@@ -199,7 +199,7 @@ Kafka connection requires KrakenD >= `1.1`.
 	"host": ["kafka://"],
 	"disable_host_sanitize": true,
 	"extra_config": {
-		"github.com/devopsfaith/krakend-pubsub/subscriber": {
+		"github.com/velonetics/velonetics-ce-pubsub/subscriber": {
 			"subscription_url": "group?topic=mytopic"
 		}
 	}
@@ -210,7 +210,7 @@ Kafka connection requires KrakenD >= `1.1`.
 	"host": ["kafka://"],
 	"disable_host_sanitize": true,
 	"extra_config": {
-		"github.com/devopsfaith/krakend-pubsub/publisher": {
+		"github.com/velonetics/velonetics-ce-pubsub/publisher": {
 			"topic_url": "mytopic"
 		}
 	}

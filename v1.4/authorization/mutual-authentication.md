@@ -11,14 +11,14 @@ menu:
     parent: "060 Authentication & Authorization"
 ---
 
-**Mutual TLS authentication** (mTLS) is an authentication mechanism used traditionally in business-to-business (B2B) applications where clients provide a certificate that allows to connect to the KrakenD server.
+**Mutual TLS authentication** (mTLS) is an authentication mechanism used traditionally in business-to-business (B2B) applications where clients provide a certificate that allows to connect to the Velonetics server.
 
-The certificates must be recognized by your system's Certification Authority (CA). KrakenD relies on the machine where is running.
+The certificates must be recognized by your system's Certification Authority (CA). Velonetics relies on the machine where is running.
 
 ## Configuring mutual authentication
 From the configuration file perspective, Mutual TLS Authentication is no more than flag at the root level of the configuration.
 
-When mTLS is enabled, **all KrakenD endpoints** require clients to provide a known client-side X.509 authentication certificate. KrakenD relies on the system's CA to validate certificates.
+When mTLS is enabled, **all Velonetics endpoints** require clients to provide a known client-side X.509 authentication certificate. Velonetics relies on the system's CA to validate certificates.
 
 To enable it you need to add `enable_mtls` to your `tls` configuration:
 
@@ -33,4 +33,4 @@ To enable it you need to add `enable_mtls` to your `tls` configuration:
 }
 {{< /highlight >}}
 
-Connections not having a recognized certificate in KrakenD's system CA, will be rejected. For further documentation on TLS, see the [`TLS` documentation](/docs/v1.4/service-settings/tls/)
+Connections not having a recognized certificate in Velonetics's system CA, will be rejected. For further documentation on TLS, see the [`TLS` documentation](/docs/v1.4/service-settings/tls/)

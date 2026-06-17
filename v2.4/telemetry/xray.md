@@ -10,7 +10,7 @@ menu:
   community_v2.4:
     parent: "080 Telemetry and Analytics"
 meta:
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
   - telemetry/opencensus
   log_prefix:

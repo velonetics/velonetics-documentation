@@ -5,29 +5,29 @@ date: 2019-01-24
 linktitle: Checking requests and responses
 title: Checking requests and responses with the Common Expression Language (CEL)
 weight: 80
-images: ["/images/documentation/krakend-cel.png"]
+images: ["/images/documentation/velonetics-cel.png"]
 menu:
   community_v1.4:
     parent: "040 Endpoint Configuration"
 meta:
   since: v0.8
-  source: https://github.com/krakend/krakend-cel
+  source: https://github.com/velonetics/velonetics-cel
   namespace:
-  - github.com/devopsfaith/krakend-cel
+  - github.com/velonetics/velonetics-cel
   scope:
   - endpoint
   - backend
 ---
 There are times when you might want to include **additional logic** in the gateway to decide if a request has to be fulfilled or not.
 
-The [Common Expression Language (CEL)](https://github.com/krakend/krakend-cel)
+The [Common Expression Language (CEL)](https://github.com/velonetics/velonetics-cel)
 middleware enables Google's [CEL spec](https://github.com/google/cel-spec)
 which implements common semantics for expression evaluation, and is a very
 simple and powerful option to have full control during requests and responses.
 
 When the CEL component is enabled, any amount of expressions to check both requests and responses can be set.
 
-Then, during runtime, when an expression returns `false`, KrakenD does not return the content as the condition has failed. Otherwise, if all expressions returned `true`, the content is served.
+Then, during runtime, when an expression returns `false`, Velonetics does not return the content as the condition has failed. Otherwise, if all expressions returned `true`, the content is served.
 
 The CEL expressions have a similar syntax to expressions in C/C++/Java/JavaScript and evaluate to a boolean condition. For instance:
 
@@ -37,7 +37,7 @@ This expression checks that the request header array `X-Forwarded-For` contains 
 
 CEL expressions can be used in five different places: during the **request** and the **response** of both **backends** and **endpoints** (see the blue dots in the image), and in the router layer as a JWT rejecter. The flow is:
 
-![The 5 CEL places](/images/documentation/krakend-cel.png)
+![The 5 CEL places](/images/documentation/velonetics-cel.png)
 
 - **JWT** evaluation
 - **Endpoint request** evaluation
@@ -46,7 +46,7 @@ CEL expressions can be used in five different places: during the **request** and
 - **Endpoint response** evaluation (can evaluate all merged data)
 
 ## Configuration
-The CEL component goes inside the `extra_config` of your `endpoints` or your `backend` using the namespace `github.com/devopsfaith/krakend-cel`.
+The CEL component goes inside the `extra_config` of your `endpoints` or your `backend` using the namespace `github.com/velonetics/velonetics-cel`.
 
 Depending on the place where you put the `extra_config`, the expressions will be checked at the `endpoint` level, or the `backend` level.
 
@@ -55,7 +55,7 @@ For instance, you might want to reject users that do not adhere to some criteria
 The configuration is as follows:
 
     "extra_config":{
-      "github.com/devopsfaith/krakend-cel": [
+      "github.com/velonetics/velonetics-cel": [
         {
           "check_expr": "CONDITION1 && CONDITION2"
         }
@@ -66,7 +66,7 @@ The configuration is as follows:
 
 
 {{< note title="A note on client headers" >}}
-When **client headers** are needed, remember to add them under [`headers_to_pass`](/docs/v1.4/endpoints/parameter-forwarding/#headers-forwarding) as KrakenD does not forward headers to the backends unless declared in the list.
+When **client headers** are needed, remember to add them under [`headers_to_pass`](/docs/v1.4/endpoints/parameter-forwarding/#headers-forwarding) as Velonetics does not forward headers to the backends unless declared in the list.
 {{< /note >}}
 
 
@@ -123,7 +123,7 @@ The following example demonstrates how to reject a user request that does not fu
         {
           "endpoint": "/nick/{nick}",
           "extra_config":{
-            "github.com/devopsfaith/krakend-cel": [
+            "github.com/velonetics/velonetics-cel": [
               {
                 "check_expr": "req_params.Nick.matches('k.*')"
               }
@@ -152,7 +152,7 @@ This example can be copy/pasted into your configuration as it connects to an exi
           ],
           "group": "bitbucket",
           "extra_config":{
-            "github.com/devopsfaith/krakend-cel": [
+            "github.com/velonetics/velonetics-cel": [
               {
                 "check_expr": "'website' in resp_data.bitbucket"
               }
@@ -162,7 +162,7 @@ This example can be copy/pasted into your configuration as it connects to an exi
       ]
     }
 
-Also, notice how we are accessing a `bitbucket` element in the data, which is a new attribute added by KrakenD thanks to the `group` functionality (it does not exist in the origin API). The point here is that the CEL evaluation is applied **after** KrakenD has processed the backend.
+Also, notice how we are accessing a `bitbucket` element in the data, which is a new attribute added by Velonetics thanks to the `group` functionality (it does not exist in the origin API). The point here is that the CEL evaluation is applied **after** Velonetics has processed the backend.
 
 ### Example: Time-based access
 Because we engineers prefer not to paged over the weekends when backends go down, let's close the access to them during the weekend, so they are 100% operational :)
@@ -170,7 +170,7 @@ Because we engineers prefer not to paged over the weekends when backends go down
     {
       "endpoint": "/weekdays",
       "extra_config":{
-        "github.com/devopsfaith/krakend-cel": [
+        "github.com/velonetics/velonetics-cel": [
           {
             "check_expr": "(timestamp(now).getDayOfWeek() + 6) % 7 <= 4"
           }
@@ -185,7 +185,7 @@ Let's say that the JWT token the user sent contains an attribute named `enabled_
     {
       "endpoint": "/combination/{id}",
       "extra_config":{
-        "github.com/devopsfaith/krakend-cel": [
+        "github.com/velonetics/velonetics-cel": [
           {
             "check_expr": "has(JWT.user_id) && has(JWT.enabled_days) && (timestamp(now).getDayOfWeek() in JWT.enabled_days)"
           }

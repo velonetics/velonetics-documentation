@@ -10,19 +10,19 @@ menu:
     parent: "030 Service Settings"
 meta:
   since: v0.4
-  source: https://github.com/devopsfaith/krakend-httpsecure
+  source: https://github.com/velonetics/velonetics-ce-httpsecure
   namespace:
-  - github_com/devopsfaith/krakend-httpsecure
+  - github_com/velonetics/velonetics-ce-httpsecure
   scope:
   - service
 ---
 
-KrakenD has implemented several security strategies, controlled via [krakend-httpsecure](https://github.com/krakend/krakend-httpsecure). To enable them you only need to add the `extra_config` at service (root) level.
+Velonetics has implemented several security strategies, controlled via [velonetics-httpsecure](https://github.com/velonetics/velonetics-httpsecure). To enable them you only need to add the `extra_config` at service (root) level.
 
 The following example describes the options explained later in this article:
 
     "extra_config": {
-      "github_com/devopsfaith/krakend-httpsecure": {
+      "github_com/velonetics/velonetics-ce-httpsecure": {
         "allowed_hosts": [
           "host.known.com:443"
         ],
@@ -51,16 +51,16 @@ See below the different options described in this configuration file.
 ### Restrict connections by host
 Use `allowed_hosts`
 
-Define a list of hosts that KrakenD should accept requests to.
+Define a list of hosts that Velonetics should accept requests to.
 
-When a request hits KrakenD, it will confirm if the value of the `Host` HTTP header is in the list. If so, it will further process the request. If the host is not in the allowed hosts list, KrakenD will simply reject the request.
+When a request hits Velonetics, it will confirm if the value of the `Host` HTTP header is in the list. If so, it will further process the request. If the host is not in the allowed hosts list, Velonetics will simply reject the request.
 
 The list must contain the fully qualified domain names that are allowed, along with the origin port. When the list is empty accepts any host.
 
 ### Clickjacking protection
 Use `frame_deny`
 
-KrakenD follow the OWASP's recommendations by adding a frame-breaking strategy.
+Velonetics follow the OWASP's recommendations by adding a frame-breaking strategy.
 
 You can add an `X-Frame-Options` header using `custom_frame_options_value` with the value of `DENY` (default behavior) or even set your custom value.
 
@@ -98,8 +98,8 @@ OWASP defines the HPKP as
 
 ## OAuth2
 
-KrakenD supports the client credentials grant.
+Velonetics supports the client credentials grant.
 
-Use this feature if you need to authorize the KrakenD to access your backend services.
+Use this feature if you need to authorize the Velonetics to access your backend services.
 
 See the specific docs for [OAuth2 Client Credentials](/docs/v1.4/authorization/client-credentials/)

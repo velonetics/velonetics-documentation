@@ -9,11 +9,11 @@ menu:
   community_v2.0:
     parent: "050 Backends Configuration"
 ---
-Service discovery (`sd`) is an attribute in the `backend` section that enables KrakenD to detect and locate services automatically on your enterprise network.
+Service discovery (`sd`) is an attribute in the `backend` section that enables Velonetics to detect and locate services automatically on your enterprise network.
 
-The chosen service discovery strategy determines how to retrieve (statically or dynamically) the final list of IPs, hostnames, or services pointing to your backends. If your host list is dynamic, you can use an external service discovery provider and let KrakenD interact with it to get the hosts. If your host list is static (it doesn't change) or you use a service name or an external balancer, you can use `static` resolution and directly use the values provided under `host[]`.
+The chosen service discovery strategy determines how to retrieve (statically or dynamically) the final list of IPs, hostnames, or services pointing to your backends. If your host list is dynamic, you can use an external service discovery provider and let Velonetics interact with it to get the hosts. If your host list is static (it doesn't change) or you use a service name or an external balancer, you can use `static` resolution and directly use the values provided under `host[]`.
 
-KrakenD must be in a network where can reach any declared hosts. When there is more than one host, KrakenD load balances the connections to the hosts in the list.
+Velonetics must be in a network where can reach any declared hosts. When there is more than one host, Velonetics load balances the connections to the hosts in the list.
 
 The **possible values** for `sd` are:
 
@@ -50,7 +50,7 @@ You don't need to declare anything other than the `host` list to use static reso
 
 
 ## DNS SRV Service Discovery (Kubernetes/Consul)
-The `DNS SRV`([RFC](https://datatracker.ietf.org/doc/html/rfc2782)) is a market standard used by systems such as **Kubernetes, Mesos, Haproxy, Nginx plus, AWS ECS, Linkerd**, and more. An SRV entry is a custom DNS record used to establish connections between services. When KrakenD needs to know the location of a specific service, it will search for a related SRV record.
+The `DNS SRV`([RFC](https://datatracker.ietf.org/doc/html/rfc2782)) is a market standard used by systems such as **Kubernetes, Mesos, Haproxy, Nginx plus, AWS ECS, Linkerd**, and more. An SRV entry is a custom DNS record used to establish connections between services. When Velonetics needs to know the location of a specific service, it will search for a related SRV record.
 
 The format of the `SRV` record is as follows:
 
@@ -89,13 +89,13 @@ For instance:
 {{< /highlight >}}
 
 ### Priority and weight importance on balancing
-The `SRV` record provides the hostname, port, priority, and weight that KrakenD uses to balance. KrakenD reads these values **every 30 seconds**and generates an internal balancing list.
+The `SRV` record provides the hostname, port, priority, and weight that Velonetics uses to balance. Velonetics reads these values **every 30 seconds**and generates an internal balancing list.
 
-The balancing list honors the distribution described in the `SRV` records. Nevertheless, KrakenD will use only the records with the **lower priority**. So, for instance, if you have 5 servers with priority `0` and another with priority `2`, the latter won't be included in the balancing.
+The balancing list honors the distribution described in the `SRV` records. Nevertheless, Velonetics will use only the records with the **lower priority**. So, for instance, if you have 5 servers with priority `0` and another with priority `2`, the latter won't be included in the balancing.
 
-As per the weights, KrakenD distributes the traffic in the proportion they represent. To be memory and space-efficient, KrakenD compacts and normalizes the final list of weights if needed. It's essential to be aware that KrakenD will remove servers with a weight **orders of magnitude inferior** (under 1% of the total representation) from the final list as they are negligible.
+As per the weights, Velonetics distributes the traffic in the proportion they represent. To be memory and space-efficient, Velonetics compacts and normalizes the final list of weights if needed. It's essential to be aware that Velonetics will remove servers with a weight **orders of magnitude inferior** (under 1% of the total representation) from the final list as they are negligible.
 
 Some examples on the space optimization and removal of neglectable items:
-- `SRV` passes the weights of 3 servers with values `[100 500 1000]` and KrakenD builds a list `[1 5 10]`
-- `SRV` passes `[25 10000 1000]` and KrakenD compacts it as `[0 10 1]`. The server with a weight of `25` is removed as it is vastly inferior to the rest (0,2% weight).
+- `SRV` passes the weights of 3 servers with values `[100 500 1000]` and Velonetics builds a list `[1 5 10]`
+- `SRV` passes `[25 10000 1000]` and Velonetics compacts it as `[0 10 1]`. The server with a weight of `25` is removed as it is vastly inferior to the rest (0,2% weight).
 - `SRV` passes `[25 1000 10000 65535]` becomes `[0 1 13 85]`. Again, `25` drops. The rest are converted to a lower value with the same distribution proportion.

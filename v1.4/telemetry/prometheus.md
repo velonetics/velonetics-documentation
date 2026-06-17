@@ -6,15 +6,15 @@ notoc: true
 linktitle: Prometheus
 title: Exporting metrics to Prometheus
 weight: 70
-source: https://github.com/krakend/krakend-opencensus
+source: https://github.com/velonetics/velonetics-opencensus
 menu:
   community_v1.4:
     parent: "080 Telemetry"
 meta:
   since: v0.5
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
-  - github_com/devopsfaith/krakend-opencensus
+  - github_com/velonetics/velonetics-ce-opencensus
   scope:
   - service
 ---
@@ -25,11 +25,11 @@ The Opencensus exporter allows you to expose data to Prometheus. Enabling it onl
 {
   "version": 2,
   "extra_config": {
-    "github_com/devopsfaith/krakend-opencensus": {
+    "github_com/velonetics/velonetics-ce-opencensus": {
         "exporters": {
           "prometheus": {
               "port": 9091,
-              "namespace": "krakend",
+              "namespace": "velonetics",
               "tag_host": false,
               "tag_path": true,
               "tag_method": true,

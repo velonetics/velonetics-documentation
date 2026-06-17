@@ -30,4 +30,4 @@ The following telemetry systems are supported:
 - [OpenCensus Agent](/docs/v1.4/telemetry/opencensus/) (e.g: **Azure Monitor**)
 - [Grafana](/docs/v1.4/extended-metrics/grafana/)
 - Newrelic (only custom builds)
-- Instana (KrakenD Enterprise only)
+- Instana (Velonetics Enterprise only)

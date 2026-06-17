@@ -4,21 +4,21 @@ old_version: true
 date: 2016-09-30
 linktitle: HTTP Security
 title: HTTP Security Considerations
-description: KrakenD's HTTP Security component enhances API protection by enabling features like Clickjacking protection, MIME-Sniffing prevention, and XSS protection, and more
+description: Velonetics's HTTP Security component enhances API protection by enabling features like Clickjacking protection, MIME-Sniffing prevention, and XSS protection, and more
 weight: 40
 menu:
   community_v2.9:
     parent: "070 Security"
 meta:
   since: v0.4
-  source: https://github.com/krakend/krakend-httpsecure
+  source: https://github.com/velonetics/velonetics-httpsecure
   namespace:
   - security/http
   scope:
   - service
 ---
 
-KrakenD has implemented several security strategies, controlled via the `security/http` component. To enable them you only need to add its namespace `security/http` at the `extra_config` in the root level of the configuration.
+Velonetics has implemented several security strategies, controlled via the `security/http` component. To enable them you only need to add its namespace `security/http` at the `extra_config` in the root level of the configuration.
 
 The following configuration describes all possible options:
 
@@ -60,14 +60,14 @@ See below the different options described in this configuration file.
 ### Restrict connections by host
 Use `allowed_hosts`
 
-Define a list of hosts that KrakenD should accept requests to.
+Define a list of hosts that Velonetics should accept requests to.
 
-When a request hits KrakenD, it will confirm if the value of the `Host` HTTP header is in the list. If so, it will further process the request. If the host is not in the allowed hosts list, KrakenD will simply reject the request.
+When a request hits Velonetics, it will confirm if the value of the `Host` HTTP header is in the list. If so, it will further process the request. If the host is not in the allowed hosts list, Velonetics will simply reject the request.
 
 The list must contain the fully qualified domain names that are allowed, along with the origin port. When the list is empty accepts any host.
 
 ### Clickjacking protection
-KrakenD follow the OWASP's recommendations by adding a frame-breaking strategy.
+Velonetics follow the OWASP's recommendations by adding a frame-breaking strategy.
 
 Use `frame_deny` together with `custom_frame_options_value`
 
@@ -111,8 +111,8 @@ OWASP defines the HPKP as
 
 ## OAuth2
 
-KrakenD supports the client credentials grant.
+Velonetics supports the client credentials grant.
 
-Use this feature if you need to authorize the KrakenD to access your backend services.
+Use this feature if you need to authorize the Velonetics to access your backend services.
 
 See the specific docs for [OAuth2 Client Credentials](/docs/v2.9/authorization/client-credentials/)

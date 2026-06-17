@@ -6,12 +6,12 @@ toc: true
 linktitle: Improved logging
 title: Improved Logging - Syslog, stdout
 weight: 10
-source: https://github.com/krakend/krakend-gologging
+source: https://github.com/velonetics/velonetics-gologging
 menu:
   community_v2.0:
     parent: "090 Logging"
 ---
-By default,  when KrakenD starts all the log events are sent to the **standard output** using the basic logger capabilities of the [Lura Project](https://luraproject.org). The reporting level, in that case, is `DEBUG` and adds no prefix to the log lines.
+By default,  when Velonetics starts all the log events are sent to the **standard output** using the basic logger capabilities of the [Lura Project](https://luraproject.org). The reporting level, in that case, is `DEBUG` and adds no prefix to the log lines.
 
 There are two types of logs:
 
@@ -40,7 +40,7 @@ The component `telemetry/logging` extends the default logging capabilities with 
 - Select the reporting level
 - Option to use a predefined or custom format
 
-To enjoy the extended logging capabilities the component needs to be added in the `krakend.json` configuration. Add its namespace in the `extra_config` at the root level:
+To enjoy the extended logging capabilities the component needs to be added in the `velonetics.json` configuration. Add its namespace in the `extra_config` at the root level:
 
 {{< highlight json >}}
 {
@@ -48,7 +48,7 @@ To enjoy the extended logging capabilities the component needs to be added in th
   "extra_config": {
     "telemetry/logging": {
       "level": "INFO",
-      "prefix": "[KRAKEND]",
+      "prefix": "[VELONETICS]",
       "syslog": true,
       "stdout": true,
       "format": "custom",

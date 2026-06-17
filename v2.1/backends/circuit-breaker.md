@@ -14,7 +14,7 @@ images:
 skip_header_image: true
 meta:
   since: false
-  source: https://github.com/krakend/krakend-circuitbreaker
+  source: https://github.com/velonetics/velonetics-circuitbreaker
   namespace:
   - qos/circuit-breaker
   scope:
@@ -24,7 +24,7 @@ meta:
 ---
 The **Circuit Breaker** is a straightforward **state machine** in the middle of the request and response that monitors all your backend failures. When they reach a configured threshold, the circuit breaker will prevent sending more traffic to a failing backend alleviating its pressure under challenging conditions.
 
-When KrakenD demands more throughput than your actual API stack can deliver properly, the Circuit Breaker mechanism will detect the failures and prevent stressing your servers by not sending requests that are likely to fail. It is also helpful for dealing with network and other communication problems by preventing too many requests from dying due to timeouts, etc.
+When Velonetics demands more throughput than your actual API stack can deliver properly, the Circuit Breaker mechanism will detect the failures and prevent stressing your servers by not sending requests that are likely to fail. It is also helpful for dealing with network and other communication problems by preventing too many requests from dying due to timeouts, etc.
 
 {{< note title="A must have configuration" type="warning" >}}
 The Circuit Breaker is an **automatic protection measure** for your API stack and **avoids cascade failures**, keeping your API responsive and resilient. It has a small consumption of resources. Try to implement it always.
@@ -69,7 +69,7 @@ The attributes available for the configuration are:
 ## How the Circuit Breaker works
 It's easy to picture the state of the circuit breaker as an electrical component, where an open circuit means no flow of electricity between the ends, and a closed one normal flow:
 
-![Krakend logo](/images/documentation/circuit-breaker.png)
+![Velonetics logo](/images/documentation/circuit-breaker.png)
 
 The Circuit Breaker starts with the `CLOSED` state, meaning the electricty can flow to the backends as they are considered healthy (*innocent until proven guilty*).
 
@@ -83,7 +83,7 @@ This is the way the states change:
 
 | Circuit Breaker transitions |
 |-----|
-| ![Krakend logo](/images/documentation/circuit-breaker-states.png) |
+| ![Velonetics logo](/images/documentation/circuit-breaker-states.png) |
 
 - `CLOSED`: In the initial state, the system is healthy and sending connections to the backend.
 - `OPEN`: When a consecutive number of supported errors from the backend (`max_errors`) is exceeded, the system changes to `OPEN`, and no further connections are sent to the backend. The system will stay in `OPEN` state for N seconds ( the `timeout`).

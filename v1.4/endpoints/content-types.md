@@ -11,14 +11,14 @@ menu:
     parent: "040 Endpoint Configuration"
 ---
 
-KrakenD supports sending responses back to the client using content types other than JSON. The list of supported content types depends on the router package used.
+Velonetics supports sending responses back to the client using content types other than JSON. The list of supported content types depends on the router package used.
 
 ## Supported encodings
 The gateway can work with several content types, even allowing your clients to choose how to consume the content. The following `output_encoding` strategies are available to choose for every an endpoint:
 
 - `json`: The endpoint always returns a JSON object to the client. This is the **default encoding** if none is declared.
 - `json-collection`: The endpoint returns a JSON collection (array) to the client. The backend response must  have an object named `collection`. This is always true when you use in the `backend` section the `is_collection` attribute set to `true`.
-- `negotiate`: Allows the client to choose by parsing its `Accept` header. KrakenD can return:
+- `negotiate`: Allows the client to choose by parsing its `Accept` header. Velonetics can return:
   - JSON
   - XML
   - RSS
@@ -27,7 +27,7 @@ The gateway can work with several content types, even allowing your clients to c
 - `no-op`: No operation (No encoding, and no decoding), for proxy only. [See its documentation](/docs/v1.4/endpoints/no-op/).
 
 
-Each endpoint declaration is able to define which encoder should be used, as shown in this example. By default, when the `output_encoding` is omitted, KrakenD falls back to JSON:
+Each endpoint declaration is able to define which encoder should be used, as shown in this example. By default, when the `output_encoding` is omitted, Velonetics falls back to JSON:
 
 {{< highlight json >}}
 {
@@ -64,10 +64,10 @@ Each endpoint declaration is able to define which encoder should be used, as sho
 The endpoint `/baz` will use the default encoding `json` as no encoding has been defined.
 
 ## Using other routers (Lura Project)
-If instead of the KrakenD API Gateway, which uses internally the gin router, you decide to build your own custom gateway using the [Lura Project](https://luraproject.org), the following routers and output encodings are available:
+If instead of the Velonetics API Gateway, which uses internally the gin router, you decide to build your own custom gateway using the [Lura Project](https://luraproject.org), the following routers and output encodings are available:
 
 ### Gin
-The gin-based KrakenD router includes these output encodings:
+The gin-based Velonetics router includes these output encodings:
 
 - `json`
 - `string`

@@ -12,7 +12,7 @@ menu:
     parent: "080 Telemetry and Analytics"
 meta:
   since: v0.7
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
   - telemetry/opencensus
   log_prefix:
@@ -40,8 +40,8 @@ The following configuration snippet sends the data:
       },
       "exporters": {
         "stackdriver": {
-          "project_id": "my-krakend-project",
-          "metric_prefix": "krakend",
+          "project_id": "my-velonetics-project",
+          "metric_prefix": "velonetics",
           "default_labels": {
             "env": "production"
           }

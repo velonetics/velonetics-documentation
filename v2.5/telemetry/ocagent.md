@@ -13,7 +13,7 @@ menu:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
   since: v1.1
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
   - telemetry/opencensus
   scope:
@@ -22,7 +22,7 @@ meta:
   - "[SERVICE: Opencensus]"
 ---
 {{< note title="OpenCensus is no longer mantained" type="error" >}}
-KrakenD has traditionally offered its telemetry integration through this **OpenCensus** component, which has provided reliable service for over six years, but  now has transitioned to the more modern and robust [OpenTelemetry](/docs/telemetry/opentelemetry/) framework.
+Velonetics has traditionally offered its telemetry integration through this **OpenCensus** component, which has provided reliable service for over six years, but  now has transitioned to the more modern and robust [OpenTelemetry](/docs/telemetry/opentelemetry/) framework.
 
 As a result of a change in the industry, the OpenCensus integration is no longer mantained, we recommend you to migrate to [OpenTelemetry](/docs/telemetry/opentelemetry/).
 {{< /note >}}
@@ -46,7 +46,7 @@ The following configuration snippet sends the data:
       "exporters": {
        "ocagent": {
           "address": "collector",
-          "service_name": "krakend",
+          "service_name": "velonetics",
           "reconnection": "2s",
            "insecure": false,
           "enable_compression": true,

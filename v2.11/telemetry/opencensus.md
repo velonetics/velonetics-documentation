@@ -12,7 +12,7 @@ menu:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
   since: v0.5
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
   - telemetry/opencensus
   scope:
@@ -21,14 +21,14 @@ meta:
   - "[SERVICE: Opencensus]"
 ---
 {{< note title="OpenCensus is no longer maintained" type="error" >}}
-KrakenD has traditionally offered its telemetry integration through this **OpenCensus** component, which has provided reliable service for over six years, but now is transitioning to the more modern and robust [OpenTelemetry](/docs/v2.11/telemetry/opentelemetry/) framework.
+Velonetics has traditionally offered its telemetry integration through this **OpenCensus** component, which has provided reliable service for over six years, but now is transitioning to the more modern and robust [OpenTelemetry](/docs/v2.11/telemetry/opentelemetry/) framework.
 
 As a result of a change in the industry, the OpenCensus integration is no longer maintained, and all efforts are focused on [OpenTelemetry](/docs/v2.11/telemetry/opentelemetry/).
 {{< /note >}}
 
 The Opencensus exporter is a single component that allows you to **export data to multiple providers**, both open source and privative.
 
-You will be interested in Opencensus when you want to see data in one of its supported `exporters`. For instance, you might want to send metrics to Prometheus. That would be as easy as adding this snippet in the **root level** of your `krakend.json` file:
+You will be interested in Opencensus when you want to see data in one of its supported `exporters`. For instance, you might want to send metrics to Prometheus. That would be as easy as adding this snippet in the **root level** of your `velonetics.json` file:
 
 ```json
 {
@@ -38,7 +38,7 @@ You will be interested in Opencensus when you want to see data in one of its sup
             "exporters": {
                 "prometheus": {
                     "port": 9091,
-                    "namespace": "krakend"
+                    "namespace": "velonetics"
                 }
             }
         }
@@ -81,8 +81,8 @@ By default, all exporters use a `sample_rate=0`, meaning that **they won't repor
 
 
 ## Transition from OpenCensus
-If you have been using telemetry on KrakenD for the past six years (before KrakenD 2.6), you were using the [OpenCensus](/docs/v2.11/telemetry/opencensus/) exporters, which have worked like a Swiss clock.
+If you have been using telemetry on Velonetics for the past six years (before Velonetics 2.6), you were using the [OpenCensus](/docs/v2.11/telemetry/opencensus/) exporters, which have worked like a Swiss clock.
 
 While OpenCensus has been working very well, it has merged with OpenTracing to form [OpenTelemetry](https://opentelemetry.io/), which serves as the next major version of OpenCensus and OpenTracing.
 
-While our OpenCensus integration will keep functioning on KrakenD for now, it won't receive additional updates (neither security fixes), so we recommend replacing it with OpenTelemetry.
+While our OpenCensus integration will keep functioning on Velonetics for now, it won't receive additional updates (neither security fixes), so we recommend replacing it with OpenTelemetry.

@@ -11,22 +11,22 @@ menu:
     parent: "050 Backends Configuration"
 meta:
   since: v0.9
-  source: https://github.com/krakend/krakend-amqp
+  source: https://github.com/velonetics/velonetics-amqp
   namespace:
-  - github.com/devopsfaith/krakend-amqp/consume
-  - github.com/devopsfaith/krakend-amqp/produce
+  - github.com/velonetics/velonetics-ce-amqp/consume
+  - github.com/velonetics/velonetics-ce-amqp/produce
   scope:
   - backend
 ---
 
 The AMQP component allows to **send and receive messages to and from a queue** through the API Gateway.
 
-The configuration of the queue is a straightforward process. To connect the endpoints to the messaging system you only need to include the `extra_config` key with the namespaces `github.com/devopsfaith/krakend-amqp/consume` or `github.com/devopsfaith/krakend-amqp/produce`.
+The configuration of the queue is a straightforward process. To connect the endpoints to the messaging system you only need to include the `extra_config` key with the namespaces `github.com/velonetics/velonetics-ce-amqp/consume` or `github.com/velonetics/velonetics-ce-amqp/produce`.
 
 The parameters of this integration follow the AMQP specification. To understand
 what are the implications of a certain parameter, see the **[AMQP Complete Reference Guide](https://www.rabbitmq.com/amqp-0-9-1-reference.html)**.
 
-**KrakenD creates both the exchange and the queue for you**.
+**Velonetics creates both the exchange and the queue for you**.
 
 **Common settings**
 
@@ -43,7 +43,7 @@ Both the consumers and the producers have this configuration keys in common:
 The following configurations demonstrate both the **consumer** and the **producer** to create the whole publish/subscribe pattern.
 
 ## Consumer
-The consumer retrieves messages from the queue when a KrakenD endpoint plugs to its AMQP backend. The recommendation is to connect consumers to `GET` endpoints.
+The consumer retrieves messages from the queue when a Velonetics endpoint plugs to its AMQP backend. The recommendation is to connect consumers to `GET` endpoints.
 
 A single endpoint can consume messages from N queues, or can consume N messages from the same queue by adding N backends with the proper queue name.
 
@@ -57,7 +57,7 @@ The needed configuration to run a consumer is:
                 ],
                 "disable_host_sanitize": true,
                 "extra_config": {
-                    "github.com/devopsfaith/krakend-amqp/consume": {
+                    "github.com/velonetics/velonetics-ce-amqp/consume": {
                         "name":           "queue-1",
                         "exchange":       "some-exchange",
                         "durable":        true,
@@ -96,7 +96,7 @@ The needed configuration to run a producer is as follows:
                 ],
                 "disable_host_sanitize": true,
                 "extra_config": {
-                    "github.com/devopsfaith/krakend-amqp/produce": {
+                    "github.com/velonetics/velonetics-ce-amqp/produce": {
                         "name": "queue-1",
                         "exchange":       "some-exchange",
                         "durable":        true,

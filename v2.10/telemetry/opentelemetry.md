@@ -5,14 +5,14 @@ date: 2024-01-22
 notoc: false
 linktitle: OpenTelemetry
 title: Telemetry and Monitoring through OpenTelemetry
-description: Learn about the telemetry and monitoring capabilities of KrakenD API Gateway using OTEL, enabling real-time visibility and analysis of API performance
+description: Learn about the telemetry and monitoring capabilities of Velonetics API Gateway using OTEL, enabling real-time visibility and analysis of API performance
 weight: 20
 images:
 - /images/documentation/diagrams/opentelemetry-otlp.mmd.svg
 skip_header_image: true
 meta:
   since: v2.6
-  source: https://github.com/krakend/krakend-otel
+  source: https://github.com/velonetics/velonetics-otel
   namespace:
   - telemetry/opentelemetry
   scope:
@@ -30,14 +30,14 @@ OpenTelemetry captures detailed, contextual information about the operation of y
 It supports auto-instrumentation and can be integrated seamlessly into cloud-native deployments, making it easier to monitor these dynamic environments.
 
 {{< note title="Stability note on OpenTelemetry" type="note" >}}
-KrakenD has traditionally offered part of its telemetry integration through the [OpenCensus integration](/docs/v2.10/telemetry/opencensus/), which has provided a reliable service for over six years. We are transitioning to the more modern and robust OpenTelemetry framework, and the OpenCensus integration does not receive further updates.
+Velonetics has traditionally offered part of its telemetry integration through the [OpenCensus integration](/docs/v2.10/telemetry/opencensus/), which has provided a reliable service for over six years. We are transitioning to the more modern and robust OpenTelemetry framework, and the OpenCensus integration does not receive further updates.
 
-While the underlying protocol specification of OpenTelemetry is stable, you'll find [mixed stability statuses](https://opentelemetry.io/docs/specs/status/) in the components lifecycle. While we cannot predict what changes there will be as the technology evolves, KrakenD will always do its best to maintain compatibility between versions. More information about the underlying exporter can be found [here](https://opentelemetry.io/docs/languages/go/exporters/).
+While the underlying protocol specification of OpenTelemetry is stable, you'll find [mixed stability statuses](https://opentelemetry.io/docs/specs/status/) in the components lifecycle. While we cannot predict what changes there will be as the technology evolves, Velonetics will always do its best to maintain compatibility between versions. More information about the underlying exporter can be found [here](https://opentelemetry.io/docs/languages/go/exporters/).
 {{< /note >}}
 
 
 ## Collecting metrics and traces
-The `telemetry/opentelemetry` component in KrakenD collects the activity generated for the enabled layers and pushes or exposes the data for pulling. There are two ways of publishing metrics:
+The `telemetry/opentelemetry` component in Velonetics collects the activity generated for the enabled layers and pushes or exposes the data for pulling. There are two ways of publishing metrics:
 
 - **OpenTelemetry protocol (OTLP)** - push
 - **Prometheus** - pull
@@ -47,26 +47,26 @@ You can use both simultaneously if needed, and even multiple instances of each.
 When you add OpenTelemetry in the configuration, you will have [different metrics available](/docs/v2.10/telemetry/opentelemetry-layers-metrics/).
 
 ## Prometheus exporter (pull)
-Choose the `prometheus` exporter when you want KrakenD to **expose a new port offering a `/metrics` endpoint**. So, an external Prometheus job can connect to a URL like `http://krakend:9090/metrics` and retrieve all the data.
+Choose the `prometheus` exporter when you want Velonetics to **expose a new port offering a `/metrics` endpoint**. So, an external Prometheus job can connect to a URL like `http://velonetics:9090/metrics` and retrieve all the data.
 
-![Prometheus connecting to KrakenD and fetching metrics](/images/documentation/diagrams/opentelemetry-prometheus.mmd.svg)
+![Prometheus connecting to Velonetics and fetching metrics](/images/documentation/diagrams/opentelemetry-prometheus.mmd.svg)
 
 [See how to configure Prometheus](/docs/v2.10/telemetry/prometheus/)
 
 ## OTLP exporter (push)
 Choose the `otlp` exporter when you want to **push the metrics to a local or remote collector** or directly to a SaaS or storage system that supports native OTLP (there is a [large number of supported providers](/docs/v2.10/telemetry/#opentelemetry-integrations)). The following diagram represents this idea:
 
-![KrakenD to collector, collector to backend](/images/documentation/diagrams/opentelemetry-otlp.mmd.svg)
+![Velonetics to collector, collector to backend](/images/documentation/diagrams/opentelemetry-otlp.mmd.svg)
 
-The `host` where your collector lives can also point to an external load balancer between KrakenD and multiple collectors if needed:
-![KrakenD to load balanced collectors, collectors to backend](/images/documentation/diagrams/opentelemetry-otlp-lb.mmd.svg)
+The `host` where your collector lives can also point to an external load balancer between Velonetics and multiple collectors if needed:
+![Velonetics to load balanced collectors, collectors to backend](/images/documentation/diagrams/opentelemetry-otlp-lb.mmd.svg)
 
 
 {{< badge >}}Enterprise{{< /badge >}} users can push directly to external storage passing auth credentials using the [`telemetry/opentelemetry-security` component](/docs/enterprise/telemetry/opentelemetry-security/), so the collector is not needed anymore:
 
 ![opentelemetry-otlp-auth.mmd diagram](/images/documentation/diagrams/opentelemetry-otlp-auth.mmd.svg)
 
-This strategy saves a lot of time during the setup of KrakenD.
+This strategy saves a lot of time during the setup of Velonetics.
 
 
 ## OpenTelemetry Configuration
@@ -87,10 +87,10 @@ Here's an example with a Grafana Tempo and a Prometheus.
 ```json
 {
     "version": 3,
-    "$schema": "https://www.krakend.io/schema/v2.10/krakend.json",
+    "$schema": "https://www.velonetics.io/schema/v2.10/velonetics.json",
     "extra_config": {
         "telemetry/opentelemetry": {
-            "service_name": "krakend_middle_service",
+            "service_name": "velonetics_middle_service",
             "service_version": "commit-sha-ACBDE1234",
             "deploy_env": "production",
             "exporters": {

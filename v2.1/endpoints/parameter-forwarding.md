@@ -9,9 +9,9 @@ menu:
   community_v2.1:
     parent: "040 Endpoint Configuration"
 ---
-KrakenD is an API Gateway with a **zero-trust policy**, and when it comes to forward query strings, cookies, and headers, you need to define what is allowed.
+Velonetics is an API Gateway with a **zero-trust policy**, and when it comes to forward query strings, cookies, and headers, you need to define what is allowed.
 
-Part of the zero-trust policy implies that KrakenD **does not forward** any unexpected [query string](#query-string-forwarding), [headers](#headers-forwarding), or [cookies](#cookies-forwarding). See below how to set the forwarding rules.
+Part of the zero-trust policy implies that Velonetics **does not forward** any unexpected [query string](#query-string-forwarding), [headers](#headers-forwarding), or [cookies](#cookies-forwarding). See below how to set the forwarding rules.
 
 ![alt text](/images/documentation/diagrams/parameter-forwarding-1.mmd.svg)
 
@@ -60,7 +60,7 @@ The `input_query_strings` and `input_headers` lists are **case sensitive**. For 
 Read below for further details and examples.
 
 ## Query string forwarding
-The zero-trust policy implies that, for instance, if a KrakenD endpoint `/foo' receives the request `/foo?items=10&page=2`, all its declared backends are not going to see either `items` or `page`, **unless otherwise configured**.
+The zero-trust policy implies that, for instance, if a Velonetics endpoint `/foo' receives the request `/foo?items=10&page=2`, all its declared backends are not going to see either `items` or `page`, **unless otherwise configured**.
 
 To enable the transition of query strings to your backend, add the **list** `input_query_strings` in your `endpoint` definition. For instance, let's forward `?items=10&page=2` to the backends now:
 
@@ -93,9 +93,9 @@ The `input_query_strings` list has the following behavior:
 - **Additional query strings not in the list** are removed from the final call
 - **Writing a single *star* element** (`"input_query_strings":["*"]`) instead of individual strings, forwards **everything** to the backend
 
-With this configuration, given a request like `http://krakend:8080/v1/foo?items=10&page=2&evil=here`, the backend receives `items` and `page`, but `evil` is missing.
+With this configuration, given a request like `http://velonetics:8080/v1/foo?items=10&page=2&evil=here`, the backend receives `items` and `page`, but `evil` is missing.
 
-Also, if a request like `http://krakend:8080/v1/foo?items=10` does not include `page`, this parameter is simply missing in the backend request as well.
+Also, if a request like `http://velonetics:8080/v1/foo?items=10` does not include `page`, this parameter is simply missing in the backend request as well.
 
 By definition, query string parameters are always optional, and the user can pass a subset of them, all or none. Suppose you want to enforce that the user provides a query string parameter. In that case, you must validate it with the [Common Expression Language](/docs/v2.1/endpoints/common-expression-language-cel/) (faster) or with a [Lua script](/docs/v2.1/endpoints/lua/) (slower).
 
@@ -114,7 +114,7 @@ While the default policy prevents from sending unrecognized query string paramet
 **Enabling the wildcard pollutes your backends**, as any query string sent by end-users or malicious attackers gets through the gateway and impacts the backends behind. Our recommendation is to let the gateway know which query strings are in the API contract and specify them in the list, even when the list is long, and not use the wildcard. If the decision is to go with the wildcard, make sure your backends can handle abuse attempts from clients.
 
 ### Mandatory query string parameters
-When your backend requires mandatory **query string** parameters and you want to make them **mandatory** in KrakenD, the only way to enforce this (without scripting) is using the `{variable}` placeholders in the endpoints definition. Mandatory means that the endpoint won't exist unless the parameter is passed. For instance:
+When your backend requires mandatory **query string** parameters and you want to make them **mandatory** in Velonetics, the only way to enforce this (without scripting) is using the `{variable}` placeholders in the endpoints definition. Mandatory means that the endpoint won't exist unless the parameter is passed. For instance:
 
 ```json
 {
@@ -130,7 +130,7 @@ When your backend requires mandatory **query string** parameters and you want to
 
 The parameter is mandatory as if a value for `channel` is not provided the server replies with a `404`.
 
-With the configuration above a request to the KrakenD endpoint such as `http://krakend/v3/iOS/foo?limit=10&evil=here` makes a call to the backend with only the `channel` query string:
+With the configuration above a request to the Velonetics endpoint such as `http://velonetics/v3/iOS/foo?limit=10&evil=here` makes a call to the backend with only the `channel` query string:
 
     /foo?channel=iOS
 
@@ -155,13 +155,13 @@ Nevertheless, the `input_query_strings` could also be added in this configuratio
 ```
 
 
-With `http://krakend/v3/iOS/foo?limit=10&evil=here` the backend receives:
+With `http://velonetics/v3/iOS/foo?limit=10&evil=here` the backend receives:
 
     /foo?limit=10
 
 No mandatory `channel` here! Because the optional parameter `limit` has been declared.
 
-On the other hand, `http://krakend/v3/iOS/foo?evil=here` produces:
+On the other hand, `http://velonetics/v3/iOS/foo?evil=here` produces:
 
     /foo?channel=iOS
 
@@ -170,16 +170,16 @@ No optional parameter has been passed, so the mandatory one is used.
 Read the [`/__debug/` endpoint](/docs/v2.1/endpoints/debug-endpoint/) to understand how to test query string parameters.
 
 ## Headers forwarding
-KrakenD **does not send client headers to the backend**, unless they are under the `input_headers` list. The list of headers sent by the client that you want to let pass to the backend must be written as an entry of the `input_headers` array (or there is an `"*"` entry).
+Velonetics **does not send client headers to the backend**, unless they are under the `input_headers` list. The list of headers sent by the client that you want to let pass to the backend must be written as an entry of the `input_headers` array (or there is an `"*"` entry).
 
-**A client request from a browser or a mobile client contains a lot of headers**, including cookies. Typical examples of the variety of headers that clients send are `Host`, `Connection`, `Content-Type`,`Accept`, `Cache-Control`, `Cookie`... and a long, long, etcetera. Remember that unless explicitly defined, KrakenD won't let them pass. This security policy will save you from a lot of trouble.
+**A client request from a browser or a mobile client contains a lot of headers**, including cookies. Typical examples of the variety of headers that clients send are `Host`, `Connection`, `Content-Type`,`Accept`, `Cache-Control`, `Cookie`... and a long, long, etcetera. Remember that unless explicitly defined, Velonetics won't let them pass. This security policy will save you from a lot of trouble.
 
-### Default headers sent from KrakenD to Backends
-KrakenD will act as an independent client connecting to your backends and will send this headers with its own values:
+### Default headers sent from Velonetics to Backends
+Velonetics will act as an independent client connecting to your backends and will send this headers with its own values:
 
 - `Accept-Encoding`
 - `Host`
-- `User-Agent` (KrakenD Version v2.1)
+- `User-Agent` (Velonetics Version v2.1)
 - `X-Forwarded-For`
 - `X-Forwarded-Host`
 - `X-Forwarded-Via` (only when `User-Agent` is in the `input_headers`)
@@ -190,7 +190,7 @@ In addition, when you use **tracing**, you might also see arrive **B3 propagatio
 - `X-B3-Spanid`
 - `X-B3-Traceid`
 
-### Overriding headers sent from KrakenD to Backends
+### Overriding headers sent from Velonetics to Backends
 When you use the `input_headers`, consider that any of the headers listed above are replaced with the ones you declare.
 
 An example of passing the `User-Agent` to the backend:
@@ -226,7 +226,7 @@ User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (
 X-Forwarded-For: ::1
 ```
 
-The `User-Agent` is no longer a KrakenD user-agent but a Mozilla one.
+The `User-Agent` is no longer a Velonetics user-agent but a Mozilla one.
 
 Read the [`/__debug/` endpoint](/docs/v2.1/endpoints/debug-endpoint/) to understand how to test headers.
 

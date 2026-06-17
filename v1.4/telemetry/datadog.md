@@ -7,16 +7,16 @@ linktitle: Datadog
 title: Exporting traces to Datadog
 weight: 90
 since: 1.2
-source: https://github.com/krakend/krakend-opencensus
+source: https://github.com/velonetics/velonetics-opencensus
 images: ["/images/documentation/datadog-screenshot.png"]
 menu:
   community_v1.4:
     parent: "080 Telemetry"
 meta:
   since: v1.2
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
-  - github_com/devopsfaith/krakend-opencensus
+  - github_com/velonetics/velonetics-ce-opencensus
   scope:
   - service
 ---
@@ -28,7 +28,7 @@ The Opencensus exporter allows you export data to Datadog. Enabling it only requ
 The following configuration snippet sends data to your Datadog:
 
       "extra_config": {
-        "github_com/devopsfaith/krakend-opencensus": {
+        "github_com/velonetics/velonetics-ce-opencensus": {
           "exporters": {
             "datadog": {
               "tags": [
@@ -40,7 +40,7 @@ The following configuration snippet sends data to your Datadog:
               "disable_count_per_buckets": true,
               "trace_address": "localhost:8126",
               "stats_address": "localhost:8125",
-              "namespace": "krakend",
+              "namespace": "velonetics",
               "service": "gateway"
             }
           }

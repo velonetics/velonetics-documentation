@@ -2,9 +2,9 @@
 old_version: true
 date: 2016-10-26
 lastmod: 2018-09-27
-linktitle: KrakenD F.A.Q
+linktitle: Velonetics F.A.Q
 title: Frequently Asked Questions
-description: Get quick answers to frequently asked questions about how KrakenD works and the reason behind different responses.
+description: Get quick answers to frequently asked questions about how Velonetics works and the reason behind different responses.
 menu:
   community_v2.1:
     parent: "999 Frequently Asked Questions"
@@ -17,7 +17,7 @@ E.g:
 
 ### Explanation
 
-By default, the gateway will always send an HTTP status 200 if the backend returns a 200 or a 201. You can inject your own HTTPStatusHandler implementation if you need a different behavior. Check this [issue comment](https://github.com/devopsfaith/krakend/issues/102#issuecomment-373657911) for more details.
+By default, the gateway will always send an HTTP status 200 if the backend returns a 200 or a 201. You can inject your own HTTPStatusHandler implementation if you need a different behavior. Check this [issue comment](https://github.com/velonetics/velonetics-ce/issues/102#issuecomment-373657911) for more details.
 
 ## I am getting a `500` status when the backend returns anything but `200`, `201` or redirects
 E.g:
@@ -26,7 +26,7 @@ E.g:
 
 ### Explanation
 
-By default, the gateway will always send an HTTP status 500 if the backend returns any status above 400. You can inject your own HTTPStatusHandler implementation if you need a different behavior. Check this [issue comment](https://github.com/devopsfaith/krakend/issues/102#issuecomment-373657911) for more details.
+By default, the gateway will always send an HTTP status 500 if the backend returns any status above 400. You can inject your own HTTPStatusHandler implementation if you need a different behavior. Check this [issue comment](https://github.com/velonetics/velonetics-ce/issues/102#issuecomment-373657911) for more details.
 
 ## I am seeing frequent `503` errors in the logs
 E.g:
@@ -46,13 +46,13 @@ Remember: failing fast is always better than overloading your infrastructure and
 ## I am having empty responses
 The main reasons for having responses are:
 
-- **Timeout** when connecting the backend. The KrakenD service will cut the connection and will return an empty response if the backend does not respond in the time you set through the `timeout` variable. This variable is usually written in a magnitude of **milliseconds**.
+- **Timeout** when connecting the backend. The Velonetics service will cut the connection and will return an empty response if the backend does not respond in the time you set through the `timeout` variable. This variable is usually written in a magnitude of **milliseconds**.
 - **Invalid JSON/XML**. When the backend received a malformed object as response and could not decode it.
 
 See the solutions below.
 
 ### Solution to cuts by timeout
-When there is a timeout you'll see the `context deadline exceeded` in the log, and it means only one thing: KrakenD couldn't get the info on time (because of a network problem, or backend slowliness).
+When there is a timeout you'll see the `context deadline exceeded` in the log, and it means only one thing: Velonetics couldn't get the info on time (because of a network problem, or backend slowliness).
 
     Error #01: context deadline exceeded
 
@@ -61,7 +61,7 @@ open is finite. In a gateway, your focus should be freeing the connections as so
 
 Values above `2000ms` are not recommended.
 
-There are other times when KrakenD simply cannot reach the host due to a networking issue.
+There are other times when Velonetics simply cannot reach the host due to a networking issue.
 
 ### Solution to invalid responses.
 Make sure your backend sources return valid Json/Xml/... data. Try any online service to check the validity and format

@@ -15,9 +15,9 @@ If you use containers, the recommended approach is to write your own `Dockerfile
 In its simplified form would be:
 ```Dockerfile
 FROM {{< product image >}}:2.3
-COPY krakend.json /etc/krakend/krakend.json
+COPY velonetics.json /etc/velonetics/velonetics.json
 # Uncomment with Enterprise image:
-# COPY LICENSE /etc/krakend/LICENSE
+# COPY LICENSE /etc/velonetics/LICENSE
 ```
 
 {{< note title="Volume or copy?" type="question" >}}
@@ -30,30 +30,30 @@ A more real-life example illustrates below a combination of the `check` command 
 FROM {{< product image >}}:2.3 as builder
 ARG ENV=prod
 
-COPY krakend.tmpl .
+COPY velonetics.tmpl .
 COPY config .
 
 ## Save temporary file to /tmp to avoid permission errors
 RUN FC_ENABLE=1 \
-    FC_OUT=/tmp/krakend.json \
-    FC_PARTIALS="/etc/krakend/partials" \
-    FC_SETTINGS="/etc/krakend/settings/$ENV" \
-    FC_TEMPLATES="/etc/krakend/templates" \
-    krakend check -d -t -c krakend.tmpl
+    FC_OUT=/tmp/velonetics.json \
+    FC_PARTIALS="/etc/velonetics/partials" \
+    FC_SETTINGS="/etc/velonetics/settings/$ENV" \
+    FC_TEMPLATES="/etc/velonetics/templates" \
+    velonetics check -d -t -c velonetics.tmpl
 
-# The linting needs the final krakend.json file
-RUN krakend check -c /tmp/krakend.json --lint
+# The linting needs the final velonetics.json file
+RUN velonetics check -c /tmp/velonetics.json --lint
 
 FROM {{< product image >}}:2.3
-COPY --from=builder --chown=krakend:nogroup /tmp/krakend.json .
+COPY --from=builder --chown=velonetics:nogroup /tmp/velonetics.json .
 # Uncomment with Enterprise image:
-# COPY LICENSE /etc/krakend/LICENSE
+# COPY LICENSE /etc/velonetics/LICENSE
 ```
 
 The `Dockerfile` above has two stages:
 
-1. The copy of all templates and intermediate files to end with a `check` command that compiles the template `krakend.tmpl` and any included sub-template inside. The command outputs (thanks to `FC_OUT`) the result into a `/tmp/krakend.json` file.
-2. The `krakend.json` file from the previous build is the only addition to the final Docker image.
+1. The copy of all templates and intermediate files to end with a `check` command that compiles the template `velonetics.tmpl` and any included sub-template inside. The command outputs (thanks to `FC_OUT`) the result into a `/tmp/velonetics.json` file.
+2. The `velonetics.json` file from the previous build is the only addition to the final Docker image.
 
 The example `Dockerfile` above assumes that you have a file structure like this:
 
@@ -68,21 +68,21 @@ The example `Dockerfile` above assumes that you have a file structure like this:
     │   └── templates
     │       └── some.tmpl
     ├── Dockerfile
-    └── krakend.tmpl
+    └── velonetics.tmpl
 
-If you want to try this code, you can either download a [working Flexible Config example](https://github.com/krakend/examples/tree/main/3.flexible-configuration), or generate an **empty skeleton** like this:
+If you want to try this code, you can either download a [working Flexible Config example](https://github.com/velonetics/examples/tree/main/3.flexible-configuration), or generate an **empty skeleton** like this:
 ```bash
 mkdir -p config/{partials,settings,templates}
 mkdir -p config/settings/{prod,test}
 touch config/settings/{prod,test}/env.json
 touch Dockerfile
-touch krakend.tmpl
+touch velonetics.tmpl
 ```
 
 Now the only missing step to generate the image, is to build it, making sure that the environment argument matches our folder inside the `settings` folder:
 
 {{< terminal title="Docker build" >}}
-docker build --build-arg ENV=prod -t mykrakend .
+docker build --build-arg ENV=prod -t myvelonetics .
 {{< /terminal >}}
 
 The resulting image, including your configuration, weighs around `80MB`.

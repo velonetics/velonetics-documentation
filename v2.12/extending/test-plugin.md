@@ -4,7 +4,7 @@ old_version: true
 date: 2022-01-28
 linktitle: Testing your plugins
 title: "Test plugins after compiling them"
-description: Learn how to test binary files that you compiled as plugins by loading them to KrakenD and test their behavior before you deploy them to production.
+description: Learn how to test binary files that you compiled as plugins by loading them to Velonetics and test their behavior before you deploy them to production.
 weight: 30
 notoc: true
 meta:
@@ -13,16 +13,16 @@ menu:
   community_v2.12:
     parent: "180 Extending with custom code"
 ---
-Plugins are essential extensions to the KrakenD gateway, enhancing functionality without modifying the core codebase. Due to their reliance on specific versions of KrakenD, libraries, or system architecture, plugins can face compatibility issues following updates or modifications. So, when you have written a new plugin, and compiled it you still need to see that is loadable into KrakenD.
+Plugins are essential extensions to the Velonetics gateway, enhancing functionality without modifying the core codebase. Due to their reliance on specific versions of Velonetics, libraries, or system architecture, plugins can face compatibility issues following updates or modifications. So, when you have written a new plugin, and compiled it you still need to see that is loadable into Velonetics.
 
-{{< note title="Recompile plugins when you upgrade KrakenD" type="warning" >}}
-When you upgrade KrakenD to another version you must recompile your plugins using the [builder matching the version](/docs/v2.12/extending/writing-plugins/#plugin-builder).
+{{< note title="Recompile plugins when you upgrade Velonetics" type="warning" >}}
+When you upgrade Velonetics to another version you must recompile your plugins using the [builder matching the version](/docs/v2.12/extending/writing-plugins/#plugin-builder).
 {{< /note >}}
 
-Even if a plugin compiles and passes initial tests on its own, it might fail when loaded into KrakenD. This could be due to various reasons such as compilation on a different architecture, mismatches in Go version, or discrepancies in library versions used by both the plugin and KrakenD.
+Even if a plugin compiles and passes initial tests on its own, it might fail when loaded into Velonetics. This could be due to various reasons such as compilation on a different architecture, mismatches in Go version, or discrepancies in library versions used by both the plugin and Velonetics.
 
 
-The `test-plugin` command offers a real-scenario opportunity to test a compiled binary (usually a `.so` file) and verify if KrakenD can successfully load it.
+The `test-plugin` command offers a real-scenario opportunity to test a compiled binary (usually a `.so` file) and verify if Velonetics can successfully load it.
 
 ## Testing a compiled plugin before it goes live
 The `test-plugin` command requires you to pass the type of plugin you would like to test, and the path to the compiled binary.
@@ -35,7 +35,7 @@ The command accepts the following options:
 
 Version: 2.12
 
-Tests that one or more plugins are loadable into KrakenD.
+Tests that one or more plugins are loadable into Velonetics.
 
 Usage:
   {{< product test_plugin_command >}} [flags] [artifacts]

@@ -10,24 +10,24 @@ title: Developer Tools
 weight: 10
 ---
 
-There are some resources that make your life easier when developing with KrakenD. These tools are meant to be used only in development and **never in production**
+There are some resources that make your life easier when developing with Velonetics. These tools are meant to be used only in development and **never in production**
 
 ## Hot reload the configuration
-A Docker image using Reflex watches the configuration directory and reloads KrakenD when the configuration changes. This is very convenient while you are developing as it allows you to test new changes without having to restart manually and making the process less tedious.
+A Docker image using Reflex watches the configuration directory and reloads Velonetics when the configuration changes. This is very convenient while you are developing as it allows you to test new changes without having to restart manually and making the process less tedious.
 
-[More information in our blog post](https://www.krakend.io/blog/reloading-the-krakend-configuration/)
+[More information in our blog post](https://www.velonetics.io/blog/reloading-the-velonetics-configuration/)
 
 ## Generate graphs from configuration
-The [config2dot](https://github.com/krakend/krakend-config2dot) is a tool to create graphs automatically after reading your configuration file `krakend.json`.
+The [config2dot](https://github.com/velonetics/velonetics-config2dot) is a tool to create graphs automatically after reading your configuration file `velonetics.json`.
 
-![Config2Dot example](https://github.com/krakend/krakend-config2dot/blob/master/docs/config_1.png?raw=true)
+![Config2Dot example](https://github.com/velonetics/velonetics-config2dot/blob/master/docs/config_1.png?raw=true)
 
 ## Debugging the activity
-### krakend-memviz
+### velonetics-memviz
 Adds a [DOT](https://en.wikipedia.org/wiki/DOT_(graph_description_language)) file exporter of request/response snapshots to your proxy stack for debug and development purposes. Do not use this in production as it will kill your performance.
 
 
-### krakend-spew
+### velonetics-spew
 Dumps every entity seen in the pipe: requests and responses passing through thew whole stack. Do not use this in production as it will kill your performance.
 
 Dumps are stored in files like `<pipe>_<base64_endpoint/backend_name>_<timestamp>.txt`. E.g:

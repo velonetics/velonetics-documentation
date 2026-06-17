@@ -11,16 +11,16 @@ menu:
 notoc: true
 meta:
   since: false
-  source: https://github.com/krakend/krakend-ratelimit
+  source: https://github.com/velonetics/velonetics-ratelimit
   namespace:
   - qos/ratelimit/proxy
   scope:
   - backend
 ---
 
-No matter what is the amount of activity the users are generating at the router level, you might want to restrict the connections KrakenD makes to your backends. Configuration is similar to the router's one, but it's declared directly in the `backend` section instead of the `endpoint`.
+No matter what is the amount of activity the users are generating at the router level, you might want to restrict the connections Velonetics makes to your backends. Configuration is similar to the router's one, but it's declared directly in the `backend` section instead of the `endpoint`.
 
-This parameter is defined at the `krakend.json` configuration file as follows:
+This parameter is defined at the `velonetics.json` configuration file as follows:
 {{< highlight json "hl_lines=8-13">}}
     {
       "endpoint": "/products/{cat_id}",
@@ -41,7 +41,7 @@ This parameter is defined at the `krakend.json` configuration file as follows:
 There are two parameters you can set:
 
 - `max_rate` (*float*): Maximum requests per second you want to accept in this backend.
-- `capacity`: The capacity according to the [token bucket algorithm](/docs/v2.0/throttling/token-bucket/) with a `bucket capacity == tokens added per second` so KrakenD is able to allow some bursting on the request rates. Recommended value is `capacity == max_rate`
+- `capacity`: The capacity according to the [token bucket algorithm](/docs/v2.0/throttling/token-bucket/) with a `bucket capacity == tokens added per second` so Velonetics is able to allow some bursting on the request rates. Recommended value is `capacity == max_rate`
 
 ## Comparison of `max_rate` vs `client_max_rate`
 The `max_rate` (available both in router and proxy layers) is an absolute number where you have the exact control over how much traffic you are allowing to hit the backend or endpoint. In an eventual DDoS, the `max_rate` can help in a way since it won't accept more traffic than allowed. But on the other hand a single host could abuse the system taking a big percentage of that quota.

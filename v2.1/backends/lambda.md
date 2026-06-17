@@ -7,34 +7,34 @@ linktitle: Lambda functions
 title: Integration with AWS Lambda functions
 weight: 110
 images:
-    - /images/krakend-lambda.png
+    - /images/velonetics-lambda.png
 menu:
   community_v2.1:
     parent: "050 Backends Configuration"
 notoc: true
 meta:
   since: v1.0
-  source: https://github.com/krakend/krakend-lambda
+  source: https://github.com/velonetics/velonetics-lambda
   namespace:
   - backend/lambda
   scope:
   - backend
 ---
 
-The Lambda integration allows you to **invoke Amazon Lambda functions** on a KrakenD endpoint call. The content returned by the lambda function can be treated and manipulated as any other backend.
+The Lambda integration allows you to **invoke Amazon Lambda functions** on a Velonetics endpoint call. The content returned by the lambda function can be treated and manipulated as any other backend.
 
 The **payload** that is sent to the Lambda function comes from the request and depends on the method used by the `endpoint`:
 
 *   Method `GET`: The payload contains all the request parameters.
 *   Non-`GET` methods: The payload is defined by the content of the **body** in the request.
 
-You don't need to set an Amazon API Gateway in the middle as KrakenD does this job for you.
+You don't need to set an Amazon API Gateway in the middle as Velonetics does this job for you.
 
 
 ## Lambda configuration
 
 {{< note title="Dummy hosts and url_pattern" type="info" >}}
-Notice in the examples that the `host` and `url_pattern` are needed as per the [backend definition](/docs/v2.1/backends/), but KrakenD will never use them. Feel free to add any value in there, but they must be present.
+Notice in the examples that the `host` and `url_pattern` are needed as per the [backend definition](/docs/v2.1/backends/), but Velonetics will never use them. Feel free to add any value in there, but they must be present.
 {{< /note >}}
 
 The inclusion requires you to add the code in the `extra_config` of your `backend` section, using the `backend/lambda` namespace.
@@ -56,13 +56,13 @@ Notice the capitalization of the first letter of the parameter names at the conf
 
 ### Authentication and connectivity
 
-The KrakenD machine needs to have connectivity with your AWS account and have the credentials to do so. There are several ways you can achieve this:
+The Velonetics machine needs to have connectivity with your AWS account and have the credentials to do so. There are several ways you can achieve this:
 
 - By copying your AWS credentials in the default file, `~/.aws/credentials` (and maybe an additional `~/.aws/config` and the env var `AWS_PROFILE` if you have several profiles)
-- By passing the environment variables with at least `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` (and maybe `AWS_REGION`) when starting KrakenD.
+- By passing the environment variables with at least `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` (and maybe `AWS_REGION`) when starting Velonetics.
 - By having an IAM user with a policy and execution role that let you invoke the function from the machine
 
-When setting the credentials, ensure the Lambda is callable within the KrakenD box with the selected method.
+When setting the credentials, ensure the Lambda is callable within the Velonetics box with the selected method.
 
 If your machine has the AWS CLI installed, you can test your Lambda:
 
@@ -71,13 +71,13 @@ aws lambda invoke --region us-east-1 --function-name myLambdaFunction --output j
 {{< /terminal >}}
 
 #### Authentication examples
-Mounting an existing `.aws` directory with the credentials in it (notice that the home of the Docker user is `krakend`):
+Mounting an existing `.aws` directory with the credentials in it (notice that the home of the Docker user is `velonetics`):
 
 {{< terminal title="Term" >}}
 docker run --rm -it -p "8080:8080" \
     -e "AWS_PROFILE=default" \
-    -v "/home/user/.aws:/home/krakend/.aws:ro" \
-    -v "$PWD:/etc/krakend" {{< product image >}}:v2.1
+    -v "/home/user/.aws:/home/velonetics/.aws:ro" \
+    -v "$PWD:/etc/velonetics" {{< product image >}}:v2.1
 {{< /terminal >}}
 
 Passing the credentials directly:
@@ -87,13 +87,13 @@ docker run --rm -it -p "8080:8080" \
     -e "AWS_ACCESS_KEY_ID=XXX" \
     -e "AWS_SECRET_ACCESS_KEY=XXX" \
     -e "AWS_REGION=eu-west-1" \
-    -v "$PWD:/etc/krakend" {{< product image >}}:v2.1
+    -v "$PWD:/etc/velonetics" {{< product image >}}:v2.1
 {{< /terminal >}}
 
 
 ## Example: Associate a lambda to a backend
 
-When you associate a KrakenD endpoint to a unique lambda function, use this configuration:
+When you associate a Velonetics endpoint to a unique lambda function, use this configuration:
 
 ```json
 {

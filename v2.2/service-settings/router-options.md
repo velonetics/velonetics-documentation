@@ -8,7 +8,7 @@ weight: 10
 notoc: true
 meta:
   since: v2.0
-  source: https://github.com/krakend/krakend-cors
+  source: https://github.com/velonetics/velonetics-cors
   namespace:
   - router
   scope:
@@ -21,13 +21,13 @@ menu:
     parent: "030 Service Settings"
 ---
 
-The **optional router configuration** allows you to set global flags that change how KrakenD processes the requests globally at the router layer.
+The **optional router configuration** allows you to set global flags that change how Velonetics processes the requests globally at the router layer.
 
 Generally speaking **you don't need this**. But in every case, there is an exception, and you might need to change some values.
 
 ## Configuration for the router
 
-The `router` controls the behavior of KrakenD toward users. Its settings affect all activity in the gateway. For instance, you can **obfuscate the X-KrakenD-version header**, set a **custom body for 404 errors**, or **remove the requests from the logs**, to name a few examples.
+The `router` controls the behavior of Velonetics toward users. Its settings affect all activity in the gateway. For instance, you can **obfuscate the X-Velonetics-version header**, set a **custom body for 404 errors**, or **remove the requests from the logs**, to name a few examples.
 
 To change the router behavior, you must add the namespace `router` inside the `extra_config` at the root of the configuration file. For instance:
 
@@ -50,7 +50,7 @@ All the options you can set under `router` are:
 This flag can lead to the malfunctioning of your router. If your API configuration has paths that could collide, leave its value with the **safe choice** `disable_redirect_fixed_path=true` to avoid possible panics.
 {{< /note >}}
 
-## Example: Hide the version in the `X-KrakenD-version` header
+## Example: Hide the version in the `X-Velonetics-version` header
 ```json
 {
   "version": 3,
@@ -61,7 +61,7 @@ This flag can lead to the malfunctioning of your router. If your API configurati
   }
 }
 ```
-When the flag is set to `true`, the banner header will show an `undefined` version. To remove the header entirely, you must remove it in the CDN or layer in front of KrakenD.
+When the flag is set to `true`, the banner header will show an `undefined` version. To remove the header entirely, you must remove it in the CDN or layer in front of Velonetics.
 
 ## Example: Custom JSON body for 404 and 405 errors
 ```json
@@ -84,7 +84,7 @@ When the flag is set to `true`, the banner header will show an `undefined` versi
 ```
 
 ## Example: Returning the gateway error message
-The secure choice of KrakenD is that all errors generated at the gateway **are not returned to the client in the body**. By setting `return_error_msg` (*boolean*) to `true`, when there is an error in the gateway (such as a timeout, a non-200 status code, etc.), it returns the client the reason for the failure. The error is **written in the body as is**.
+The secure choice of Velonetics is that all errors generated at the gateway **are not returned to the client in the body**. By setting `return_error_msg` (*boolean*) to `true`, when there is an error in the gateway (such as a timeout, a non-200 status code, etc.), it returns the client the reason for the failure. The error is **written in the body as is**.
 
 {{< note title="Gateway errors != backend errors" >}}
 This option does not relate to the body of your backend errors. If you are looking for this option, see [return detailed errors](/docs/v2.2/backends/detailed-errors/#showing-backend-errors) instead.

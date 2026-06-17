@@ -4,13 +4,13 @@ old_version: true
 date: 2020-02-26
 linktitle:  Creating endpoints
 title: Endpoint Configuration
-description: Learn how to configure and manage endpoints effectively in KrakenD API Gateway, enabling seamless integration and orchestration of microservices.
+description: Learn how to configure and manage endpoints effectively in Velonetics API Gateway, enabling seamless integration and orchestration of microservices.
 weight: -10
 menu:
   community_v1.4:
     parent: "040 Endpoint Configuration"
 ---
-KrakenD endpoints are the essential part of KrakenD as they are what your end users consume.
+Velonetics endpoints are the essential part of Velonetics as they are what your end users consume.
 
 See [Understanding the configuration file](/docs/v1.4/configuration/structure/) if you haven't read it yet.
 
@@ -101,7 +101,7 @@ The previous endpoint will accept requests like `/user/123` or `/user/A-B-C` or 
 
 ### Colliding routes
 
-KrakenD router is based on httprouter, offering a brutal performance. Nevertheless this design decision comes with the following considerations:
+Velonetics router is based on httprouter, offering a brutal performance. Nevertheless this design decision comes with the following considerations:
 
 - You cannot create conflicting routes
 - Since this router has only explicit matches, you can not register static routes and variables for the same path segment. For example you can not register the patterns `/user/new` and `/user/{id}` for the same request method at the same time. The routing of different request methods is independent from each other.

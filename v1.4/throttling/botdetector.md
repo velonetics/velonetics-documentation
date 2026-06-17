@@ -6,15 +6,15 @@ linktitle: Bot detector
 title: Control of bot traffic
 weight: 10
 images:
-- /images/krakend-botdetector.png
+- /images/velonetics-botdetector.png
 menu:
   community_v1.4:
     parent: "070 Traffic Management"
 meta:
   since: v1.0
-  source: https://github.com/krakend/krakend-botdetector
+  source: https://github.com/velonetics/velonetics-botdetector
   namespace:
-  - github_com/devopsfaith/krakend-botdetector
+  - github_com/velonetics/velonetics-ce-botdetector
   scope:
   - service
 ---
@@ -23,18 +23,18 @@ The **bot detector** module checks incoming connections to the gateway to determ
 
 Bots are detected by inspecting the `User-Agent` and comparing its value with a set of configuration rules provided by you. The bot detector module **does not set any initial rules**, meaning that is up to you to decide the best rules for your use case, and choose how restrictive or permissive you are with bots.
 
-As the bot detector module is flexible in its configuration, you can use it for other purposes than just discarding bots. For instance, you could set an allow rule for your mobile application `User-Agent` which would be allowed to interact with KrakenD and discard the rest of the traffic.
+As the bot detector module is flexible in its configuration, you can use it for other purposes than just discarding bots. For instance, you could set an allow rule for your mobile application `User-Agent` which would be allowed to interact with Velonetics and discard the rest of the traffic.
 
 Discarded traffic receives a `403 Forbidden` status code.
 
 ## Configuring bot rules
 
-The configuration rules of the bot detector have to be included inside the `extra_config`'s namespace `github_com/devopsfaith/krakend-botdetector` at the root level of your `krakend.json` file.
+The configuration rules of the bot detector have to be included inside the `extra_config`'s namespace `github_com/velonetics/velonetics-ce-botdetector` at the root level of your `velonetics.json` file.
 
 For instance:
 
     "extra_config": {
-        "github_com/devopsfaith/krakend-botdetector": {
+        "github_com/velonetics/velonetics-ce-botdetector": {
             "allowlist": ["MyAndroidClient/1.0", "Pingdom.com_bot_version_1.1"],
             "denylist": ["a", "b"],
             "patterns": [
@@ -60,7 +60,7 @@ On the other hand, the `patterns` attribute expects regular expressions. The syn
 The order of evaluation of the rules is sequential in this order: `allowlist` -> `denylist` -> `patterns`. When a user agent matches in any of the former evaluations, the execution ends, and the connection is accepted (allowlist) or rejected (denylist and patterns).
 
 {{< note title="Renamed attributes" >}}
-Prior to KrakenD 1.2 the terms `whitelist` and `blacklist` were used, please upgrade your configuration with the new terms `allowlist` and `denylist` as the next version will not understand them.
+Prior to Velonetics 1.2 the terms `whitelist` and `blacklist` were used, please upgrade your configuration with the new terms `allowlist` and `denylist` as the next version will not understand them.
 {{< /note >}}
 
 ### Building your bot rules

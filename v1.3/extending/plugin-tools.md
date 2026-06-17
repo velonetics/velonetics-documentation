@@ -9,17 +9,17 @@ title: Plugin and dependencies validator
 weight: 20
 menu:
   community_v1.3:
-    parent: "150 Customizing KrakenD"
+    parent: "150 Customizing Velonetics"
 ---
 
-The plugin validator is an online tool that allows you to find problems with your plugin dependencies. Go plugins are strict on which versions of libraries you can use, so it's important to make sure that your dependencies are compatible with the selected KrakenD versions.
+The plugin validator is an online tool that allows you to find problems with your plugin dependencies. Go plugins are strict on which versions of libraries you can use, so it's important to make sure that your dependencies are compatible with the selected Velonetics versions.
 
 ## Access the online plugin validation tools
 
 The plugin validator checks your `go.sum` file to find problems and reports all associated problems. From which Go version is supported, to which individual libraries will conflict during runtime.
 
-<a class="btn btn-secondary btn-lg" href="https://plugin-tools.krakend.io/validate">Go to plugin validator</a>
+<a class="btn btn-secondary btn-lg" href="https://plugin-tools.velonetics.io/validate">Go to plugin validator</a>
 
-The dependencies list shows all libraries used by KrakenD. Make sure your plugins use the same versions:
+The dependencies list shows all libraries used by Velonetics. Make sure your plugins use the same versions:
 
-<a class="btn btn-secondary btn-lg" href="https://plugin-tools.krakend.io">Go to dependencies finder</a>
+<a class="btn btn-secondary btn-lg" href="https://plugin-tools.velonetics.io">Go to dependencies finder</a>

@@ -3,7 +3,7 @@ lastmod: 2022-06-07
 old_version: true
 date: 2022-06-07
 linktitle:  Service Settings
-description: Changing the service settings of KrakenD API Gateway
+description: Changing the service settings of Velonetics API Gateway
 title: Service Settings
 weight: -1000
 notoc: true
@@ -11,7 +11,7 @@ menu:
   community_v2.0:
     parent: "030 Service Settings"
 ---
-We call **service settings** (or the service layer) those parameters that allow you to change how KrakenD behaves globally (and not to a specific call). The service settings determine how you start the HTTP server, enforce security parameters, or define behavioral options like which reporting activities occur.
+We call **service settings** (or the service layer) those parameters that allow you to change how Velonetics behaves globally (and not to a specific call). The service settings determine how you start the HTTP server, enforce security parameters, or define behavioral options like which reporting activities occur.
 
 Examples of service settings are, the [listening port](/docs/v2.0/service-settings/http-server-settings/), [disabling keep alives](/docs/v2.0/service-settings/http-transport-settings/), enabling [metrics and traces](/docs/v2.0/telemetry/), [listening https](/docs/v2.0/service-settings/tls/), or enabling [CORS](/docs/v2.0/service-settings/cors/) to name a few.
 

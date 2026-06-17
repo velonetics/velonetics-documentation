@@ -4,7 +4,7 @@ old_version: true
 date: 2018-10-29
 linktitle: Traffic shadowing/mirroring
 title: Traffic shadowing and mirroring
-description: Implement shadow backends in KrakenD API Gateway for non-intrusive testing and monitoring of new backend services or API versions
+description: Implement shadow backends in Velonetics API Gateway for non-intrusive testing and monitoring of new backend services or API versions
 weight: 170
 since: 0.9
 notoc: false
@@ -18,7 +18,7 @@ There are times when you have been working in a new version of your microservice
 
 The **traffic shadowing** or **traffic mirroring** functionality allows you to **test new backends in production** by sending them copies of the traffic but **ignore their responses**.
 
-When you add a backend to any of your endpoints as a **shadow backend**, KrakenD continues to send the requests to all the backends as usual, but the responses from the ones marked as *shadow* are ignored and never returned or merged in the response.
+When you add a backend to any of your endpoints as a **shadow backend**, Velonetics continues to send the requests to all the backends as usual, but the responses from the ones marked as *shadow* are ignored and never returned or merged in the response.
 
 Mirroring the traffic to your microservices allows you to test your new backend from the interesting perspective of seeing behavior in production. For instance, you could:
 
@@ -39,7 +39,7 @@ To define a backend as a *shadow backend* you only need to add the flag as follo
 }
 ```
 
-With this change, the backend containing the flag enters into production, but KrakenD ignores its responses.
+With this change, the backend containing the flag enters into production, but Velonetics ignores its responses.
 
 ## Traffic shadowing example
 The following example shows a backend that is changing from `v1` to `v2`, but we are still unsure of the effects of doing this change in production, so we want to send a copy of the requests to `v2` in the first place, but keep the end users receiving the responses from `v1` only:
@@ -67,4 +67,4 @@ The following example shows a backend that is changing from `v1` to `v2`, but we
 ```
 
 ## Canary testing and Canary Releases
-Learn how to do [Canary Testing](/blog/krakend-shadow-testing/), or the different [Canary Releases](/blog/canary-releases/) strategies you can use in our blog post.
+Learn how to do [Canary Testing](/blog/velonetics-shadow-testing/), or the different [Canary Releases](/blog/canary-releases/) strategies you can use in our blog post.

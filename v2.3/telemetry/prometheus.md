@@ -11,7 +11,7 @@ menu:
     parent: "080 Telemetry and Analytics"
 meta:
   since: v0.5
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
   - telemetry/opencensus
   log_prefix:
@@ -36,7 +36,7 @@ Enabling it only requires you to include in the root level of your configuration
         "exporters": {
           "prometheus": {
               "port": 9091,
-              "namespace": "krakend",
+              "namespace": "velonetics",
               "tag_host": false,
               "tag_path": true,
               "tag_method": true,
@@ -72,9 +72,9 @@ scrape_configs:
   - job_name: 'prometheus'
     static_configs:
       - targets: ['localhost:9090']
-  - job_name: 'krakend'
+  - job_name: 'velonetics'
     static_configs:
-      - targets: ['krakend:9091']
+      - targets: ['velonetics:9091']
 ```
 
 ## Prometheus output example
@@ -169,162 +169,162 @@ go_memstats_sys_bytes 6.057268e+07
 # HELP go_threads Number of OS threads created.
 # TYPE go_threads gauge
 go_threads 31
-# HELP krakend_opencensus_io_http_server_latency Latency distribution of HTTP requests
-# TYPE krakend_opencensus_io_http_server_latency histogram
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="1"} 78792
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="2"} 83989
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="3"} 93954
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="4"} 114961
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="5"} 144535
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="6"} 168742
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="8"} 189585
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="10"} 194593
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="13"} 198487
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="16"} 199460
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="20"} 199757
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="25"} 199796
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="30"} 199799
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="40"} 199799
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="50"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="65"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="80"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="100"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="130"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="160"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="200"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="250"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="300"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="400"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="500"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="650"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="800"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="1000"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="2000"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="5000"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="10000"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="20000"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="50000"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="100000"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="+Inf"} 199800
-krakend_opencensus_io_http_server_latency_sum{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500"} 628394.4669860053
-krakend_opencensus_io_http_server_latency_count{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="1"} 91160
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="2"} 97163
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="3"} 104034
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="4"} 113157
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="5"} 124866
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="6"} 138026
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="8"} 165065
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="10"} 181831
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="13"} 192938
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="16"} 197200
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="20"} 199193
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="25"} 199685
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="30"} 199775
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="40"} 199799
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="50"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="65"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="80"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="100"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="130"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="160"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="200"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="250"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="300"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="400"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="500"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="650"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="800"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="1000"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="2000"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="5000"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="10000"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="20000"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="50000"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="100000"} 199800
-krakend_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="+Inf"} 199800
-krakend_opencensus_io_http_server_latency_sum{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200"} 763343.1322959992
-krakend_opencensus_io_http_server_latency_count{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200"} 199800
-# HELP krakend_opencensus_io_http_server_request_bytes Size distribution of HTTP request body
-# TYPE krakend_opencensus_io_http_server_request_bytes histogram
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="1024"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="2048"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="4096"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="16384"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="65536"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="262144"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="1.048576e+06"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="4.194304e+06"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="1.6777216e+07"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="6.7108864e+07"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="2.68435456e+08"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="1.073741824e+09"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="4.294967296e+09"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="+Inf"} 199800
-krakend_opencensus_io_http_server_request_bytes_sum{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500"} 0
-krakend_opencensus_io_http_server_request_bytes_count{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="1024"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="2048"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="4096"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="16384"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="65536"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="262144"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="1.048576e+06"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="4.194304e+06"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="1.6777216e+07"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="6.7108864e+07"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="2.68435456e+08"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="1.073741824e+09"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="4.294967296e+09"} 199800
-krakend_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="+Inf"} 199800
-krakend_opencensus_io_http_server_request_bytes_sum{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200"} 0
-krakend_opencensus_io_http_server_request_bytes_count{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200"} 199800
-# HELP krakend_opencensus_io_http_server_request_count Count of HTTP requests started
-# TYPE krakend_opencensus_io_http_server_request_count counter
-krakend_opencensus_io_http_server_request_count{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status=""} 199800
-krakend_opencensus_io_http_server_request_count{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status=""} 199800
-# HELP krakend_opencensus_io_http_server_request_count_by_method Server request count by HTTP method
-# TYPE krakend_opencensus_io_http_server_request_count_by_method counter
-krakend_opencensus_io_http_server_request_count_by_method{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status=""} 199800
-krakend_opencensus_io_http_server_request_count_by_method{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status=""} 199800
-# HELP krakend_opencensus_io_http_server_response_bytes Size distribution of HTTP response body
-# TYPE krakend_opencensus_io_http_server_response_bytes histogram
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="1024"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="2048"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="4096"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="16384"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="65536"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="262144"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="1.048576e+06"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="4.194304e+06"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="1.6777216e+07"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="6.7108864e+07"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="2.68435456e+08"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="1.073741824e+09"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="4.294967296e+09"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="+Inf"} 199800
-krakend_opencensus_io_http_server_response_bytes_sum{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500"} -199800
-krakend_opencensus_io_http_server_response_bytes_count{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="1024"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="2048"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="4096"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="16384"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="65536"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="262144"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="1.048576e+06"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="4.194304e+06"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="1.6777216e+07"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="6.7108864e+07"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="2.68435456e+08"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="1.073741824e+09"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="4.294967296e+09"} 199800
-krakend_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="+Inf"} 199800
-krakend_opencensus_io_http_server_response_bytes_sum{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200"} 1.000998e+08
-krakend_opencensus_io_http_server_response_bytes_count{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200"} 199800
-# HELP krakend_opencensus_io_http_server_response_count_by_status_code Server response count by status code
-# TYPE krakend_opencensus_io_http_server_response_count_by_status_code counter
-krakend_opencensus_io_http_server_response_count_by_status_code{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500"} 199800
-krakend_opencensus_io_http_server_response_count_by_status_code{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200"} 199800
+# HELP velonetics_opencensus_io_http_server_latency Latency distribution of HTTP requests
+# TYPE velonetics_opencensus_io_http_server_latency histogram
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="1"} 78792
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="2"} 83989
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="3"} 93954
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="4"} 114961
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="5"} 144535
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="6"} 168742
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="8"} 189585
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="10"} 194593
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="13"} 198487
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="16"} 199460
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="20"} 199757
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="25"} 199796
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="30"} 199799
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="40"} 199799
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="50"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="65"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="80"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="100"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="130"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="160"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="200"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="250"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="300"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="400"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="500"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="650"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="800"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="1000"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="2000"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="5000"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="10000"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="20000"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="50000"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="100000"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="+Inf"} 199800
+velonetics_opencensus_io_http_server_latency_sum{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500"} 628394.4669860053
+velonetics_opencensus_io_http_server_latency_count{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="1"} 91160
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="2"} 97163
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="3"} 104034
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="4"} 113157
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="5"} 124866
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="6"} 138026
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="8"} 165065
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="10"} 181831
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="13"} 192938
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="16"} 197200
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="20"} 199193
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="25"} 199685
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="30"} 199775
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="40"} 199799
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="50"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="65"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="80"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="100"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="130"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="160"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="200"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="250"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="300"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="400"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="500"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="650"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="800"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="1000"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="2000"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="5000"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="10000"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="20000"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="50000"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="100000"} 199800
+velonetics_opencensus_io_http_server_latency_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="+Inf"} 199800
+velonetics_opencensus_io_http_server_latency_sum{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200"} 763343.1322959992
+velonetics_opencensus_io_http_server_latency_count{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200"} 199800
+# HELP velonetics_opencensus_io_http_server_request_bytes Size distribution of HTTP request body
+# TYPE velonetics_opencensus_io_http_server_request_bytes histogram
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="1024"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="2048"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="4096"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="16384"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="65536"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="262144"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="1.048576e+06"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="4.194304e+06"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="1.6777216e+07"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="6.7108864e+07"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="2.68435456e+08"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="1.073741824e+09"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="4.294967296e+09"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="+Inf"} 199800
+velonetics_opencensus_io_http_server_request_bytes_sum{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500"} 0
+velonetics_opencensus_io_http_server_request_bytes_count{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="1024"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="2048"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="4096"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="16384"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="65536"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="262144"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="1.048576e+06"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="4.194304e+06"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="1.6777216e+07"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="6.7108864e+07"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="2.68435456e+08"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="1.073741824e+09"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="4.294967296e+09"} 199800
+velonetics_opencensus_io_http_server_request_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="+Inf"} 199800
+velonetics_opencensus_io_http_server_request_bytes_sum{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200"} 0
+velonetics_opencensus_io_http_server_request_bytes_count{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200"} 199800
+# HELP velonetics_opencensus_io_http_server_request_count Count of HTTP requests started
+# TYPE velonetics_opencensus_io_http_server_request_count counter
+velonetics_opencensus_io_http_server_request_count{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status=""} 199800
+velonetics_opencensus_io_http_server_request_count{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status=""} 199800
+# HELP velonetics_opencensus_io_http_server_request_count_by_method Server request count by HTTP method
+# TYPE velonetics_opencensus_io_http_server_request_count_by_method counter
+velonetics_opencensus_io_http_server_request_count_by_method{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status=""} 199800
+velonetics_opencensus_io_http_server_request_count_by_method{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status=""} 199800
+# HELP velonetics_opencensus_io_http_server_response_bytes Size distribution of HTTP response body
+# TYPE velonetics_opencensus_io_http_server_response_bytes histogram
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="1024"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="2048"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="4096"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="16384"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="65536"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="262144"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="1.048576e+06"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="4.194304e+06"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="1.6777216e+07"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="6.7108864e+07"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="2.68435456e+08"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="1.073741824e+09"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="4.294967296e+09"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500",le="+Inf"} 199800
+velonetics_opencensus_io_http_server_response_bytes_sum{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500"} -199800
+velonetics_opencensus_io_http_server_response_bytes_count{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="1024"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="2048"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="4096"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="16384"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="65536"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="262144"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="1.048576e+06"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="4.194304e+06"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="1.6777216e+07"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="6.7108864e+07"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="2.68435456e+08"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="1.073741824e+09"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="4.294967296e+09"} 199800
+velonetics_opencensus_io_http_server_response_bytes_bucket{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200",le="+Inf"} 199800
+velonetics_opencensus_io_http_server_response_bytes_sum{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200"} 1.000998e+08
+velonetics_opencensus_io_http_server_response_bytes_count{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200"} 199800
+# HELP velonetics_opencensus_io_http_server_response_count_by_status_code Server response count by status code
+# TYPE velonetics_opencensus_io_http_server_response_count_by_status_code counter
+velonetics_opencensus_io_http_server_response_count_by_status_code{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/billing",http_status="500"} 199800
+velonetics_opencensus_io_http_server_response_count_by_status_code{http_host="localhost:8080",http_method="GET",http_path="/v1/soap-to-json/account/info",http_status="200"} 199800
 # HELP process_cpu_seconds_total Total user and system CPU time spent in seconds.
 # TYPE process_cpu_seconds_total counter
 process_cpu_seconds_total 48.24

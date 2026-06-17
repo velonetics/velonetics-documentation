@@ -4,7 +4,7 @@ old_version: true
 date: 2018-11-05
 linktitle: Metrics API
 title: Extended Metrics API
-description: Explore the extended metrics available in KrakenD API Gateway telemetry for detailed insights into API performance and usage
+description: Explore the extended metrics available in Velonetics API Gateway telemetry for detailed insights into API performance and usage
 weight: 1000
 menu:
   community_v2.12:
@@ -12,7 +12,7 @@ menu:
 notoc: false
 meta:
   since: v0.4
-  source: https://github.com/krakend/krakend-metrics
+  source: https://github.com/velonetics/velonetics-metrics
   namespace:
   - telemetry/metrics
   scope:
@@ -25,7 +25,7 @@ The **metrics API** offers a new `/__stats/` endpoint in a different port and co
 This component is unrelated to the [OpenTelemetry](/docs/v2.12/telemetry/opentelemetry/) metrics, and they can coexist. Previous to the creation of OpenTelemetry, the combination of Influx and the metrics API, offered the older versions of [Grafana dashboard](/docs/v2.12/telemetry/grafana/).
 
 ## Configuration
-In order to add the metrics API to your KrakenD installation add the `telemetry/metrics` namespace under `extra_config` in the root of your configuration file, e.g.:
+In order to add the metrics API to your Velonetics installation add the `telemetry/metrics` namespace under `extra_config` in the root of your configuration file, e.g.:
 
 {{< highlight go "hl_lines=3-11" >}}
 {
@@ -51,30 +51,30 @@ The structure of the metrics looks like this (truncated):
 curl http://localhost:8090/__stats
 {
   "cmdline": [
-    "/usr/bin/krakend",
+    "/usr/bin/velonetics",
     "run",
     "-c",
-    "/etc/krakend/krakend.json",
+    "/etc/velonetics/velonetics.json",
     "-d"
   ],
-  "krakend.router.connected": 0,
-  "krakend.router.connected-gauge": 0,
-  "krakend.router.connected-total": 0,
-  "krakend.router.disconnected": 0,
-  "krakend.router.disconnected-gauge": 0,
-  "krakend.router.disconnected-total": 0,
-  "krakend.service.debug.GCStats.LastGC": 1605724147216402400,
-  "krakend.service.debug.GCStats.NumGC": 102,
-  "krakend.service.debug.GCStats.Pause.50-percentile": 0,
-  "krakend.service.debug.GCStats.Pause.75-percentile": 0,
-  "krakend.service.debug.GCStats.Pause.95-percentile": 0,
-  "krakend.service.debug.GCStats.Pause.99-percentile": 0,
-  "krakend.service.debug.GCStats.Pause.999-percentile": 0,
-  "krakend.service.debug.GCStats.Pause.count": 0,
-  "krakend.service.debug.GCStats.Pause.max": 0,
-  "krakend.service.debug.GCStats.Pause.mean": 0,
-  "krakend.service.debug.GCStats.Pause.min": 0,
-  "krakend.service.debug.GCStats.Pause.std-dev": 0,
+  "velonetics.router.connected": 0,
+  "velonetics.router.connected-gauge": 0,
+  "velonetics.router.connected-total": 0,
+  "velonetics.router.disconnected": 0,
+  "velonetics.router.disconnected-gauge": 0,
+  "velonetics.router.disconnected-total": 0,
+  "velonetics.service.debug.GCStats.LastGC": 1605724147216402400,
+  "velonetics.service.debug.GCStats.NumGC": 102,
+  "velonetics.service.debug.GCStats.Pause.50-percentile": 0,
+  "velonetics.service.debug.GCStats.Pause.75-percentile": 0,
+  "velonetics.service.debug.GCStats.Pause.95-percentile": 0,
+  "velonetics.service.debug.GCStats.Pause.99-percentile": 0,
+  "velonetics.service.debug.GCStats.Pause.999-percentile": 0,
+  "velonetics.service.debug.GCStats.Pause.count": 0,
+  "velonetics.service.debug.GCStats.Pause.max": 0,
+  "velonetics.service.debug.GCStats.Pause.mean": 0,
+  "velonetics.service.debug.GCStats.Pause.min": 0,
+  "velonetics.service.debug.GCStats.Pause.std-dev": 0,
     ...
   }
 }
@@ -91,7 +91,7 @@ You can accomplish it with the following snippet.
           "address":"http://influxdb:8086",
           "ttl":"25s",
           "buffer_size":0,
-          "db": "krakend",
+          "db": "velonetics",
           "username": "your-influxdb-user",
           "password": "your-influxdb-password"
       },
@@ -109,12 +109,12 @@ The properties of the `telemetry/influx` are as follows:
 See below how to configure InfluxDB, and you are ready to [publish a Grafana dashboard](/docs/v2.12/telemetry/grafana/).
 
 ## Setting up Influx
-For **InfluxDB v2.x**, we have included in our [Telemetry Dashboards](https://github.com/krakend/telemetry-dashboards/) the files that create the authorization part.
+For **InfluxDB v2.x**, we have included in our [Telemetry Dashboards](https://github.com/velonetics/telemetry-dashboards/) the files that create the authorization part.
 
 For **InfluxDB v1.x** (older) the process is straightforward and requires you nothing else than start an Influx instance with the desired configuration.
 
 ### Influx v2
-If you use Docker, you can start InfluxDB as part of a docker compose file. You need to specify in the configuration above the same data you used to run InfluxDB. For instance, the following `docker-compose.yml` sets the credentials you need to reflect in the KrakenD configuration.
+If you use Docker, you can start InfluxDB as part of a docker compose file. You need to specify in the configuration above the same data you used to run InfluxDB. For instance, the following `docker-compose.yml` sets the credentials you need to reflect in the Velonetics configuration.
 
 ```yaml
 version: "3"
@@ -123,27 +123,27 @@ services:
     image: influxdb:2.4
     environment:
       - "DOCKER_INFLUXDB_INIT_MODE=setup"
-      - "DOCKER_INFLUXDB_INIT_USERNAME=krakend-dev"
+      - "DOCKER_INFLUXDB_INIT_USERNAME=velonetics-dev"
       - "DOCKER_INFLUXDB_INIT_PASSWORD=pas5w0rd"
       - "DOCKER_INFLUXDB_INIT_ORG=my-org"
-      - "DOCKER_INFLUXDB_INIT_BUCKET=krakend"
+      - "DOCKER_INFLUXDB_INIT_BUCKET=velonetics"
       - "DOCKER_INFLUXDB_INIT_RETENTION=1w"
       - "DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=my-super-secret-auth-token"
     ports:
       - "8086:8086"
     volumes:
       - "./config/telemetry/influx:/docker-entrypoint-initdb.d"
-  krakend:
+  velonetics:
     image: {{< product image >}}:2.12
     volumes:
-      - ./krakend:/etc/krakend
+      - ./velonetics:/etc/velonetics
     ports:
       - "8080:8080"
 ```
 
 In the fields `db`, `username`, and `password` of the component configuration reflect the same values as in `DOCKER_INFLUXDB_INIT_BUCKET`, `DOCKER_INFLUXDB_INIT_USERNAME`, and `DOCKER_INFLUXDB_INIT_PASSWORD` accordingly.
 
-The Influx **volume** below must have the contents of the [influx initdb script](https://github.com/krakend/telemetry-dashboards/tree/main/influx), that it will create the authorization needed to let KrakenD push the metrics.
+The Influx **volume** below must have the contents of the [influx initdb script](https://github.com/velonetics/telemetry-dashboards/tree/main/influx), that it will create the authorization needed to let Velonetics push the metrics.
 
 #### Manual configuration
 If you don't want to use the automated docker compose above, the manual steps to create the auth are:
@@ -156,7 +156,7 @@ docker exec -it influxdb /bin/bash
 Create a configuration:
 
 {{< terminal title="Term" >}}
-influx config create --config-name krakend-config \
+influx config create --config-name velonetics-config \
   --host-url http://localhost:8086 \
   --org my-org \
   --token my-super-secret-auth-token \
@@ -180,7 +180,7 @@ And now launch the last command in the shell:
 influx v1 auth create \
   --read-bucket b492e6f8f3b13aaa \
   --write-bucket b492e6f8f3b13aaa \
-  --username krakend-dev
+  --username velonetics-dev
 {{< /terminal >}}
 
 Replace the ID of the buckets above with the ID you just copied, and the username as in the docker compose. The shell will ask for your password.
@@ -199,7 +199,7 @@ Now your configuration should work and start sending data to InfluxDB:
             "address": "http://localhost:8086",
             "ttl": "25s",
             "buffer_size": 100,
-            "db": "krakend_db",
+            "db": "velonetics_db",
             "username": "user",
             "password": "password"
         }
@@ -210,7 +210,7 @@ Now your configuration should work and start sending data to InfluxDB:
 Make sure to type in `db` the bucket name you created on InfluxDB and the `username` and `password` as well.
 
 ### Influx v1
-When using InfluxDB v1.x, you need to specify in the configuration above the same data you used to run InfluxDB. For instance, the following docker compose sets the credentials you need to reflect in the KrakenD configuration.
+When using InfluxDB v1.x, you need to specify in the configuration above the same data you used to run InfluxDB. For instance, the following docker compose sets the credentials you need to reflect in the Velonetics configuration.
 
 ```yaml
 version: "3"
@@ -218,17 +218,17 @@ services:
   influxdb:
     image: influxdb:1.8
     environment:
-      - "INFLUXDB_DB=krakend"
-      - "INFLUXDB_USER=krakend-dev"
+      - "INFLUXDB_DB=velonetics"
+      - "INFLUXDB_USER=velonetics-dev"
       - "INFLUXDB_USER_PASSWORD=pas5w0rd"
       - "INFLUXDB_ADMIN_USER=admin"
       - "INFLUXDB_ADMIN_PASSWORD=supersecretpassword"
     ports:
       - "8086:8086"
-  krakend:
+  velonetics:
     image: {{< product image >}}:2.12
     volumes:
-      - ./krakend:/etc/krakend
+      - ./velonetics:/etc/velonetics
     ports:
       - "8080:8080"
 ```

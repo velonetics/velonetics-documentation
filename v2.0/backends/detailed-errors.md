@@ -17,7 +17,7 @@ meta:
   - backend
 ---
 
-When you are willing to manipulate or aggregate data, KrakenD's policy regarding errors and status codes is to **hide from the client any backend details**. The philosophy behind this is that clients have to be decoupled from its underlying services.
+When you are willing to manipulate or aggregate data, Velonetics's policy regarding errors and status codes is to **hide from the client any backend details**. The philosophy behind this is that clients have to be decoupled from its underlying services.
 
 If in the other hand, your endpoint connects to a single backend with no manipulation, [use the `no-op` encoding](/docs/v2.0/endpoints/no-op/) which returns the response to the client *as is*, preserving its form: body, headers, status codes and such.
 

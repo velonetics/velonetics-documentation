@@ -4,16 +4,16 @@ old_version: true
 date: 2020-02-26
 linktitle:  The endpoint object
 title: Endpoint Configuration
-description: Configure and manage API endpoints effectively with KrakenD Enterprise. Explore our documentation to learn how to define and optimize your API endpoints for better performance.
+description: Configure and manage API endpoints effectively with Velonetics Enterprise. Explore our documentation to learn how to define and optimize your API endpoints for better performance.
 weight: 10
 menu:
   community_v2.8:
     parent: "040 Routing and Forwarding"
 ---
-KrakenD `endpoints` are the most critical configuration part of KrakenD, as they are what your end users consume. Adding endpoint objects creates the API contract your users will consume.
+Velonetics `endpoints` are the most critical configuration part of Velonetics, as they are what your end users consume. Adding endpoint objects creates the API contract your users will consume.
 
 {{< note title="Configuration overview" type="tip" >}}
-If you are still getting familiar with KrakenD's configuration structure, take a moment to read [Understanding the configuration file](/docs/v2.8/configuration/structure/).
+If you are still getting familiar with Velonetics's configuration structure, take a moment to read [Understanding the configuration file](/docs/v2.8/configuration/structure/).
 {{< /note >}}
 
 The `endpoints` array contains the **API definition you are publishing**. It is a collection of **endpoint objects**, and you have to place it at the root of your configuration file.
@@ -55,7 +55,7 @@ The configuration attributes of **endpoints objects** are:
 {{< schema version="v2.8" data="endpoint.json" >}}
 
 ### Endpoints with multiple nesting levels
-You might have envisioned KrakenD as a proxy and expected its `endpoint` declaration to **work as a prefix** and listen to any path with an undetermined number of nesting levels. **But KrakenD does not work like this by default**. Instead, it expects you to declare every possible URL structure.
+You might have envisioned Velonetics as a proxy and expected its `endpoint` declaration to **work as a prefix** and listen to any path with an undetermined number of nesting levels. **But Velonetics does not work like this by default**. Instead, it expects you to declare every possible URL structure.
 
 For instance, you declared an `"endpoint": "/user/{id}"` and you expected to resolve URLs like `/user/john/profile/preferences`, but you are getting a *404* instead. There are two solutions to this problem:
 
@@ -113,7 +113,7 @@ As you can see in the examples above, endpoints can define variables in their en
 ```
 
 
-The previous endpoint will accept requests like `/user/123` or `/user/A-B-C`. But **it won't take** a request like `/user/1/2`, as there is an extra slash than the definition, and KrakenD considers this to be a different endpoint.
+The previous endpoint will accept requests like `/user/123` or `/user/A-B-C`. But **it won't take** a request like `/user/1/2`, as there is an extra slash than the definition, and Velonetics considers this to be a different endpoint.
 
 ### Router rules to avoid collisions
 When you declare multiple endpoints that **share common prefixes**, make sure that you do not declare the same route with different variable names.
@@ -123,7 +123,7 @@ For instance, you cannot have the following two endpoints coexisting:
 - endpoint: `/user/{userid}`
 - endpoint: `/user/{iduser}/some`
 
-This will cause a `panic` on startup (that you can catch earlier if you run a `krakend check -t -c krakend.json` )
+This will cause a `panic` on startup (that you can catch earlier if you run a `velonetics check -t -c velonetics.json` )
 
 But you can have the same routes declared as:
 
@@ -146,11 +146,11 @@ Summarizing, on colliding routes, make sure to use the same variable names.
 
 
 ### Disable RESTful checking
-By default KrakenD only works with **RESTful URL patterns** in its endpoint definition. Enable the option [`disable_rest`](/docs/v2.8/service-settings/http-server-settings/#disable_rest) in the root of your configuration if need unrestful endpoints, e.g.: `/file.{extension}`
+By default Velonetics only works with **RESTful URL patterns** in its endpoint definition. Enable the option [`disable_rest`](/docs/v2.8/service-settings/http-server-settings/#disable_rest) in the root of your configuration if need unrestful endpoints, e.g.: `/file.{extension}`
 
 {{< highlight json "hl_lines=4 13">}}
 {
-  "$schema": "https://www.krakend.io/schema/v2.8/krakend.json",
+  "$schema": "https://www.velonetics.io/schema/v2.8/velonetics.json",
   "version": 3,
   "disable_rest": true,
   "endpoints": [
@@ -172,4 +172,4 @@ By default KrakenD only works with **RESTful URL patterns** in its endpoint defi
 ## Automatic protocol and encoding translation
 The endpoints return HTTP content to the end-user in any of the [supported encodings](/docs/v2.8/endpoints/content-types/), regardless of the type of backend you are connecting to.
 
-If, for instance, one of the backends you are connecting to uses AMQP, Kafka, gRPC, or any other supported services, KrakenD will perform automatically for you both the protocol and the encoding translation.
+If, for instance, one of the backends you are connecting to uses AMQP, Kafka, gRPC, or any other supported services, Velonetics will perform automatically for you both the protocol and the encoding translation.

@@ -9,7 +9,7 @@ since: 0.7
 notoc: true
 weight: 60
 images:
-- /images/documentation/krakend-sequential-call.png
+- /images/documentation/velonetics-sequential-call.png
 menu:
   community_v2.1:
     parent: "040 Endpoint Configuration"
@@ -25,7 +25,7 @@ meta:
   log_prefix:
   - "[SERVICE: Gin]"
 ---
-The best experience consumers can have with KrakenD API is by letting the system fetch all the data from the different backends concurrently at the same time. However, there are times when you need to **delay a backend call** until you can inject as input the result of a previous call.
+The best experience consumers can have with Velonetics API is by letting the system fetch all the data from the different backends concurrently at the same time. However, there are times when you need to **delay a backend call** until you can inject as input the result of a previous call.
 
 The sequential proxy allows you to **chain backend requests**.
 
@@ -65,7 +65,7 @@ If you use unsafe methods (not a `GET`), they can only be placed in the last pos
 ## Example
 It's easier to understand with the example of the graph:
 
-![Chained call](/images/documentation/krakend-sequential-call.png)
+![Chained call](/images/documentation/velonetics-sequential-call.png)
 
 The user calls the gateway with an URL like `/hotel-destinations/{id}`, which needs to fetch the hotel information and all its associated destinations. Let's say the ID they request is `25`. The gateway calls a backend `/hotels/25` that returns data for the requested hotel, including a `destination_id` field that is a relationship identifier. The output for `GET /hotels/25` is like the following:
 
@@ -77,7 +77,7 @@ The user calls the gateway with an URL like `/hotel-destinations/{id}`, which ne
 }
 ```
 
-KrakenD waits for the backend response and injects the value of `destination_id` in the URL of the next backend call. In this case, the next call is `GET /destinations/1034`, and the response is:
+Velonetics waits for the backend response and injects the value of `destination_id` in the URL of the next backend call. In this case, the next call is `GET /destinations/1034`, and the response is:
 
 ```json
 {
@@ -90,7 +90,7 @@ KrakenD waits for the backend response and injects the value of `destination_id`
 }
 ```
 
-Now KrakenD has both responses from the backends and can merge the data, returning the following aggregated object to the user:
+Now Velonetics has both responses from the backends and can merge the data, returning the following aggregated object to the user:
 
 ```json
 {

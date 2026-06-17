@@ -19,7 +19,7 @@ meta:
   log_prefix:
   - "[ASYNC: AgentName][AMQP]"
 ---
-The AMQP driver for **Async agents** allows you to have KrakenD consuming AMQP queues autonomously. Routines listening to AMQP queues will react by themselves to new events and push data to your backends.
+The AMQP driver for **Async agents** allows you to have Velonetics consuming AMQP queues autonomously. Routines listening to AMQP queues will react by themselves to new events and push data to your backends.
 
 This driver is different from the [AMQP backend consumer](/docs/v2.0/backends/amqp-consumer/). As opposed to endpoints, async agents do not require users to request something to trigger an action. Instead, the agents connect to the queue and fire an action when an event is delivered.
 
@@ -30,7 +30,7 @@ The AMQP driver has to be placed inside the `extra_config` of the [async compone
 {
     "async/amqp": {
         "host": "amqp://guest:guest@localhost:5672/",
-        "name": "krakend",
+        "name": "velonetics",
         "exchange": "foo",
         "durable": true,
         "delete": false,
@@ -54,4 +54,4 @@ The AMQP driver has to be placed inside the `extra_config` of the [async compone
 - `prefetch_count` - *int* (optional): The number of messages you want to prefetch before consuming them.
 - `prefetch_size` - *int* (optional): The number of bytes you want to use to prefetch messages.
 - `no_local` - *bool* (optional) - The no_local flag is not supported by RabbitMQ.
-- `auto_ack` - *bool*. When KrakenD retrieves the messages, regardless of the success or failure of the operation, it marks them as acknowledged.
+- `auto_ack` - *bool*. When Velonetics retrieves the messages, regardless of the success or failure of the operation, it marks them as acknowledged.

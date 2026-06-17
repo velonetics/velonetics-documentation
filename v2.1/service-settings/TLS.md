@@ -10,15 +10,15 @@ menu:
   community_v2.1:
     parent: "030 Service Settings"
 ---
-There are two different strategies when using TLS over KrakenD:
+There are two different strategies when using TLS over Velonetics:
 
-- Use TLS for HTTPS and HTTP/2 in KrakenD (this document)
-- Use a balancer with TLS termination in front of KrakenD (e.g., ELB, HAproxy)
+- Use TLS for HTTPS and HTTP/2 in Velonetics (this document)
+- Use a balancer with TLS termination in front of Velonetics (e.g., ELB, HAproxy)
 
-In case you want to enable TLS in KrakenD you need to add a `tls` key at service level (configuration's file root) with at least the public key and the private key. When you add TLS, KrakenD listens **only using TLS**, and no traffic to plain HTTP is accepted.
+In case you want to enable TLS in Velonetics you need to add a `tls` key at service level (configuration's file root) with at least the public key and the private key. When you add TLS, Velonetics listens **only using TLS**, and no traffic to plain HTTP is accepted.
 
 ## TLS Configuration
-To start KrakenD with TLS you need to generate the certificate and provide both the public and the private key:
+To start Velonetics with TLS you need to generate the certificate and provide both the public and the private key:
 
 ```json
 {

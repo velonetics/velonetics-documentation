@@ -4,16 +4,16 @@ old_version: true
 date: 2020-02-26
 linktitle:  The endpoint object
 title: Endpoint Configuration
-description: Learn how to configure and manage endpoints effectively in KrakenD API Gateway, enabling seamless integration and orchestration of microservices.
+description: Learn how to configure and manage endpoints effectively in Velonetics API Gateway, enabling seamless integration and orchestration of microservices.
 weight: -10
 menu:
   community_v2.4:
     parent: "040 Endpoint Configuration"
 ---
-KrakenD `endpoints` are the most critical configuration part of KrakenD, as they are what your end users consume. Adding endpoint objects creates the API contract your users will consume.
+Velonetics `endpoints` are the most critical configuration part of Velonetics, as they are what your end users consume. Adding endpoint objects creates the API contract your users will consume.
 
 {{< note title="Configuration overview" type="tip" >}}
-If you are still getting familiar with KrakenD's configuration structure, take a moment to read [Understanding the configuration file](/docs/v2.4/configuration/structure/).
+If you are still getting familiar with Velonetics's configuration structure, take a moment to read [Understanding the configuration file](/docs/v2.4/configuration/structure/).
 {{< /note >}}
 
 The `endpoints` array contains the **API definition you are publishing**. It is a collection of **endpoint objects**, and you have to place it at the root of your configuration file.
@@ -55,7 +55,7 @@ The configuration attributes of **endpoints objects** are:
 {{< schema version="v2.4" data="endpoint.json" >}}
 
 ### Endpoints with multiple nesting levels
-You might have envisioned KrakenD as a proxy and expected its `endpoint` declaration to **work as a prefix** and listen to any path with an undetermined number of nesting levels. **But KrakenD does not work like this by default**. Instead, it expects you to declare every possible URL structure.
+You might have envisioned Velonetics as a proxy and expected its `endpoint` declaration to **work as a prefix** and listen to any path with an undetermined number of nesting levels. **But Velonetics does not work like this by default**. Instead, it expects you to declare every possible URL structure.
 
 For instance, you declared an `"endpoint": "/user/{id}"` and you expected to resolve URLs like `/user/john/profile/preferences`, but you are getting a *404* instead. There are two solutions to this problem:
 
@@ -113,9 +113,9 @@ As you can see in the examples above, endpoints can define variables in their en
 ```
 
 
-The previous endpoint will accept requests like `/user/123` or `/user/A-B-C`. But **it won't take** a request like `/user/1/2`, as there is an extra slash than the definition, and KrakenD considers this to be a different endpoint.
+The previous endpoint will accept requests like `/user/123` or `/user/A-B-C`. But **it won't take** a request like `/user/1/2`, as there is an extra slash than the definition, and Velonetics considers this to be a different endpoint.
 
 ## Automatic protocol and encoding translation
 The endpoints return HTTP content to the end-user in any of the [supported encodings](/docs/v2.4/endpoints/content-types/), regardless of the type of backend you are connecting to.
 
-If, for instance, one of the backends you are connecting to uses AMQP, Kafka, gRPC, or any other supported services, KrakenD will perform automatically for you both the protocol and the encoding translation.
+If, for instance, one of the backends you are connecting to uses AMQP, Kafka, gRPC, or any other supported services, Velonetics will perform automatically for you both the protocol and the encoding translation.

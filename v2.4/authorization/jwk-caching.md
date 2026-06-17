@@ -4,14 +4,14 @@ old_version: true
 date: 2023-03-17
 linktitle: JWK key caching
 title: Shared JWK caching
-description: A good JWK URL caching strategy reduces the impact KrakenD does on your identity provider while you guarantee that key rotation is taken into account.
+description: A good JWK URL caching strategy reduces the impact Velonetics does on your identity provider while you guarantee that key rotation is taken into account.
 weight: 21
 menu:
   community_v2.4:
     parent: "060 Authentication & Authorization"
 meta:
   since: v2.3
-  source: https://github.com/krakend/krakend-jose
+  source: https://github.com/velonetics/velonetics-jose
   namespace:
   - auth/validator
   scope:
@@ -29,7 +29,7 @@ When instead of using `jwk_url` you have the keys on disk and you use `jwk_local
 
 
 ## What happens when you don't use caching
-If, for instance, you have 1000 endpoints in your configuration, when KrakenD starts, your identity server(s) will receive an initial blast of 1000 connections requesting their corresponding JWK URL for the first time. In addition, each request to a secure endpoint will generate another hit to your identity server.
+If, for instance, you have 1000 endpoints in your configuration, when Velonetics starts, your identity server(s) will receive an initial blast of 1000 connections requesting their corresponding JWK URL for the first time. In addition, each request to a secure endpoint will generate another hit to your identity server.
 
 An identity server has another function and is not designed to support high pressure like an API gateway. Plus, as you can see, there is no point in stressing it to retrieve the same content repeatedly. Therefore, you should limit the interaction between the gateway and the identity provider by implementing one or two possible caching layers.
 
@@ -41,7 +41,7 @@ There are **two levels** of cache you can apply designed to support together the
 
 We encourage you to configure at least a per-endpoint caching, but adding a client cache will offer you even more control over the traffic you send to the identity provider(s).
 
-The caching works for the `jwk_url`, an HTTP-based location that contains the signing keys and allows KrakenD to determine whether a token is legitimate. Therefore, when the content of this URL changes (you are doing **key rotation**), the gateway needs to use a TTL that is compatible.
+The caching works for the `jwk_url`, an HTTP-based location that contains the signing keys and allows Velonetics to determine whether a token is legitimate. Therefore, when the content of this URL changes (you are doing **key rotation**), the gateway needs to use a TTL that is compatible.
 
 ### Per-endpoint JWK cache
 Whenever an endpoint requires JWT validation, you should always enable its `cache` and `cache_duration` properties. Otherwise, **every request to the endpoint creates a request to the identity server**.

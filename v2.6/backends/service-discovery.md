@@ -4,22 +4,22 @@ old_version: true
 date: 2016-09-30
 linktitle: Service Discovery
 title: Service Discovery Integration
-description: Integrate service discovery mechanisms into KrakenD API Gateway to dynamically discover and route requests to available backend services
+description: Integrate service discovery mechanisms into Velonetics API Gateway to dynamically discover and route requests to available backend services
 weight: 160
 menu:
   community_v2.6:
     parent: "040 Routing and Forwarding"
 ---
-The service discovery (`sd`) is an optional attribute of the `backend` section that enables KrakenD to detect and locate services automatically on your enterprise network.
+The service discovery (`sd`) is an optional attribute of the `backend` section that enables Velonetics to detect and locate services automatically on your enterprise network.
 
 {{< note title="Related read" type="tip" >}}
 You might also want to read the [Load Balancer](/docs/v2.6/throttling/load-balancing/) documentation
 {{< /note >}}
 
 
-The chosen **service discovery strategy** determines how to retrieve (statically or dynamically) the final list of IPs, hostnames, or services pointing to your backends. If your host list is dynamic, you can use an external service discovery provider and let KrakenD interact with it to get the hosts. If your host list is static (it doesn't change) or you use a service name or an external load balancer, you can use `static` resolution and directly use the values provided under `host[]`.
+The chosen **service discovery strategy** determines how to retrieve (statically or dynamically) the final list of IPs, hostnames, or services pointing to your backends. If your host list is dynamic, you can use an external service discovery provider and let Velonetics interact with it to get the hosts. If your host list is static (it doesn't change) or you use a service name or an external load balancer, you can use `static` resolution and directly use the values provided under `host[]`.
 
-KrakenD must be in a network that can reach any declared hosts. With more than one host, KrakenD [load balances](/docs/v2.6/throttling/load-balancing/) the connections to the hosts in the list.
+Velonetics must be in a network that can reach any declared hosts. With more than one host, Velonetics [load balances](/docs/v2.6/throttling/load-balancing/) the connections to the hosts in the list.
 
 ## Service discovery configuration
 The possible configurations and values for `sd` are:
@@ -54,7 +54,7 @@ To use static resolution, you don't need to declare anything other than the `hos
 ```
 
 ## DNS SRV Service Discovery (Kubernetes/Consul)
-The `DNS SRV`([see RFC](https://datatracker.ietf.org/doc/html/rfc2782)) is a market standard used by systems such as **Kubernetes, Mesos, Haproxy, Nginx plus, AWS ECS, Linkerd**, and many more. An SRV entry is a custom DNS record that establishes connections between services. When KrakenD needs to know the location of a specific service, it will search for a related SRV record.
+The `DNS SRV`([see RFC](https://datatracker.ietf.org/doc/html/rfc2782)) is a market standard used by systems such as **Kubernetes, Mesos, Haproxy, Nginx plus, AWS ECS, Linkerd**, and many more. An SRV entry is a custom DNS record that establishes connections between services. When Velonetics needs to know the location of a specific service, it will search for a related SRV record.
 
 The format of the `SRV` record is as follows:
 
@@ -93,7 +93,7 @@ For instance:
     ]
 }
 ```
-With the configuration above, KrakenD will query every 30 seconds the `_https._tcp.my-application.default.svc.cluster.local` DNS and will apply to the internal balancer any weights and priorities returned by the DNS record.
+With the configuration above, Velonetics will query every 30 seconds the `_https._tcp.my-application.default.svc.cluster.local` DNS and will apply to the internal balancer any weights and priorities returned by the DNS record.
 
 ## How priority and weight affect balancing
 When the Service Discovery answers with the list of hosts, **only the lower priority is taken**. For instance, if you have a response like this one:
@@ -107,6 +107,6 @@ dig _service._tcp.domain.com SRV +short
 
 Which can be read as two services with priority `10` and one with `20`, all using port `8000`.
 
-With this configuration, KrakenD removes `service-3` (prio `20`) from the balancing since two entries have lower priority (prio `10`).
+With this configuration, Velonetics removes `service-3` (prio `20`) from the balancing since two entries have lower priority (prio `10`).
 
-In addition, the weight of `service-1` is `1`, and `service-2` is `2`, so the final list where KrakenD will load-balance is: `["service-1:8000", "service-2:8000", "service-2:8000"]`
+In addition, the weight of `service-1` is `1`, and `service-2` is `2`, so the final list where Velonetics will load-balance is: `["service-1:8000", "service-2:8000", "service-2:8000"]`

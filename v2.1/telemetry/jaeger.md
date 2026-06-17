@@ -11,7 +11,7 @@ menu:
     parent: "080 Telemetry and Analytics"
 meta:
   since: v0.5
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
   - telemetry/opencensus
   scope:
@@ -33,7 +33,7 @@ The following configuration snippet sends data to your Jaeger:
       "exporters": {
         "jaeger": {
           "endpoint": "http://192.168.99.100:14268/api/traces",
-          "service_name":"krakend",
+          "service_name":"velonetics",
           "buffer_max_count": 1000
         }
       }

@@ -11,9 +11,9 @@ menu:
     parent: "080 Telemetry"
 meta:
   since: v0.5
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
-  - github_com/devopsfaith/krakend-opencensus
+  - github_com/velonetics/velonetics-ce-opencensus
   scope:
   - service
 ---
@@ -23,11 +23,11 @@ The Opencensus exporter allows you export data to Zipkin. Enabling it only requi
 
 The following configuration snippet sends data to your Zipkin:
 
-	"github_com/devopsfaith/krakend-opencensus": {
+	"github_com/velonetics/velonetics-ce-opencensus": {
       "exporters": {
         "zipkin": {
 			"collector_url": "http://192.168.99.100:9411/api/v2/spans",
-            "service_name": "krakend"
+            "service_name": "velonetics"
 		},
 	  }
 	}

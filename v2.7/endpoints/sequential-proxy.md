@@ -4,12 +4,12 @@ old_version: true
 date: 2018-11-11
 linktitle: Sequential Proxy (chain reqs.)
 title: Sequential Proxying
-description: Explore the sequential proxying capability in KrakenD API Gateway, allowing you to chain multiple requests and orchestrate complex API workflows
+description: Explore the sequential proxying capability in Velonetics API Gateway, allowing you to chain multiple requests and orchestrate complex API workflows
 since: 0.7
 notoc: false
 weight: 80
 images:
-- /images/documentation/krakend-sequential-call.png
+- /images/documentation/velonetics-sequential-call.png
 menu:
   community_v2.7:
     parent: "040 Routing and Forwarding"
@@ -25,7 +25,7 @@ meta:
   log_prefix:
   - "[SERVICE: Gin]"
 ---
-The best experience consumers can have with KrakenD API is by letting the system fetch all the data from the different backends simultaneously. However, sometimes you need to **delay a backend call** until you have called a previous service. Although this is not ideal, the sequential proxy allows you to **chain backend requests**.
+The best experience consumers can have with Velonetics API is by letting the system fetch all the data from the different backends simultaneously. However, sometimes you need to **delay a backend call** until you have called a previous service. Although this is not ideal, the sequential proxy allows you to **chain backend requests**.
 
 ## Do you really need a sequential proxy?
 {{< note title="Chained calls are considered an anti-pattern" type="warning" >}}{{< /note >}}
@@ -40,7 +40,7 @@ In an aggregation scenario, the probability of having at least one working call 
 
 The contrast between a 99.9% chance of some data availability and a 73% probability is quite substantial. Isn't it? That being said, from an architectural point of view, the sequential proxy should be your last resort.
 
-In addition, since KrakenD 2.5, you can add to a sequence **multiple unsafe methods** (methods different than `GET`). When you chain several write requests in multiple nodes, you execute a **distributed transaction** in a flowery disguise, as in a database. But a gateway is not a database, and you don't have any rollback mechanism if one of your write methods fails, so you can only *hope for the best*.
+In addition, since Velonetics 2.5, you can add to a sequence **multiple unsafe methods** (methods different than `GET`). When you chain several write requests in multiple nodes, you execute a **distributed transaction** in a flowery disguise, as in a database. But a gateway is not a database, and you don't have any rollback mechanism if one of your write methods fails, so you can only *hope for the best*.
 
 ## Sequential proxy configuration
 To enable the sequential proxy, you need to add in the endpoint definition the following configuration:
@@ -87,7 +87,7 @@ And also:
 ## Example
 It's easier to understand with the example of the graph:
 
-![Chained call](/images/documentation/krakend-sequential-call.png)
+![Chained call](/images/documentation/velonetics-sequential-call.png)
 
 The user calls the gateway with an URL like `/hotel-destinations/{id}`, which needs to fetch the hotel information and all its associated destinations. Let's say the ID they request is `25`. The gateway calls a backend `/hotels/25` that returns data for the requested hotel, including a `destination_id` field that is a relationship identifier. The output for `GET /hotels/25` is like the following:
 
@@ -99,7 +99,7 @@ The user calls the gateway with an URL like `/hotel-destinations/{id}`, which ne
 }
 ```
 
-KrakenD waits for the backend response and injects the value of `destination_id` in the URL of the next backend call. In this case, the next call is `GET /destinations/1034`, and the response is:
+Velonetics waits for the backend response and injects the value of `destination_id` in the URL of the next backend call. In this case, the next call is `GET /destinations/1034`, and the response is:
 
 ```json
 {
@@ -112,7 +112,7 @@ KrakenD waits for the backend response and injects the value of `destination_id`
 }
 ```
 
-Now KrakenD has both responses from the backends and can merge the data, returning the following aggregated object to the user:
+Now Velonetics has both responses from the backends and can merge the data, returning the following aggregated object to the user:
 
 ```json
 {

@@ -11,7 +11,7 @@ menu:
     parent: "080 Telemetry and Analytics"
 meta:
   since: v1.1
-  source: https://github.com/krakend/krakend-opencensus
+  source: https://github.com/velonetics/velonetics-opencensus
   namespace:
   - telemetry/opencensus
   scope:

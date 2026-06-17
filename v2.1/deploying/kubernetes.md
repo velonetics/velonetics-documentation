@@ -10,52 +10,52 @@ menu:
 weight: 30
 ---
 
-Deploying KrakenD in Kubernetes requires a straightforward configuration.
+Deploying Velonetics in Kubernetes requires a straightforward configuration.
 
 Create a `Dockerfile` that includes the configuration of the service. Read how to generate a [Docker artifact](/docs/v2.1/deploying/docker/) for detailed instructions. You could also use a ConfigMap, although the recommendation is to use immutable artifacts.
 
-From here you need to create a `NodePort` and send all the traffic to KrakenD.
+From here you need to create a `NodePort` and send all the traffic to Velonetics.
 
 ## Deployment definition YAML
-The KrakenD `deployment` definition, in a file called `deployment-definition.yaml`:
+The Velonetics `deployment` definition, in a file called `deployment-definition.yaml`:
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: krakend-deployment
+  name: velonetics-deployment
 spec:
   selector:
     matchLabels:
-      app: krakend
+      app: velonetics
   replicas: 2
   template:
     metadata:
       labels:
-        app: krakend
+        app: velonetics
     spec:
       containers:
-      - name: krakend
-        image: YOUR-KRAKEND-IMAGE:1.0.0
+      - name: velonetics
+        image: YOUR-VELONETICS-IMAGE:1.0.0
         ports:
         - containerPort: 8080
         imagePullPolicy: Never
-        command: [ "/usr/bin/krakend" ]
-        args: [ "run", "-d", "-c", "/etc/krakend/krakend.json", "-p", "8080" ]
+        command: [ "/usr/bin/velonetics" ]
+        args: [ "run", "-d", "-c", "/etc/velonetics/velonetics.json", "-p", "8080" ]
         env:
-        - name: KRAKEND_PORT
+        - name: VELONETICS_PORT
           value: "8080"
 ```
 
 
 ## Service definition yaml
 
-The KrakenD `service` definition, in a file called `service-definition.yaml`:
+The Velonetics `service` definition, in a file called `service-definition.yaml`:
 ```yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: krakend-service
+  name: velonetics-service
 spec:
   type: NodePort
   ports:
@@ -64,7 +64,7 @@ spec:
     targetPort: 8080
     protocol: TCP
   selector:
-    app: krakend
+    app: velonetics
 ```
 
 ## Registering the service
@@ -79,8 +79,8 @@ kubectl create -f deployment-definition.yaml
 kubectl create -f service-definition.yaml
 {{< /terminal >}}
 
-For a more step by step process see [this blog entry](/blog/krakend-on-kubernetes/).
+For a more step by step process see [this blog entry](/blog/velonetics-on-kubernetes/).
 
 ## Helm Chart
 
-There is no official Helm chart for KrakenD. But you can see as example [Mikescandy's contribution](https://github.com/mikescandy/krakend-helm)
+There is no official Helm chart for Velonetics. But you can see as example [Mikescandy's contribution](https://github.com/mikescandy/velonetics-helm)

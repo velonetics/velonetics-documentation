@@ -4,7 +4,7 @@ old_version: true
 date: 2019-02-22
 linktitle: Static responses on failures (stubs)
 title: Static Proxy Endpoints
-description: Learn how to configure static proxy endpoints in KrakenD API Gateway to return stubs and static data on certain events
+description: Learn how to configure static proxy endpoints in Velonetics API Gateway to return stubs and static data on certain events
 weight: 440
 menu:
   community_v2.5:
@@ -25,7 +25,7 @@ A typical scenario is **when some backend fails** and the endpoint becomes incom
 
 Another example scenario is to create an endpoint pointing to an unfinished backend where **its functionality is not in production yet**, but your client application needs to go ahead the backend developers and start using the static responses.
 
-There are many other scenarios, and this is why KrakenD offers several **strategies** that you can use to decide whether to inject static data or not. In any case, remember that the primary goal of this feature is to support corner-cases related to clients not ready to deal with gracefully degraded responses.
+There are many other scenarios, and this is why Velonetics offers several **strategies** that you can use to decide whether to inject static data or not. In any case, remember that the primary goal of this feature is to support corner-cases related to clients not ready to deal with gracefully degraded responses.
 
 ## Static response strategies
 The supported strategies to inject static data are the following:

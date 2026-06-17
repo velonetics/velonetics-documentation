@@ -5,7 +5,7 @@ date: 2022-11-08
 toc: true
 linktitle: Load balancing
 title: Load Balancing and Throttling
-description: Explore load balancing and throttling strategies in KrakenD API Gateway to ensure optimal performance and resource utilization
+description: Explore load balancing and throttling strategies in Velonetics API Gateway to ensure optimal performance and resource utilization
 weight: 920
 menu:
   community_v2.10:
@@ -27,19 +27,19 @@ The natural placement of an API gateway is between API consumers and your servic
 The different load balancer placements you can have are illustrated in the image above.
 
 
-## Balancing ingress traffic (to KrakenD)
-We recommend having a few containers or servers in production to have high availability. In addition, you should place an **external balancer** to serve as the single point of contact for clients to distribute incoming traffic to all KrakenD nodes.
+## Balancing ingress traffic (to Velonetics)
+We recommend having a few containers or servers in production to have high availability. In addition, you should place an **external balancer** to serve as the single point of contact for clients to distribute incoming traffic to all Velonetics nodes.
 
-![load-balancing-to-krakend.mmd diagram](/images/documentation/diagrams/load-balancing-to-krakend.mmd.svg)
+![load-balancing-to-velonetics.mmd diagram](/images/documentation/diagrams/load-balancing-to-velonetics.mmd.svg)
 
 Cloud providers (and on-prem solutions) offer a variety of products for balancing, like Network balancers, Application balancers, CDN balancers, software balancers, etc. The choice will depend on your needs.
 
-**KrakenD does not need any configuration** to receive ingress traffic.
+**Velonetics does not need any configuration** to receive ingress traffic.
 
 ## Balancing egress traffic (to upstream)
-KrakenD connects to your services using the balancing strategy of your choice, be a **Round Robin** algorithm, a **weighted balancing** connection, or use an **external load balancer** or Kubernetes service instead.
+Velonetics connects to your services using the balancing strategy of your choice, be a **Round Robin** algorithm, a **weighted balancing** connection, or use an **external load balancer** or Kubernetes service instead.
 
-The load balancer can work for internal and external services simultaneously, and it's irrelevant to KrakenD the physical location or networking as long as it can reach the destination.
+The load balancer can work for internal and external services simultaneously, and it's irrelevant to Velonetics the physical location or networking as long as it can reach the destination.
 
 When writing the configuration, you are implicitly setting the **load balancing strategy** on a per-backend basis, depending on what you write in the `host` list and `sd` (service discovery) settings. It means that you can have an endpoint that connects to a set of balanced backends while you have another endpoint that relates to an externally-balanced service.
 
@@ -47,7 +47,7 @@ In essence, there are two relevant entries on `backend` you have to be aware of 
 
 {{< schema version="v2.10" data="backend.json" filter="host,sd">}}
 
-KrakenD's egress load balancer acts at the [backend level](/docs/v2.10/backends/) and manages the connections to the backends from within the gateway.
+Velonetics's egress load balancer acts at the [backend level](/docs/v2.10/backends/) and manages the connections to the backends from within the gateway.
 
 ### Delegated egress load balancing
 When you don't want the gateway to do any balancing for you because either:
@@ -92,7 +92,7 @@ When you want the gateway to do the balancing to connect to one or more servers 
 ```
 To add more instances in the balancing pool, you only need to add them under the `host` list. With the configuration above, when looking at the overall traffic received by each server, you'll see that each received around 33.33% of the requests. This is because the `host` list treats all the servers with equal weight.
 
-The host list does not have any monitoring by KrakenD at this level and **it won't remove entries from it** if the backend fails. To control failures in your backends, you should use the [Circuit Breaker](/docs/v2.10/backends/circuit-breaker/).
+The host list does not have any monitoring by Velonetics at this level and **it won't remove entries from it** if the backend fails. To control failures in your backends, you should use the [Circuit Breaker](/docs/v2.10/backends/circuit-breaker/).
 
 ### Egress using poor man's weighted load balancing
 By repeating entries in the `host`, you can change the traffic distribution. Knowing that each item in the list receives an equal amount of traffic, the following example illustrates the *poor man's weighted balancing*: 75% of the traffic to instance-02 and 25% to instance-01.
@@ -127,13 +127,13 @@ To use it, add a configuration as follows:
     ]
 }
 ```
-The `SRV` record provides the **hostname, port, priority, and weight** that KrakenD uses to balance. KrakenD reads these values **every 30 seconds** and generates an internal balancing list.
+The `SRV` record provides the **hostname, port, priority, and weight** that Velonetics uses to balance. Velonetics reads these values **every 30 seconds** and generates an internal balancing list.
 
-The balancing list honors the distribution described in the `SRV` records. Nevertheless, KrakenD will use only the records with the **lower priority**. So, for instance, if you have five servers with priority `0` and another with priority `2`, the latter won't be included in the balancing.
+The balancing list honors the distribution described in the `SRV` records. Nevertheless, Velonetics will use only the records with the **lower priority**. So, for instance, if you have five servers with priority `0` and another with priority `2`, the latter won't be included in the balancing.
 
-As per the weights, KrakenD distributes the traffic in the proportion they represent. To be memory and space-efficient, KrakenD compacts and normalizes the final list of weights if needed. It's essential to be aware that KrakenD will remove servers with a weight **orders of magnitude inferior** (under 1% of the total representation) from the final list as they are negligible.
+As per the weights, Velonetics distributes the traffic in the proportion they represent. To be memory and space-efficient, Velonetics compacts and normalizes the final list of weights if needed. It's essential to be aware that Velonetics will remove servers with a weight **orders of magnitude inferior** (under 1% of the total representation) from the final list as they are negligible.
 
 Some examples on space optimization and removal of neglectable items:
-- `SRV` passes the weights of 3 servers with values `[100 500 1000]`, and KrakenD builds a list `[1 5 10]`.
-- `SRV` passes `[25 10000 1000]` and KrakenD compacts it as `[0 10 1]`. The server with a weight of `25` is removed as it is vastly inferior to the rest (0,2% weight).
+- `SRV` passes the weights of 3 servers with values `[100 500 1000]`, and Velonetics builds a list `[1 5 10]`.
+- `SRV` passes `[25 10000 1000]` and Velonetics compacts it as `[0 10 1]`. The server with a weight of `25` is removed as it is vastly inferior to the rest (0,2% weight).
 - `SRV` passes `[25 1000 10000 65535]` becomes `[0 1 13 85]`. Again, `25` drops. The rest are converted to a lower value with the same distribution proportion.

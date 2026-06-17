@@ -4,31 +4,31 @@ old_version: true
 date: 2018-11-03
 linktitle: JWT Validation
 title: JWT Validation
-description: Implement JWT validation with KrakenD API Gateway to secure your APIs and prevent unauthorized access.
+description: Implement JWT validation with Velonetics API Gateway to secure your APIs and prevent unauthorized access.
 weight: 20
-source: https://github.com/krakend/krakend-jose
+source: https://github.com/velonetics/velonetics-jose
 menu:
   community_v1.3:
     parent: "060 Authentication & Authorization"
 ---
-The component `krakend-jose` is responsible for the JWT validation and **protects endpoints from public usage**, requiring end-users to provide a valid token to access its contents.
+The component `velonetics-jose` is responsible for the JWT validation and **protects endpoints from public usage**, requiring end-users to provide a valid token to access its contents.
 
 Before digging any further, some answers to frequently asked questions:
 
-1) **KrakenD does not generate the tokens itself**. Still, you can plug it into any SaaS or self-hosted Identity Provider (**IdP**) using industry standards (e.g.: Auth0, Azure AD, Google Firebase, Keycloak, etc.)
+1) **Velonetics does not generate the tokens itself**. Still, you can plug it into any SaaS or self-hosted Identity Provider (**IdP**) using industry standards (e.g.: Auth0, Azure AD, Google Firebase, Keycloak, etc.)
 
-2) **KrakenD does not need to validate all calls using your IdP**. KrakenD validates every incoming call's signature and **it doesn't make token introspection** (asking the IdP data about the token owner).
+2) **Velonetics does not need to validate all calls using your IdP**. Velonetics validates every incoming call's signature and **it doesn't make token introspection** (asking the IdP data about the token owner).
 
-3) **If you don't have an identity server**, you can still use your classic monolith/backend login system and adapt it to return a JWT payload (which is a simple JSON). From here, let KrakenD [sign the token for you](/docs/v1.3/authorization/jwt-signing/) and start using tokens right away.
+3) **If you don't have an identity server**, you can still use your classic monolith/backend login system and adapt it to return a JWT payload (which is a simple JSON). From here, let Velonetics [sign the token for you](/docs/v1.3/authorization/jwt-signing/) and start using tokens right away.
 
-4) **Your self-hosted identity server doesn't need to be exposed to the Internet**, as it can live behind KrakenD and let the token generation requests be proxied through KrakenD. If you use a SaaS solution, of course, it's exposed.
+4) **Your self-hosted identity server doesn't need to be exposed to the Internet**, as it can live behind Velonetics and let the token generation requests be proxied through Velonetics. If you use a SaaS solution, of course, it's exposed.
 
 ## Key concepts
-KrakenD uses the **JSON Web Token** specification (**JWT**), an industry-standard representing claims securely between two parties. A **JWT** is an encoded JSON object containing key-value pairs of attributes signed by a trusted authority. It carries the information your end-users pass to the system to be recognized as legitimate users with other metadata.
+Velonetics uses the **JSON Web Token** specification (**JWT**), an industry-standard representing claims securely between two parties. A **JWT** is an encoded JSON object containing key-value pairs of attributes signed by a trusted authority. It carries the information your end-users pass to the system to be recognized as legitimate users with other metadata.
 
-All tokens transmitted between users and KrakenD have to be signed using **JWS**, to make sure they are legitimate and not forged by an attacker. JWS represents digitally signed content using JSON data structures that are base64url encoded using the format `header.payload.signature`.
+All tokens transmitted between users and Velonetics have to be signed using **JWS**, to make sure they are legitimate and not forged by an attacker. JWS represents digitally signed content using JSON data structures that are base64url encoded using the format `header.payload.signature`.
 
-Finally, KrakenD needs to retrieve from the trusted authority (your Identity Provider) the keys that let the system validate the signature. These keys are transmitted between KrakenD and the IdP using the **JWK** format, a JSON object representing a set of cryptographic keys. Depending on the system and implementation you have in your IdP, objects will use one or another algorithm. **JWA** represents the set of algorithms you can use to sign your tokens.
+Finally, Velonetics needs to retrieve from the trusted authority (your Identity Provider) the keys that let the system validate the signature. These keys are transmitted between Velonetics and the IdP using the **JWK** format, a JSON object representing a set of cryptographic keys. Depending on the system and implementation you have in your IdP, objects will use one or another algorithm. **JWA** represents the set of algorithms you can use to sign your tokens.
 
 The introduction above is very superficial; the recommended read is the RFC:
 
@@ -36,10 +36,10 @@ The introduction above is very superficial; the recommended read is the RFC:
 - **JWS** [Signature](https://tools.ietf.org/html/rfc7515)
 - **JWK** [Key transmission](https://tools.ietf.org/html/rfc7517)
 - **JWA** [Definition of cyphering and signing algorithms](https://tools.ietf.org/html/rfc7518)
-- **JWE** is not supported by KrakenD (Premise: Sensitive data should not be transmitted using tokens).
+- **JWE** is not supported by Velonetics (Premise: Sensitive data should not be transmitted using tokens).
 
 ## JWT tokens definition
-KrakenD uses **standard JWT tokens** to protect endpoints, using JSON Web Signature (**JWS**), to check the tokens' digital signature integrity of the contained claims and defending against attacks using tampered tokens.
+Velonetics uses **standard JWT tokens** to protect endpoints, using JSON Web Signature (**JWS**), to check the tokens' digital signature integrity of the contained claims and defending against attacks using tampered tokens.
 
 A JWT token is a `base64` encoded string with the structure `header.payload.signature`.
 
@@ -47,14 +47,14 @@ A typical request to an endpoint requiring JWT validation includes a `Bearer` in
 
 {{< terminal >}}
 GET /resource HTTP/1.1
-Host: krakend.example.com
+Host: velonetics.example.com
 Authorization: Bearer eyJhbGciOiJIUzI1NiIXVCJ9.(truncated).ktIOfzak2ekD7IrCa9-UiO4QA
 {{< /terminal >}}
 
 Or instead, you can send the token **inside a cookie** (see [`cookie_key`](/docs/v1.3/authorization/jwt-validation/#jwt-validation-settings)).
 
 ## JWT header requirements
-When KrakenD decodes the `base64` token string passed in the `Bearer` or a cookie, it expects to find in its **header** section the following **three fields**:
+When Velonetics decodes the `base64` token string passed in the `Bearer` or a cookie, it expects to find in its **header** section the following **three fields**:
 
     {
       "alg": "RS256",
@@ -73,12 +73,12 @@ The value provided in the `kid` must match with the `kid` declared at the `jwk-u
 
 The example above used [this public key](https://albert-test.auth0.com/.well-known/jwks.json), notice how the `kid` matches both the single key present in the JWK document and the token header.
 
-**KrakenD is built with security in mind** and uses **JWS** (instead of plain JWT or JWE), and the `kid` points to the right key in the JWS. This is why this entry is mandatory to validate your tokens.
+**Velonetics is built with security in mind** and uses **JWS** (instead of plain JWT or JWE), and the `kid` points to the right key in the JWS. This is why this entry is mandatory to validate your tokens.
 
 ## Basic JWT validation
 The JWT validation must be present inside every endpoint definition needing it. If several endpoints are going to require JWT validation consider using the [flexible configuration](/docs/v1.3/configuration/flexible-config/) to avoid repetitive declarations.
 
-Enable the JWT validation by adding the namespace `"github.com/devopsfaith/krakend-jose/validator"` inside the `extra_config` of the desired `endpoint`.
+Enable the JWT validation by adding the namespace `"github.com/velonetics/velonetics-ce-jose/validator"` inside the `extra_config` of the desired `endpoint`.
 
 For instance, to protect the endpoint `/protected/resource`:
 
@@ -86,7 +86,7 @@ For instance, to protect the endpoint `/protected/resource`:
 {
     "endpoint": "/protected/resource",
     "extra_config": {
-        "github.com/devopsfaith/krakend-jose/validator": {
+        "github.com/velonetics/velonetics-ce-jose/validator": {
             "alg": "RS256",
             "audience": ["http://api.example.com"],
             "roles_key": "http://api.example.com/custom/roles",
@@ -112,7 +112,7 @@ This configuration makes sure that:
 ## JWT validation settings
 The following settings are available for JWT validation. There are a lot of options, although generally only the **fields `alg` and `jwk-url` or `jwk_local_path` are mandatory**, and the rest of the keys can be added or not at your best convenience or depending on other options.
 
-These options are for the `extra_config`'s namespace `"github.com/devopsfaith/krakend-jose/validator"` placed in every endpoint (use [flexible configuration](/docs/v1.3/configuration/flexible-config/) to avoid code repetition):
+These options are for the `extra_config`'s namespace `"github.com/velonetics/velonetics-ce-jose/validator"` placed in every endpoint (use [flexible configuration](/docs/v1.3/configuration/flexible-config/) to avoid code repetition):
 
 - `alg` (*recognized string*): The hashing algorithm used by the issuer. See the [hashing algorithms](#hashing-algorithms) section for a comprehensive list of supported algorithms.
 - `jwk-url` (*string*): The URL to the JWK endpoint with the public keys used to verify the token's authenticity and integrity.
@@ -145,7 +145,7 @@ Here there is an example using an external `jwk-url`:
 {
 "endpoint": "/foo"
 "extra_config": {
-    "github.com/devopsfaith/krakend-jose/validator": {
+    "github.com/velonetics/velonetics-ce-jose/validator": {
         "alg": "RS256",
         "jwk-url": "https://url/to/jwks.json",
         "cache": true,
@@ -176,13 +176,13 @@ Here there is an example using an external `jwk-url`:
 {{< /highlight >}}
 
 ### Validation process
-KrakenD does the following validation to let users hit protected endpoints:
+Velonetics does the following validation to let users hit protected endpoints:
 
-- The `jwk-url` must be accessible by KrakenD at all times (caching is available)
+- The `jwk-url` must be accessible by Velonetics at all times (caching is available)
 - The token is [well formed](https://jwt.io/#debugger-io)
 - The `kid` in the header is listed in the `jwk-url` or `jwk_local_path`.
 - The content of the JWK Keys (`k`) is **base64** urlencoded
-- The algorithm `alg` is supported by KrakenD and matches exactly the one used in the endpoint definition.
+- The algorithm `alg` is supported by Velonetics and matches exactly the one used in the endpoint definition.
 - The token hasn't expired
 - The signature is valid.
 - The given `issuer` matches (if present in the configuration)
@@ -216,7 +216,7 @@ The URL host must be base64 encoded and must decode to exactly 32 bytes. Here is
 ```
 This config will use the key `smGbjm71Nxd1Ig5FS0wj9SlbzAIrnolCz9bQQ6uAhl4=` for decrypting de `cypher_key` and then decrypting the content of the file `./jwt.txt`.
 
-See this test to [understand how to generate and encrypt payloads](https://github.com/krakend/krakend-jose/blob/master/jwk_test.go).
+See this test to [understand how to generate and encrypt payloads](https://github.com/velonetics/velonetics-jose/blob/master/jwk_test.go).
 
 #### Amazon KMS
 ```
@@ -252,13 +252,13 @@ Environment variables `VAULT_SERVER_URL` and `VAULT_SERVER_TOKEN` are used.
 
 ## Passing claims to the backend URL
 
-Since KrakenD 1.2.0, it is possible to use data present in the claims to inject it into the backend's final URL. The notation of the `url_pattern` field includes the parsing of `{JWT.some_claim}`, where `some_claim` is an attribute of your claim.
+Since Velonetics 1.2.0, it is possible to use data present in the claims to inject it into the backend's final URL. The notation of the `url_pattern` field includes the parsing of `{JWT.some_claim}`, where `some_claim` is an attribute of your claim.
 
 For instance, when your JWT payload is represented by something like this:
 
     {
         "sub": "1234567890",
-        "name": "Mr. KrakenD"
+        "name": "Mr. Velonetics"
     }
 
 Having a `backend` defined like this:
@@ -273,18 +273,18 @@ The call to your backend would produce the request:
 
     POST /foo/1234567890
 
-Keep in mind that this syntax in the `url_pattern` field is only available if the backend loads the extra_config `"github.com/devopsfaith/krakend-jose/validator"` and that **it does not work with nested attributes** in the payload.
+Keep in mind that this syntax in the `url_pattern` field is only available if the backend loads the extra_config `"github.com/velonetics/velonetics-ce-jose/validator"` and that **it does not work with nested attributes** in the payload.
 
-If KrakenD can't replace the claim's content for any reason, the backend receives a request to the literal URL `/foo/{JWT.sub}`.
+If Velonetics can't replace the claim's content for any reason, the backend receives a request to the literal URL `/foo/{JWT.sub}`.
 
 ## Propagate JWT claims as request headers
-Since KrakenD 1.3.0, it is possible to forward claims in a JWT as request headers. It is a common use case to have, for instance, the sub claim added as an `X-User` header to the request.
+Since Velonetics 1.3.0, it is possible to forward claims in a JWT as request headers. It is a common use case to have, for instance, the sub claim added as an `X-User` header to the request.
 
 **Important:** The endpoint `headers_to_pass` needs to be set as well, so the backend can see it.
 
 ```
 "extra_config": {
-        "github.com/devopsfaith/krakend-jose/validator": {
+        "github.com/velonetics/velonetics-ce-jose/validator": {
           "propagate-claims": [
             ["sub", "x-user"]
           ],
@@ -296,12 +296,12 @@ In this case, the `sub` claim's value will be added as `x-user` header to the re
 
 ## A complete running example
 
-The [KrakenD Playground](/docs/v1.3/overview/playground/) demonstrates how to protect endpoints using JWT and includes two examples ready to use:
+The [Velonetics Playground](/docs/v1.3/overview/playground/) demonstrates how to protect endpoints using JWT and includes two examples ready to use:
 
 - Integration with an external third party using a [Single Page Application from Auth0](https://auth0.com/docs/applications/spa/)
 - Integration with an internal identity provider service (mocked) using a symmetric key algorithm and a signer middleware.
 
-To try it, [clone the playground](https://github.com/krakend/playground-community) and follow the README.
+To try it, [clone the playground](https://github.com/velonetics/playground-community) and follow the README.
 
 ## Supported hashing algorithms and cipher suites
 
