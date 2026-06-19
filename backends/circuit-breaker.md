@@ -15,7 +15,7 @@ images:
 - /images/documentation/circuit-breaker-states.png
 meta:
   since: false
-  source: https://github.com/pucora/velonetics-circuitbreaker
+  source: https://github.com/pucora/pucora-circuitbreaker
   namespace:
   - qos/circuit-breaker
   scope:

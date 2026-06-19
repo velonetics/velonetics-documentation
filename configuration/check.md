@@ -17,7 +17,7 @@ The `pucora check` command **validates Pucora configuration files** written in a
 It's able to perform three things:
 
 - **Syntax validation** - For any format (`.yml`, `.json`, `.toml`, etc)
-- **Linting** - Besides checking that the file isn't malformed, the linter checks your config exhaustively against Pucora's official schema ([repo](https://github.com/pucora/velonetics-schema)) to detect wrong types, unknown attributes, or misplaced components. Only available when you work with `JSON` formats.
+- **Linting** - Besides checking that the file isn't malformed, the linter checks your config exhaustively against Pucora's official schema ([repo](https://github.com/pucora/pucora-schema)) to detect wrong types, unknown attributes, or misplaced components. Only available when you work with `JSON` formats.
 - **Testing** - It tests a run of the service to catch problems that are not strictly related to linting but to the runtime. For instance, you could declare a colliding endpoint (two endpoints in the same route), and the syntax would validate and lint, yet the configuration would be impossible to run.
 
 **The `check` command can guarantee that a configuration is valid with the three validations**.
@@ -117,7 +117,7 @@ Global settings
 1 async agent(s):
     - cool-agent
     1 agent component configuration(s):
-    - github.com/pucora/velonetics-ce-amqp/agent
+    - github.com/pucora/pucora-ce-amqp/agent
     Connecting to 1 backend(s):
         [+] POST /__debug/cool-agent
         Timeout: 3s
@@ -211,7 +211,7 @@ Global settings
     Connection Backoff Strategy: exponential-jitter
     Connection Health Interval: 1s
     1 agent component configuration(s):
-    - github.com/pucora/velonetics-ce-amqp/agent
+    - github.com/pucora/pucora-ce-amqp/agent
         name: pucora
         host: amqp://guest:guest@localhost:5672/
         exchange: foo
@@ -336,7 +336,7 @@ Global settings
     Connection Backoff Strategy: exponential-jitter
     Connection Health Interval: 1s
     1 agent component configuration(s):
-    - github.com/pucora/velonetics-ce-amqp/agent
+    - github.com/pucora/pucora-ce-amqp/agent
         exchange: foo
         prefetch_count: 40
         auto_ack: true

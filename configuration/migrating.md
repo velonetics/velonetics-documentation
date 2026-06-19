@@ -34,14 +34,14 @@ _The list below is automatically generated based on the changelog._
 The Pucora 2.0 release is a major version that **simplifies the configuration** of `v1.x` and **standardizes field names** that were using different criteria to declare the attributes. The migration tool allows you to migrate from Pucora `0.x` or `1.x` to `2.0`
 
 {{< button-group >}}
-{{< button url="https://github.com/pucora/velonetics-config-migrator" text="Download migration tool" >}}<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
+{{< button url="https://github.com/pucora/pucora-config-migrator" text="Download migration tool" >}}<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
 {{< /button >}}
 {{< /button-group >}}
 
 ### How to use the legacy migration tool
 
 - Use `git` or similar DVCS to track the changes. Compare the differences at the end.
-- Download the configuration [migration tool](https://github.com/pucora/velonetics-config-migrator) and execute it passing the path to your Pucora project
+- Download the configuration [migration tool](https://github.com/pucora/pucora-config-migrator) and execute it passing the path to your Pucora project
 - Review the changes the migration tool did to your config and start the config with the new version
 
 **If you have custom go plugins**, recompile them. Pucora has now a command [`pucora check-plugin`](/docs/extending/check-plugin/) and [`pucora test-plugin`](/docs/extending/test-plugin/) to test them.
@@ -53,7 +53,7 @@ The migration script replaces words used by Pucora in the past and are no longer
 The migration tool will take care of what is described below for you, and is actually quite simple. For the most part, what it does is to rename configurations and namespaces. The following list is what it takes care of:
 
 #### Renamed namespaces
-The most visible change is that all non-core components (this is everything outside of [Lura](https://luraproject.org)) were declared inside an `extra_config` section, using a looong **namespace**. That namespace contained what could look like a URL (e.g., `github.com/pucora/velonetics-ce-jose/validator`) and generated frequent misunderstandings year after year. Now, all namespaces have been categorized and simplified to a description of their functionality (e.g., `auth/validator`).
+The most visible change is that all non-core components (this is everything outside of [Lura](https://luraproject.org)) were declared inside an `extra_config` section, using a looong **namespace**. That namespace contained what could look like a URL (e.g., `github.com/pucora/pucora-ce-jose/validator`) and generated frequent misunderstandings year after year. Now, all namespaces have been categorized and simplified to a description of their functionality (e.g., `auth/validator`).
 
 See the migration tool's source code for the complete list of renamed namespaces.
 
@@ -65,8 +65,8 @@ The final change is that all functionalities and attributes marked as deprecated
 
 - `whitelist` is removed, and only `allow` is recognized now
 - `blacklist` is removed, and only `deny` is recognized now
-- `velonetics-etc` is no longer included in the binary
-- `velonetics-consul`, the integration of consul for the JWT revoker, is no longer included in the binary.
+- `pucora-etc` is no longer included in the binary
+- `pucora-consul`, the integration of consul for the JWT revoker, is no longer included in the binary.
 
 Summing up, see the before and after of the following snippet which has 3 of the changes mentioned above.
 
@@ -76,7 +76,7 @@ Summing up, see the before and after of the following snippet which has 3 of the
 {
     "endpoint": "/foo",
     "extra_config": {
-        "github.com/pucora/velonetics-ce-jose/validator" {
+        "github.com/pucora/pucora-ce-jose/validator" {
             "alg": "RS256",
             "jwk-url": "https://url/to/jwks.json"
         }

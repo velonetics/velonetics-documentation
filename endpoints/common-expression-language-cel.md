@@ -5,14 +5,14 @@ linktitle: "Conditional requests and responses"
 title: Conditional requests and responses with CEL
 description: Learn how to utilize the Common Expression Language (CEL) in Pucora API Gateway for dynamic routing and advanced request handling
 weight: 180
-images: ["/images/documentation/velonetics-cel.png"]
+images: ["/images/documentation/pucora-cel.png"]
 dark_header_image: true
 menu:
   community_current:
     parent: "040 Routing and Forwarding"
 meta:
   since: v0.8
-  source: https://github.com/pucora/velonetics-cel
+  source: https://github.com/pucora/pucora-cel
   namespace:
   - validation/cel
   scope:
@@ -47,7 +47,7 @@ This expression checks that the request comes from localhost by checking that th
 ## Types of CEL evaluations
 You can use CEL expressions in five different places: during the **request** and the **response** of both **backends** and **endpoints** (see the blue dots in the image), and prior to the endpoint call when used as a JWT rejecter. The flow is:
 
-![The 5 CEL places of action](/images/documentation/velonetics-cel.png)
+![The 5 CEL places of action](/images/documentation/pucora-cel.png)
 
 - **JWT** (token) evaluation (**Note:** you must include the `auth/validator`)
 - **Endpoint request** evaluation

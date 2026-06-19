@@ -7,7 +7,7 @@ description: Implement token bucket-based throttling mechanism in Pucora API Gat
 weight: 9200
 notoc: true
 images:
-- /images/documentation/velonetics-token-bucket.png
+- /images/documentation/pucora-token-bucket.png
 skip_header_image: true
 dark_header_image: true
 menu:
@@ -30,7 +30,7 @@ The Token Bucket algorithm ([Wikipedia definition](https://en.wikipedia.org/wiki
 
 Pucora uses the bucket capacity to determine the number of requests it can serve. At the same time, it **fills the bucket with new tokens at a constant rate** while there is free space in it. Then, **users spend one token for each request**, and a token is removed from the bucket.
 
-<img title="Token Bucket algorithm" src="/images/documentation/velonetics-token-bucket.png" class="dark-version-available">
+<img title="Token Bucket algorithm" src="/images/documentation/pucora-token-bucket.png" class="dark-version-available">
 
 Users might spend the tokens faster than they are refilled. If the bucket gets empty, Pucora rejects the requests until there is at least another token in the bucket.
 

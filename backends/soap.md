@@ -10,7 +10,7 @@ menu:
     parent: "050 Non-REST Connectivity"
 meta:
   since: v2.0
-  source: https://github.com/pucora/velonetics-soap
+  source: https://github.com/pucora/pucora-soap
   namespace:
   - backend/soap
   scope:
@@ -19,7 +19,7 @@ meta:
 
 Pucora connects legacy SOAP/XML services to modern REST clients. The gateway crafts SOAP request bodies from Go templates, optionally applies WS-Security, and transforms XML responses to JSON.
 
-Implemented by [`velonetics-soap`](https://github.com/pucora/velonetics-soap) via `extra_config.backend/soap` on a backend.
+Implemented by [`pucora-soap`](https://github.com/pucora/pucora-soap) via `extra_config.backend/soap` on a backend.
 
 ## Quick start
 
@@ -125,10 +125,10 @@ Use standard backend fields:
 | Example | Config | Description |
 |---------|--------|-------------|
 | Basic SOAP | `pucora.json` | Template-based request |
-| WSDL | `velonetics-wsdl.json` | WSDL-driven SOAPAction |
-| WS-Security | `velonetics-wssec.json` | Username token |
+| WSDL | `pucora-wsdl.json` | WSDL-driven SOAPAction |
+| WS-Security | `pucora-wssec.json` | Username token |
 
-See [examples/soap](https://github.com/pucora/velonetics-ce/tree/main/examples/soap).
+See [examples/soap](https://github.com/pucora/pucora-ce/tree/main/examples/soap).
 
 ## Related
 

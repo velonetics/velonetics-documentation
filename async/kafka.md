@@ -10,7 +10,7 @@ menu:
     parent: "050 Non-REST Connectivity"
 meta:
   since: v2.0
-  source: https://github.com/pucora/velonetics-pubsub
+  source: https://github.com/pucora/pucora-pubsub
   namespace:
   - async/kafka
   scope:
@@ -68,7 +68,7 @@ The topic name comes from `async_agent[].consumer.topic`. The driver uses a **la
         "async/kafka": {
           "cluster": {
             "brokers": ["localhost:9092"],
-            "client_id": "velonetics_async_agent"
+            "client_id": "pucora_async_agent"
           },
           "group": {
             "group_id": "my_group_id",
@@ -118,7 +118,7 @@ Partition offsets are committed after each message is read, even when the backen
 make pubsub-async-kafka-compose-test
 ```
 
-See [examples/pubsub/async-kafka](https://github.com/pucora/velonetics-ce/tree/main/examples/pubsub/async-kafka).
+See [examples/pubsub/async-kafka](https://github.com/pucora/pucora-ce/tree/main/examples/pubsub/async-kafka).
 
 ## Related
 

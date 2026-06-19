@@ -12,7 +12,7 @@ menu:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
   since: v0.7
-  source: https://github.com/pucora/velonetics-gelf
+  source: https://github.com/pucora/pucora-gelf
   namespace:
   - telemetry/gelf
   scope:
@@ -20,7 +20,7 @@ meta:
 log_prefix:
   - "[SERVICE: Logging][GELF]"
 ---
-Pucora supports sending structured events in GELF format to your Graylog Cluster thanks to the [velonetics-gelf](https://github.com/pucora/velonetics-gelf) integration.
+Pucora supports sending structured events in GELF format to your Graylog Cluster thanks to the [pucora-gelf](https://github.com/pucora/pucora-gelf) integration.
 
 The setup of GELF is straightforward and requires to add **two components** in the configuration:
 

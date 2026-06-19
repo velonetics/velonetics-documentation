@@ -11,7 +11,7 @@ menu:
 notoc: false
 meta:
   since: v0.4
-  source: https://github.com/pucora/velonetics-httpcache
+  source: https://github.com/pucora/pucora-httpcache
   namespace:
   - qos/http-cache
   scope:

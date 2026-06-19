@@ -23,23 +23,23 @@ Finally, the **TLS Handshake Timeout** is hardcoded to 10 seconds and cannot be 
 ## Override settings using environment vars
 When you declare in the configuration file any of the HTTP server or transport settings declared above, you can [override its value through environment variables](/docs/configuration/environment-vars/) when starting the server.
 
-All the environment variables have the same name as the settings above in uppercase and with the `VELONETICS_` prefix. The following env vars are available:
+All the environment variables have the same name as the settings above in uppercase and with the `PUCORA_` prefix. The following env vars are available:
 
-- `VELONETICS_DIALER_TIMEOUT`
-- `VELONETICS_DIALER_KEEP_ALIVE`
-- `VELONETICS_DIALER_FALLBACK_DELAY`
-- `VELONETICS_DISABLE_COMPRESSION`
-- `VELONETICS_DISABLE_KEEP_ALIVES`
-- `VELONETICS_MAX_IDLE_CONNECTIONS`
-- `VELONETICS_MAX_IDLE_CONNECTIONS_PER_HOST`
-- `VELONETICS_IDLE_CONNECTION_TIMEOUT`
-- `VELONETICS_RESPONSE_HEADER_TIMEOUT`
-- `VELONETICS_EXPECT_CONTINUE_TIMEOUT`
+- `PUCORA_DIALER_TIMEOUT`
+- `PUCORA_DIALER_KEEP_ALIVE`
+- `PUCORA_DIALER_FALLBACK_DELAY`
+- `PUCORA_DISABLE_COMPRESSION`
+- `PUCORA_DISABLE_KEEP_ALIVES`
+- `PUCORA_MAX_IDLE_CONNECTIONS`
+- `PUCORA_MAX_IDLE_CONNECTIONS_PER_HOST`
+- `PUCORA_IDLE_CONNECTION_TIMEOUT`
+- `PUCORA_RESPONSE_HEADER_TIMEOUT`
+- `PUCORA_EXPECT_CONTINUE_TIMEOUT`
 
 You can start Pucora with the desired variables to override what you have in the configuration:
 
 {{< terminal title="Term" >}}
-VELONETICS_MAX_IDLE_CONNECTIONS_PER_HOST=200 pucora run -c pucora.json
+PUCORA_MAX_IDLE_CONNECTIONS_PER_HOST=200 pucora run -c pucora.json
 {{< /terminal >}}
 
 ## Max IDLE connections

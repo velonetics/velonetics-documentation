@@ -59,7 +59,7 @@ The most important packages are:
 
 The rest of the framework packages contain some helpers and adapters for additional tasks, like encoding, logging, or service discovery.
 
-Additionally, Pucora bundles a lot of middleware and components that are in its scope and package. These packages and others are listed in our [Pucora Contrib](https://github.com/pucora/velonetics-contrib) repository.
+Additionally, Pucora bundles a lot of middleware and components that are in its scope and package. These packages and others are listed in our [Pucora Contrib](https://github.com/pucora/pucora-contrib) repository.
 
 ### The `config` package
 

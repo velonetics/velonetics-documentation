@@ -10,7 +10,7 @@ menu:
     parent: "180 Extending with custom code"
 meta:
   since: v1.0
-  source: https://github.com/pucora/velonetics-lua
+  source: https://github.com/pucora/pucora-lua
   namespace:
   - "modifier/lua-proxy"
   - "modifier/lua-endpoint"

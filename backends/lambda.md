@@ -6,7 +6,7 @@ title: AWS Lambda Integration
 description: Integrate AWS Lambda functions into Pucora API Gateway to leverage serverless computing for scalable and event-driven API processing
 weight: 150
 images:
-    - /images/velonetics-lambda.png
+    - /images/pucora-lambda.png
 dark_header_image: true
 menu:
   community_current:
@@ -14,7 +14,7 @@ menu:
 notoc: false
 meta:
   since: v1.0
-  source: https://github.com/pucora/velonetics-lambda
+  source: https://github.com/pucora/pucora-lambda
   namespace:
   - backend/lambda
   scope:

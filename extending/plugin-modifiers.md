@@ -15,7 +15,7 @@ meta:
   - plugin/req-resp-modifier
 images:
 - /images/documentation/diagrams/plugin-type-req-resp.mmd.svg
-- /images/documentation/velonetics-plugins.png
+- /images/documentation/pucora-plugins.png
 - /images/documentation/request-response-plugin.png
 
 ---
@@ -73,7 +73,7 @@ func init() {
 // ModifierRegisterer is the symbol the plugin loader will be looking for. It must
 // implement the plugin.Registerer interface
 // https://github.com/luraproject/lura/blob/master/proxy/plugin/modifier.go#L71
-var ModifierRegisterer = registerer("velonetics-debugger")
+var ModifierRegisterer = registerer("pucora-debugger")
 
 type registerer string
 
@@ -135,8 +135,8 @@ func (r registerer) requestDump(
     /*
         "extra_config":{
             "plugin/req-resp-modifier":{
-                "name":["velonetics-debugger"],
-                "velonetics-debugger":{
+                "name":["pucora-debugger"],
+                "pucora-debugger":{
                     "A":"foo",
                     "B":42
                 }
@@ -172,8 +172,8 @@ func (r registerer) responseDump(
     /*
         "extra_config":{
             "plugin/req-resp-modifier":{
-                "name":["velonetics-debugger"],
-                "velonetics-debugger":{
+                "name":["pucora-debugger"],
+                "pucora-debugger":{
                     "A":"foo",
                     "B":42
                 }
@@ -206,7 +206,7 @@ You can also refer [this example](https://github.com/luraproject/lura/blob/v2.0.
 With the `main.go` file complete, it's time to build and test the plugin. For compiling Go plugins, the flag `-buildmode=plugin` is required:
 
 {{< terminal >}}
-go build -buildmode=plugin -o velonetics-debugger.so .
+go build -buildmode=plugin -o pucora-debugger.so .
 {{< /terminal >}}
 
 If you are using Docker and wanting to load your plugin on Docker, compile it in the [Plugin Builder](/docs/extending/writing-plugins/#plugin-builder) for an easier integration.
@@ -214,7 +214,7 @@ If you are using Docker and wanting to load your plugin on Docker, compile it in
 {{< terminal title="Build your plugin" >}}
 docker run -it -v "$PWD:/app" -w /app \
 {{< product image_plugin_builder >}}:{{< product latest_version >}} \
-go build -buildmode=plugin -o velonetics-debugger.so .
+go build -buildmode=plugin -o pucora-debugger.so .
 {{< /terminal >}}
 
 For the test, we'll build a small gateway with a single endpoint merging the responses from two different backends.
@@ -244,7 +244,7 @@ For the test, we'll build a small gateway with a single endpoint merging the res
           "group": "org",
           "extra_config":{
             "plugin/req-resp-modifier":{
-              "name":["velonetics-debugger-request"]
+              "name":["pucora-debugger-request"]
             }
           }
         },
@@ -254,7 +254,7 @@ For the test, we'll build a small gateway with a single endpoint merging the res
           "is_collection": true,
           "extra_config":{
             "plugin/req-resp-modifier":{
-              "name":["velonetics-debugger-response"]
+              "name":["pucora-debugger-response"]
             }
           }
         }
@@ -262,8 +262,8 @@ For the test, we'll build a small gateway with a single endpoint merging the res
       "extra_config":{
         "plugin/req-resp-modifier":{
           "name": [
-                "velonetics-debugger-request",
-                "velonetics-debugger-response"
+                "pucora-debugger-request",
+                "pucora-debugger-response"
           ]
         }
       }

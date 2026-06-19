@@ -19,11 +19,11 @@ Since Pucora became an [official Docker image](https://hub.docker.com/_/pucora),
 {{< /note >}}
 
 ## Building the watch image
-To use the `:watch` image on the Open Source edition, [clone the `velonetics-watch` repository](https://github.com/pucora/velonetics-watch/) and do the `docker build` as explained in its README:
+To use the `:watch` image on the Open Source edition, [clone the `pucora-watch` repository](https://github.com/pucora/pucora-watch/) and do the `docker build` as explained in its README:
 
 ```bash
-git clone https://github.com/pucora/velonetics-watch.git
-cd velonetics-watch
+git clone https://github.com/pucora/pucora-watch.git
+cd pucora-watch
 docker build -t {{< product image >}}:watch .
 ```
 If you want to pin a specific Pucora version, replace the `:latest` string on the `Dockerfile` with your desired version before building.

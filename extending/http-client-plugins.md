@@ -15,7 +15,7 @@ meta:
   - plugin/http-client
 images:
 - /images/documentation/diagrams/plugin-type-client.mmd.svg
-- /images/documentation/velonetics-plugins.png
+- /images/documentation/pucora-plugins.png
 - /images/documentation/http-client-plugin.png
 ---
 The **HTTP client** plugins execute in the proxy layer when Pucora tries to reach your backends for content. They allow you to intercept, transform, and manipulate the requests **before they hit your backend services**, and their way back. It is the perfect time to modify the request before it reaches the backend.
@@ -38,11 +38,11 @@ Read the introduction to [writing plugins](/docs/extending/writing-plugins/) for
 To start with a *hello world* for your first plugin, you have to implement the plugin client interface by copying the example provided in the [Go documentation](https://godoc.org/github.com/luraproject/lura/transport/http/client/plugin)
 
 ### Example: Building your first client plugin
-The easiest way to demonstrate how HTTP client plugins work is with a Hello World plugin. So let's start by creating a new Go project named `velonetics-client-example`:
+The easiest way to demonstrate how HTTP client plugins work is with a Hello World plugin. So let's start by creating a new Go project named `pucora-client-example`:
 
-    mkdir velonetics-client-example
-    cd velonetics-client-example
-    go mod init velonetics-client-example
+    mkdir pucora-client-example
+    cd pucora-client-example
+    go mod init pucora-client-example
 
 Now we have to create a file `main.go` with the content below:
 
@@ -62,7 +62,7 @@ import (
 )
 
 // ClientRegisterer is the symbol the plugin loader will try to load. It must implement the RegisterClient interface
-var ClientRegisterer = registerer("velonetics-client-example")
+var ClientRegisterer = registerer("pucora-client-example")
 
 type registerer string
 
@@ -99,8 +99,8 @@ func (r registerer) registerClients(_ context.Context, extra map[string]interfac
 	/*
 	   "extra_config":{
 	       "plugin/http-client":{
-	           "name":"velonetics-client-example",
-	           "velonetics-client-example":{
+	           "name":"pucora-client-example",
+	           "pucora-client-example":{
 	               "path": "/some-path"
 	           }
 	       }
@@ -108,7 +108,7 @@ func (r registerer) registerClients(_ context.Context, extra map[string]interfac
 	*/
 
 	// The config variable contains all the keys you have defined in the configuration:
-	config, _ := extra["velonetics-client-example"].(map[string]interface{})
+	config, _ := extra["pucora-client-example"].(map[string]interface{})
 
 	// The plugin will look for this path:
 	path, _ := config["path"].(string)
@@ -174,7 +174,7 @@ With the `main.go` file saved, it's time to build and test the plugin. If you ad
 For compiling Go plugins, the flag `-buildmode=plugin` is required. The command is:
 
 {{< terminal >}}
-go build -buildmode=plugin -o velonetics-client-example.so .
+go build -buildmode=plugin -o pucora-client-example.so .
 {{< /terminal >}}
 
 If you are using Docker and want to load your plugin on Docker, compile it in the [Plugin Builder](/docs/extending/writing-plugins/#plugin-builder) for easier integration.
@@ -182,10 +182,10 @@ If you are using Docker and want to load your plugin on Docker, compile it in th
 {{< terminal title="Build your plugin" >}}
 docker run -it -v "$PWD:/app" -w /app \
 {{< product image_plugin_builder >}}:{{< product latest_version >}} \
-go build -buildmode=plugin -o velonetics-client-example.so .
+go build -buildmode=plugin -o pucora-client-example.so .
 {{< /terminal >}}
 
-There is no output for this command. Now you have a file `velonetics-client-example.so`, the Pucora binary has to side load. Remember that you cannot use this binary in a different architecture (e.g., compiling the binary in Mac and loading it in a Docker container).
+There is no output for this command. Now you have a file `pucora-client-example.so`, the Pucora binary has to side load. Remember that you cannot use this binary in a different architecture (e.g., compiling the binary in Mac and loading it in a Docker container).
 
 The plugin is ready to use! You can now load your plugin in the configuration. Add the `plugin` and `extra_config` entries in your configuration. Here's an example of `pucora.json`:
 
@@ -194,7 +194,7 @@ The plugin is ready to use! You can now load your plugin in the configuration. A
   "version": 3,
   "plugin": {
     "pattern": ".so",
-    "folder": "./velonetics-client-example/"
+    "folder": "./pucora-client-example/"
   },
   "endpoints": [
     {
@@ -207,8 +207,8 @@ The plugin is ready to use! You can now load your plugin in the configuration. A
           "url_pattern": "/__debug/{id}",
           "extra_config": {
             "plugin/http-client": {
-              "name": "velonetics-client-example",
-              "velonetics-client-example": {
+              "name": "pucora-client-example",
+              "pucora-client-example": {
                 "path": "/__debug/hijack-me"
               }
             }
@@ -223,22 +223,22 @@ The plugin is ready to use! You can now load your plugin in the configuration. A
 Start the server with `pucora run -dc pucora.json`. When you run the server, the expected output (with `DEBUG` log level) is:
 
     Parsing configuration file: pucora.json
-    yyyy/mm/dd hh:mm:ss VELONETICS ERROR: [SERVICE: Logging] Unable to create the logger: getting the extra config for the velonetics-gologging module
-    yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [SERVICE: Plugin Loader] Starting loading process
-    yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [PLUGIN: velonetics-client-example] Logger loaded
-    yyyy/mm/dd hh:mm:ss VELONETICS INFO: [SERVICE: Executor Plugin] Total plugins loaded: 1
-    yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [SERVICE: Handler Plugin] plugin #0 (velonetics-client-example/velonetics-client-example.so): plugin: symbol HandlerRegisterer not found in plugin velonetics-client-example
-    yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [SERVICE: Modifier Plugin] plugin #0 (velonetics-client-example/velonetics-client-example.so): plugin: symbol ModifierRegisterer not found in plugin velonetics-client-example
-    yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [SERVICE: Plugin Loader] Loading process completed
-    yyyy/mm/dd hh:mm:ss VELONETICS INFO: Starting the Pucora instance
-    yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [ENDPOINT: /test/:id] Building the proxy pipe
-    yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [BACKEND: /__health] Building the backend pipe
-    yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: The plugin is now hijacking the path /hijack-me
-    yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [BACKEND: /__health] Injecting plugin velonetics-client-example
-    yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [ENDPOINT: /test/:id] Building the http handler
-    yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [ENDPOINT: /test/:id][JWTSigner] Signer disabled
-    yyyy/mm/dd hh:mm:ss VELONETICS INFO: [ENDPOINT: /test/:id][JWTValidator] Validator disabled for this endpoint
-    yyyy/mm/dd hh:mm:ss VELONETICS INFO: [SERVICE: Gin] Listening on port: 8080
+    yyyy/mm/dd hh:mm:ss PUCORA ERROR: [SERVICE: Logging] Unable to create the logger: getting the extra config for the pucora-gologging module
+    yyyy/mm/dd hh:mm:ss PUCORA DEBUG: [SERVICE: Plugin Loader] Starting loading process
+    yyyy/mm/dd hh:mm:ss PUCORA DEBUG: [PLUGIN: pucora-client-example] Logger loaded
+    yyyy/mm/dd hh:mm:ss PUCORA INFO: [SERVICE: Executor Plugin] Total plugins loaded: 1
+    yyyy/mm/dd hh:mm:ss PUCORA DEBUG: [SERVICE: Handler Plugin] plugin #0 (pucora-client-example/pucora-client-example.so): plugin: symbol HandlerRegisterer not found in plugin pucora-client-example
+    yyyy/mm/dd hh:mm:ss PUCORA DEBUG: [SERVICE: Modifier Plugin] plugin #0 (pucora-client-example/pucora-client-example.so): plugin: symbol ModifierRegisterer not found in plugin pucora-client-example
+    yyyy/mm/dd hh:mm:ss PUCORA DEBUG: [SERVICE: Plugin Loader] Loading process completed
+    yyyy/mm/dd hh:mm:ss PUCORA INFO: Starting the Pucora instance
+    yyyy/mm/dd hh:mm:ss PUCORA DEBUG: [ENDPOINT: /test/:id] Building the proxy pipe
+    yyyy/mm/dd hh:mm:ss PUCORA DEBUG: [BACKEND: /__health] Building the backend pipe
+    yyyy/mm/dd hh:mm:ss PUCORA DEBUG: The plugin is now hijacking the path /hijack-me
+    yyyy/mm/dd hh:mm:ss PUCORA DEBUG: [BACKEND: /__health] Injecting plugin pucora-client-example
+    yyyy/mm/dd hh:mm:ss PUCORA DEBUG: [ENDPOINT: /test/:id] Building the http handler
+    yyyy/mm/dd hh:mm:ss PUCORA DEBUG: [ENDPOINT: /test/:id][JWTSigner] Signer disabled
+    yyyy/mm/dd hh:mm:ss PUCORA INFO: [ENDPOINT: /test/:id][JWTValidator] Validator disabled for this endpoint
+    yyyy/mm/dd hh:mm:ss PUCORA INFO: [SERVICE: Gin] Listening on port: 8080
     ...
 
 Let's take a closer look at the log. First, notice that the plugin tried registering itself for each plugin type (`[SERVICE: Executor Plugin]`, `[SERVICE: Handler Plugin]`, and `[SERVICE: Modifier Plugin]`), but we are only building an Executor Plugin in this case.
@@ -246,9 +246,9 @@ Let's take a closer look at the log. First, notice that the plugin tried registe
 As we are implementing only one of the types, the other two types will fail to load (`symbol not found`). The logline is expected and is not an error but just an informational `DEBUG` message.
 
 The essential lines are:
-- `[PLUGIN: velonetics-client-example] Logger loaded` printed by the plugin logger we introduced in our code telling us that the plugin is loaded
+- `[PLUGIN: pucora-client-example] Logger loaded` printed by the plugin logger we introduced in our code telling us that the plugin is loaded
 - The `[SERVICE: Executor Plugin] Total plugins loaded: 1` telling us there is one type of plugin for this type
-- `[BACKEND: /__health] Injecting plugin velonetics-client-example` telling us that the plugin is loaded AND injected by the configuration.
+- `[BACKEND: /__health] Injecting plugin pucora-client-example` telling us that the plugin is loaded AND injected by the configuration.
 
 If you see these lines, you did great! Your plugin is working.
 

@@ -11,7 +11,7 @@ menu:
     parent: "060 Request and Response Manipulation"
 meta:
   since: v0.7
-  source: https://github.com/pucora/velonetics-martian
+  source: https://github.com/pucora/pucora-martian
   namespace:
   - modifier/martian
   scope:

@@ -7,7 +7,7 @@ description: Learn how to configure configuration auditing in Pucora API Gateway
 weight: 21
 notoc: false
 images:
-- /images/documentation/screenshots/velonetics_audit.png
+- /images/documentation/screenshots/pucora_audit.png
 menu:
   community_current:
     parent: "010 Configuration files"

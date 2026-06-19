@@ -1,6 +1,6 @@
 # Pucora Documentation
 
-Documentation for the [Pucora API Gateway](https://github.com/pucora/velonetics-ce) — configuration, deployment, and feature guides for Community Edition.
+Documentation for the [Pucora API Gateway](https://github.com/pucora/pucora-ce) — configuration, deployment, and feature guides for Community Edition.
 
 ## Pucora CE feature guides
 
@@ -43,7 +43,7 @@ The CSS will prepend a dollar sign `$` in the first line.
     {{< terminal title="Title of the box">}}
     docker build -t mypucora .
     Sending build context to Docker daemon   5.12kB
-    Step 1/2 : FROM pucora/velonetics-ce
+    Step 1/2 : FROM pucora/pucora-ce
     ---> c7e33ec819c0
     Step 2/2 : COPY pucora.json /etc/pucora/pucora.json
     ---> 703818e9de3a
@@ -65,9 +65,9 @@ You can also highlight a line, specific lines `6 7`, or a range `6-8`:
     package pucora
 
     import (
-        "github.com/pucora/velonetics-ce/logging"
-        client "github.com/pucora/velonetics-ce/transport/http/client/plugin"
-        server "github.com/pucora/velonetics-ce/transport/http/server/plugin"
+        "github.com/pucora/pucora-ce/logging"
+        client "github.com/pucora/pucora-ce/transport/http/client/plugin"
+        server "github.com/pucora/pucora-ce/transport/http/server/plugin"
     )
     {{< /highlight >}}
 
@@ -75,4 +75,4 @@ The documentation of the attributes is autoloaded from its json schema definitio
 
     {{< schema data="folder/file.json" >}}
 
-The `data` attribute loads the file from the [`velonetics-schema` repository](https://github.com/pucora/velonetics-schema), using the same path.
+The `data` attribute loads the file from the [`pucora-schema` repository](https://github.com/pucora/pucora-schema), using the same path.

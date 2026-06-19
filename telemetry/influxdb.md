@@ -16,7 +16,7 @@ skip_header_image: true
 notoc: true
 meta:
   since: v0.5 #telemetry/influxdb was released on 0.5
-  source: https://github.com/pucora/velonetics-otel
+  source: https://github.com/pucora/pucora-otel
   namespace:
   - telemetry/opentelemetry
   - telemetry/influx

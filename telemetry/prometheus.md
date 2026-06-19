@@ -14,7 +14,7 @@ images:
   - /images/documentation/screenshots/grafana-prometheus-otel.png
 meta:
   since: v0.5
-  source: https://github.com/pucora/velonetics-otel
+  source: https://github.com/pucora/pucora-otel
   namespace:
   - telemetry/opentelemetry
   log_prefix:
@@ -38,7 +38,7 @@ To enable scrapeable Prometheus metrics on Pucora, add the [OpenTelemetry integr
     "version": 3,
     "extra_config": {
         "telemetry/opentelemetry": {
-            "service_name": "velonetics_prometheus_service",
+            "service_name": "pucora_prometheus_service",
             "metric_reporting_period": 1,
             "exporters": {
                 "prometheus": [
@@ -113,14 +113,14 @@ rule_files:
   # - "second.rules"
 
 scrape_configs:
-  - job_name: velonetics_otel
+  - job_name: pucora_otel
     scrape_interval: 5s
     metrics_path: '/metrics'
     static_configs:
       - targets:
-        - 'velonetics1:9091'
-        - 'velonetics2:9091'
-        - 'velonetics3:9091'
+        - 'pucora1:9091'
+        - 'pucora2:9091'
+        - 'pucora3:9091'
         labels:
           app: kotel_example
 ```

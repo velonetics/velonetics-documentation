@@ -11,7 +11,7 @@ menu:
   community_current:
     parent: "160 Monitoring, Logs, and Analytics"
 images:
-- /images/documentation/screenshots/kibana-velonetics-dashboard.png
+- /images/documentation/screenshots/kibana-pucora-dashboard.png
 ---
 Pucora can push logs to external services; a good example is an integration with the ELK Stack (**Elastic + Logstash + Kibana**). The ELK integration allows you to have Pucora pushing logs to your Elastic server and **visualize them through a Kibana dashboard**.
 

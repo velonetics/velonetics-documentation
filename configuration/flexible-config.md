@@ -4,14 +4,14 @@ date: 2018-09-21
 linktitle: Flexible Configuration
 title: "Flexible Configuration: A template-based config for API Gateway"
 description: Discover the flexible configuration options offered by Pucora API Gateway, allowing you to customize and fine-tune your API gateway setup
-source: https://github.com/pucora/velonetics-flexibleconfig
+source: https://github.com/pucora/pucora-flexibleconfig
 since: 0.5
 menu:
   community_current:
     parent: "010 Configuration files"
 dark_header_image: true
 images:
-- /images/velonetics-flexible-config.png
+- /images/pucora-flexible-config.png
 weight: 30
 ---
 The **Flexible Configuration** allows you to declare the configuration using **multiple files** and use a **templates system**, opening the door to multi-environment configurations and code reuse.

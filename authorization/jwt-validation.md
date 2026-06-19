@@ -9,7 +9,7 @@ menu:
   community_current:
     parent: "080 Authentication & Authorization"
 meta:
-  source: https://github.com/pucora/velonetics-jose
+  source: https://github.com/pucora/pucora-jose
   namespace:
   - auth/validator
   scope:
@@ -219,7 +219,7 @@ The URL host must be `base64 url encoded` and must decode to exactly 32 bytes. H
 
 This config will use the key `smGbjm71Nxd1Ig5FS0wj9SlbzAIrnolCz9bQQ6uAhl4=` for decrypting de `cypher_key` (base64 standard enconded) and then decrypting the content of the file `./jwt.txt`.
 
-See this test to [understand how to generate and encrypt payloads](https://github.com/pucora/velonetics-jose/blob/master/jwk_test.go).
+See this test to [understand how to generate and encrypt payloads](https://github.com/pucora/pucora-jose/blob/master/jwk_test.go).
 
 #### Amazon KMS
 ```

@@ -7,10 +7,10 @@ notoc: true
 How to make sure what you are downloading is legit.
 
 ## PGP
-We will check the detached signature [PGP]({{< product download_repo >}}/bin/velonetics_{{< product latest_version >}}_amd64_generic-linux.tar.gz.asc) against our package [Pucora]({{< product download_repo >}}/bin/velonetics_{{< product latest_version >}}_amd64_generic-linux.tar.gz).
+We will check the detached signature [PGP]({{< product download_repo >}}/bin/pucora_{{< product latest_version >}}_amd64_generic-linux.tar.gz.asc) against our package [Pucora]({{< product download_repo >}}/bin/pucora_{{< product latest_version >}}_amd64_generic-linux.tar.gz).
 
 {{< terminal title="Term" >}}
-gpg --verify velonetics_{{< product latest_version >}}_amd64_generic-linux.tar.gz.asc velonetics_{{< product latest_version >}}_amd64_generic-linux.tar.gz
+gpg --verify pucora_{{< product latest_version >}}_amd64_generic-linux.tar.gz.asc pucora_{{< product latest_version >}}_amd64_generic-linux.tar.gz
 gpg: Signature made Sun Mar 10 18:17:18 2019 UTC using RSA key ID {{< param pgp_key >}}
 gpg: Can't check signature: public key not found
 
@@ -30,7 +30,7 @@ gpg: imported: 1	(RSA: 1)
 Now you can verify the signature of the package:
 
 {{< terminal title="Term" >}}
-gpg --verify velonetics_{{< product latest_version >}}_amd64_generic-linux.tar.gz.asc velonetics_{{< product latest_version >}}_amd64_generic-linux.tar.gz
+gpg --verify pucora_{{< product latest_version >}}_amd64_generic-linux.tar.gz.asc pucora_{{< product latest_version >}}_amd64_generic-linux.tar.gz
 gpg: Signature made Sun Mar 10 18:17:18 2019 UTC using RSA key ID {{< param pgp_key >}}
 gpg: Good signature from "Devops Faith Package Manager <packages@devops.faith>"
 gpg: WARNING: This key is not certified with a trusted signature!
@@ -40,13 +40,13 @@ Primary key fingerprint: {{< param pgp_fingerprint >}}
 
 ## SHA256
 
-To make sure the binary downloaded matches our SHA256 ensure the next 2 commands produce the same [SHA]({{< product download_repo >}}/bin/velonetics_{{< product latest_version >}}_amd64_generic-linux.tar.gz.sha256) output.
+To make sure the binary downloaded matches our SHA256 ensure the next 2 commands produce the same [SHA]({{< product download_repo >}}/bin/pucora_{{< product latest_version >}}_amd64_generic-linux.tar.gz.sha256) output.
 
 {{< terminal title="Term" >}}
-shasum -a 256 -b velonetics_{{< product latest_version >}}_amd64_generic-linux.tar.gz
+shasum -a 256 -b pucora_{{< product latest_version >}}_amd64_generic-linux.tar.gz
 {{< /terminal >}}
 
 Compare it to:
 {{< terminal title="Term" >}}
-curl {{< product download_repo >}}/bin/velonetics_{{< product latest_version >}}_amd64_generic-linux.tar.gz.sha256
+curl {{< product download_repo >}}/bin/pucora_{{< product latest_version >}}_amd64_generic-linux.tar.gz.sha256
 {{< /terminal >}}

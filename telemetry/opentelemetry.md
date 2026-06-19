@@ -11,7 +11,7 @@ images:
 skip_header_image: true
 meta:
   since: v2.6
-  source: https://github.com/pucora/velonetics-otel
+  source: https://github.com/pucora/pucora-otel
   namespace:
   - telemetry/opentelemetry
   scope:
@@ -87,7 +87,7 @@ Here's an example with a Grafana Tempo and a Prometheus.
     "$schema": "https://www.pucora.io/schema/v{{< product minor_version >}}/pucora.json",
     "extra_config": {
         "telemetry/opentelemetry": {
-            "service_name": "velonetics_middle_service",
+            "service_name": "pucora_middle_service",
             "service_version": "commit-sha-ACBDE1234",
             "deploy_env": "production",
             "exporters": {

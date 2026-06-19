@@ -7,7 +7,7 @@ title: Datadog Telemetry Integration
 description: Integrate Datadog telemetry with Pucora API Gateway for advanced monitoring, visualization, and analysis of your API ecosystem
 weight: 90
 since: 1.2
-source: https://github.com/pucora/velonetics-opencensus
+source: https://github.com/pucora/pucora-opencensus
 images: ["/images/documentation/datadog-screenshot.png"]
 aliases: ["/docs/logging-metrics-tracing/datadog/"]
 menu:
@@ -15,7 +15,7 @@ menu:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
   since: v1.2
-  source: https://github.com/pucora/velonetics-otel
+  source: https://github.com/pucora/pucora-otel
   namespace:
   - telemetry/opentelemetry
   scope:
@@ -54,7 +54,7 @@ Datadog uses the standard OTLP exporter, here is a configuration example:
                 ]
             },
             "trace_sample_rate": 1,
-            "service_name": "velonetics_dd_telemetry",
+            "service_name": "pucora_dd_telemetry",
             "metric_reporting_period": 1
         }
     }

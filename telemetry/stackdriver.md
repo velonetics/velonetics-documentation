@@ -12,7 +12,7 @@ menu:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
   since: v0.7
-  source: https://github.com/pucora/velonetics-opencensus
+  source: https://github.com/pucora/pucora-opencensus
   namespace:
   - telemetry/opencensus
   log_prefix:
@@ -39,7 +39,7 @@ The following configuration snippet sends the data:
       },
       "exporters": {
         "stackdriver": {
-          "project_id": "my-velonetics-project",
+          "project_id": "my-pucora-project",
           "metric_prefix": "pucora",
           "default_labels": {
             "env": "production"

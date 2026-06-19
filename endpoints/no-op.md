@@ -10,7 +10,7 @@ menu:
     parent: "040 Routing and Forwarding"
 meta:
   since: v1.2
-  source: https://github.com/pucora/velonetics-ce
+  source: https://github.com/pucora/pucora-ce
   namespace: false
   scope:
   - endpoint

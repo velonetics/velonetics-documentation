@@ -7,9 +7,9 @@ description: Integrate GraphQL backends into Pucora API Gateway to leverage the 
 weight: 140
 dark_header_image: true
 images:
-- /images/documentation/graphql/velonetics-graphql.png
-- /images/documentation/graphql/velonetics-graphql-proxy.png
-- /images/documentation/graphql/velonetics-rest-to-graphql-transformation.png
+- /images/documentation/graphql/pucora-graphql.png
+- /images/documentation/graphql/pucora-graphql-proxy.png
+- /images/documentation/graphql/pucora-rest-to-graphql-transformation.png
 menu:
   community_current:
     parent: "050 Non-REST Connectivity"
@@ -28,7 +28,7 @@ The **GraphQL integration** allows you to work in two different modes:
 1. Apply gateway functionality in the middle of a GraphQL client and its GraphQL servers (just proxy)
 2. Convert REST endpoints to GraphQL calls (adapter/transformer).
 
-Pucora CE also supports a **third mode — simple federation** — where multiple GraphQL subgraphs are called in parallel using backend `group`. See the [GraphQL example stack](https://github.com/pucora/velonetics-ce/tree/main/examples/graphql) for adapter, proxy, and federation configs.
+Pucora CE also supports a **third mode — simple federation** — where multiple GraphQL subgraphs are called in parallel using backend `group`. See the [GraphQL example stack](https://github.com/pucora/pucora-ce/tree/main/examples/graphql) for adapter, proxy, and federation configs.
 
 Pucora offers a simple yet powerful way of consuming GraphQL content from your distributed graphs. The main benefits of using Pucora as a **GraphQL Gateway** are:
 
@@ -42,7 +42,7 @@ Pucora offers a simple yet powerful way of consuming GraphQL content from your d
 ## REST to GraphQL transformation
 In this scenario, **the end-user consumes traditional REST content**, without even knowing that there is a GraphQL server behind:
 
-<img title="REST to Graphql" src="/images/documentation/graphql/velonetics-rest-to-graphql-transformation.png" class="dark-version-available">
+<img title="REST to Graphql" src="/images/documentation/graphql/pucora-rest-to-graphql-transformation.png" class="dark-version-available">
 
 **Pucora can use the variables in the body or in the endpoint URL** to generate the final GraphQL query it will send to the GraphQL server. The query is loaded from an external file or declared inline in the configuration and contains any variables needing replacement with the user input.
 
@@ -333,7 +333,7 @@ In this case, the GraphQL server receives a URL-encoded query with all the varia
 ## GraphQL gateway as a proxy
 In this approach, Pucora gets in the middle to validate or rate limit requests, but the request is forwarded to the GraphQL servers, who receive the original GraphQL query from the end user.
 
-<img title="Graphql" src="/images/documentation/graphql/velonetics-graphql-proxy.png" class="dark-version-available">
+<img title="Graphql" src="/images/documentation/graphql/pucora-graphql-proxy.png" class="dark-version-available">
 
 When working in this mode, you only need to configure the GraphQL endpoint and add your GraphQL as the backend. An example:
 

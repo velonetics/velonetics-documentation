@@ -8,7 +8,7 @@ weight: 20
 notoc: true
 meta:
   since: v0.6
-  source: https://github.com/pucora/velonetics-cors
+  source: https://github.com/pucora/pucora-cors
   namespace:
   - security/cors
   log_prefix:
@@ -59,7 +59,7 @@ The configuration options of this component are as follows:
 {{< schema data="security/cors.json" >}}
 
 {{< note title="Allow credentials and wildcards" >}}
-According to the CORS specification, you are not allowed to use wildcards and credentials at the same time. If you need to do this, [check this workaround](https://github.com/pucora/velonetics-cors/issues/9){{< /note >}}
+According to the CORS specification, you are not allowed to use wildcards and credentials at the same time. If you need to do this, [check this workaround](https://github.com/pucora/pucora-cors/issues/9){{< /note >}}
 
 ## Debugging configuration
 The following configuration might help you debug your CORS configuration. Check the inline `@comments`:

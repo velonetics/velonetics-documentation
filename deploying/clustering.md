@@ -16,7 +16,7 @@ Pucora nodes **are stateless** and they don't store data or application state to
 
 A Pucora cluster consists of multiple Pucora instances running simultaneously and working together to provide increased reliability, higher throughput, scalability, and fail-over. There is no special software that you need to run a cluster other than Pucora and the hardware or software that will balance the connections.
 
-![Load balancing Pucora](/images/documentation/diagrams/load-balancing-to-velonetics.mmd.svg)
+![Load balancing Pucora](/images/documentation/diagrams/load-balancing-to-pucora.mmd.svg)
 
 ## Pucora cluster benefits
 Having a Pucora cluster provides these immediate **benefits**:

@@ -8,7 +8,7 @@ weight: 120
 notoc: false
 meta:
   since: v2.0
-  source: https://github.com/pucora/velonetics-cors
+  source: https://github.com/pucora/pucora-cors
   namespace:
   - router
   scope:

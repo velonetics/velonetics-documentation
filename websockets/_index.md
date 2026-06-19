@@ -10,7 +10,7 @@ menu:
     parent: "050 Non-REST Connectivity"
 meta:
   since: v2.0
-  source: https://github.com/pucora/velonetics-websocket
+  source: https://github.com/pucora/pucora-websocket
   namespace:
   - websocket
   scope:
@@ -19,7 +19,7 @@ meta:
 
 Pucora supports bidirectional communication using the [WebSocket protocol (RFC-6455)](https://datatracker.ietf.org/doc/html/rfc6455). Clients connect to the gateway over WebSocket; the gateway connects to one or more backend hosts using `ws://` or `wss://`.
 
-Implemented by [`velonetics-websocket`](https://github.com/pucora/velonetics-websocket) and configured per endpoint via `extra_config.websocket`.
+Implemented by [`pucora-websocket`](https://github.com/pucora/pucora-websocket) and configured per endpoint via `extra_config.websocket`.
 
 ## Operating modes
 
@@ -221,7 +221,7 @@ From the Pucora CE repository:
 make ws-compose-test
 ```
 
-See [examples/websocket](https://github.com/pucora/velonetics-ce/tree/main/examples/websocket) for Docker Compose stacks covering direct, multiplex, and JWT-protected endpoints.
+See [examples/websocket](https://github.com/pucora/pucora-ce/tree/main/examples/websocket) for Docker Compose stacks covering direct, multiplex, and JWT-protected endpoints.
 
 ## Related
 

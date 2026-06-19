@@ -95,4 +95,4 @@ Minimum supported versions are Debian 8, and Ubuntu 16.x.
 You can also [download](/download/) the `tar.gz` and decompress it anywhere. Instructions to check the SHA and PGP signature [here](/docs/overview/verifying-packages/).
 
 ## Compile from source
-As Pucora is open source you can opt for [building the binary](https://github.com/pucora/velonetics-ce). The binary you will produce is the same you can get in our download page, only that compiling it yourself always feels good!
+As Pucora is open source you can opt for [building the binary](https://github.com/pucora/pucora-ce). The binary you will produce is the same you can get in our download page, only that compiling it yourself always feels good!

@@ -6,14 +6,14 @@ title: "Bot Detection and Throttling Guide: Prevent API Abuse"
 description: Implement bot detection and throttling mechanisms to prevent API abuse and ensure fair usage. Follow our comprehensive guide to protect your APIs from malicious bot traffic.
 weight: 990
 images:
-- /images/velonetics-botdetector.png
+- /images/pucora-botdetector.png
 dark_header_image: true
 menu:
   community_current:
     parent: "090 Traffic Management"
 meta:
   since: v1.0
-  source: https://github.com/pucora/velonetics-botdetector
+  source: https://github.com/pucora/pucora-botdetector
   namespace:
   - security/bot-detector
   scope:

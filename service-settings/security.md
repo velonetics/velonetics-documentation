@@ -10,7 +10,7 @@ menu:
     parent: "070 Security"
 meta:
   since: v0.4
-  source: https://github.com/pucora/velonetics-httpsecure
+  source: https://github.com/pucora/pucora-httpsecure
   namespace:
   - security/http
   scope:

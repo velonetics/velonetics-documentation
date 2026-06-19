@@ -7,7 +7,7 @@ description: Spike Arrest throttling in Pucora to regulate API traffic and preve
 weight: 9300
 notoc: true
 images:
-- /images/documentation/velonetics-token-bucket.png
+- /images/documentation/pucora-token-bucket.png
 skip_header_image: true
 menu:
   community_current:
@@ -21,7 +21,7 @@ The bursting control is the policy that defines what to do when you reach the th
 
 When users consume content with rate-limiting enabled, the `capacity` of the rate limit defines the **bursting** they can have. Bursting makes users have a relatively higher number of requests for a short time. When this burst is exhausted, no additional requests are processed until the [Token Bucket algorithm](/docs/throttling/token-bucket/) credits the user again.
 
-![Token Bucket image](/images/documentation/velonetics-token-bucket.png)
+![Token Bucket image](/images/documentation/pucora-token-bucket.png)
 
 The bursting control is automatically set on [endpoint rate limiting](/docs/endpoints/rate-limit/) with a capacity equal to the rate limit, and is configurable on [backend rate limit](/docs/backends/rate-limit/).
 

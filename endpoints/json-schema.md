@@ -11,7 +11,7 @@ menu:
 notoc: true
 meta:
   since: v1.2
-  source: https://github.com/pucora/velonetics-jsonschema
+  source: https://github.com/pucora/pucora-jsonschema
   namespace:
   - validation/json-schema
   scope:

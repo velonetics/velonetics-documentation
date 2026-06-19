@@ -25,18 +25,18 @@ If you want to customize any of the settings below, they must be written at the 
 ## Override settings using environment vars
 When you declare in the configuration file any of the HTTP server settings declared above, you can [override its value through environment variables](/docs/configuration/environment-vars/) when starting the server.
 
-All the environment variables have the same name are the same settings above in uppercase and with the `VELONETICS_` prefix. For instance, looking at the list of settings above, you could override:
+All the environment variables have the same name are the same settings above in uppercase and with the `PUCORA_` prefix. For instance, looking at the list of settings above, you could override:
 
-- `VELONETICS_PORT`
-- `VELONETICS_READ_TIMEOUT`
-- `VELONETICS_READ_HEADER_TIMEOUT`
-- `VELONETICS_WRITE_TIMEOUT`
-- `VELONETICS_IDLE_TIMEOUT`
-- `VELONETICS_USE_H2C`
+- `PUCORA_PORT`
+- `PUCORA_READ_TIMEOUT`
+- `PUCORA_READ_HEADER_TIMEOUT`
+- `PUCORA_WRITE_TIMEOUT`
+- `PUCORA_IDLE_TIMEOUT`
+- `PUCORA_USE_H2C`
 - etc...
 
 You can start Pucora with the desired variables to override what you have in the configuration:
 
 {{< terminal title="Term" >}}
-VELONETICS_PORT=8000 VELONETICS_READ_TIMEOUT="1s" pucora run -c pucora.json
+PUCORA_PORT=8000 PUCORA_READ_TIMEOUT="1s" pucora run -c pucora.json
 {{< /terminal >}}

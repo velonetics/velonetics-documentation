@@ -19,20 +19,20 @@ There are some additional resources that might help you when developing with Puc
 ## Hot reload the configuration
 There is an additional Pucora Docker image using Reflex to watch the configuration directory and reload Pucora when there are changes. This is very convenient while you are developing as it allows you to test new changes without having to restart manually and making the process less tedious.
 
-You can use the Docker image `docker pull pucora/velonetics-ce:watch`
+You can use the Docker image `docker pull pucora/pucora-ce:watch`
 
-[More information in our blog post](/blog/reloading-the-velonetics-configuration/)
+[More information in our blog post](/blog/reloading-the-pucora-configuration/)
 
 ## Generating an image with the configuration
-The [config2dot](https://github.com/pucora/velonetics-config2dot) is a tool to create graphs automatically after reading your configuration file `pucora.json`. For instance:
+The [config2dot](https://github.com/pucora/pucora-config2dot) is a tool to create graphs automatically after reading your configuration file `pucora.json`. For instance:
 
 ![config2dot example](/images/documentation/config2dot.png)
 
 ## Debugging the activity
-### velonetics-memviz
+### pucora-memviz
 Adds a [DOT](https://en.wikipedia.org/wiki/DOT_(graph_description_language)) file exporter of request/response snapshots to your proxy stack for debug and development purposes. Do not use this in production as it will kill your performance.
 
-### velonetics-spew
+### pucora-spew
 Dumps every entity seen in the pipe: requests and responses passing through the whole stack. Do not use this in production as it will kill your performance.
 
 Dumps are stored in files like `<pipe>_<base64_endpoint/backend_name>_<timestamp>.txt`. E.g:

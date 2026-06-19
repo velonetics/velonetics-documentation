@@ -134,7 +134,7 @@ Three requirements:
 
 ## Local example
 
-See [examples/streaming](https://github.com/pucora/velonetics-ce/tree/main/examples/streaming).
+See [examples/streaming](https://github.com/pucora/pucora-ce/tree/main/examples/streaming).
 
 ## Related
 

@@ -9,7 +9,7 @@ notoc: false
 weight: 80
 dark_header_image: true
 images:
-- /images/documentation/velonetics-sequential-call.png
+- /images/documentation/pucora-sequential-call.png
 menu:
   community_current:
     parent: "040 Routing and Forwarding"
@@ -92,7 +92,7 @@ When using the `{resp0}` and similar variables, the value you get is always a st
 ### Example of sequential proxy passing values on the `url_pattern`
 It's easier to understand with the example of the graph:
 
-![Chained call](/images/documentation/velonetics-sequential-call.png)
+![Chained call](/images/documentation/pucora-sequential-call.png)
 
 The user calls the gateway with an URL like `/hotel-destinations/{id}`, which needs to fetch the hotel information and all its associated destinations. Let's say the ID they request is `25`. The gateway calls a backend `/hotels/25` that returns data for the requested hotel, including a `destination_id` field that is a relationship identifier. The output for `GET /hotels/25` is like the following:
 

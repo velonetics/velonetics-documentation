@@ -28,7 +28,7 @@ The different load balancer placements you can have are illustrated in the image
 ## Balancing ingress traffic (to Pucora)
 We recommend having a few containers or servers in production to have high availability. In addition, you should place an **external balancer** to serve as the single point of contact for clients to distribute incoming traffic to all Pucora nodes.
 
-![load-balancing-to-velonetics.mmd diagram](/images/documentation/diagrams/load-balancing-to-velonetics.mmd.svg)
+![load-balancing-to-pucora.mmd diagram](/images/documentation/diagrams/load-balancing-to-pucora.mmd.svg)
 
 Cloud providers (and on-prem solutions) offer a variety of products for balancing, like Network balancers, Application balancers, CDN balancers, software balancers, etc. The choice will depend on your needs.
 

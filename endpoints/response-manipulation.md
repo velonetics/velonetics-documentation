@@ -11,7 +11,7 @@ menu:
     parent: "060 Request and Response Manipulation"
 dark_header_image: true
 images:
-- /images/documentation/velonetics-merge.png
+- /images/documentation/pucora-merge.png
 meta:
   noop_incompatible: true
 ---
@@ -27,7 +27,7 @@ When you have more than one `backend` connected to an `endpoint` that **is not**
 
 For instance, imagine you have three different API services exposing the resources `/a`,`/b`, and `/c`, and you want to disclose them all together in the Pucora endpoint `/abc`. This is what you would get:
 
-<img title="REST to Graphql" src="/images/documentation/velonetics-merge.png" class="dark-version-available">
+<img title="REST to Graphql" src="/images/documentation/pucora-merge.png" class="dark-version-available">
 
 The merge operation chooses user experience and responsiveness first. It makes its *best effort* to get all the necessary parts from the involved backends and return the composed object as soon as possible.
 
@@ -80,7 +80,7 @@ If Pucora waits for the backends to respond and the timeout is reached, the resp
 
 If the response has missing parts, the cache header won't exist, as we don't want clients to cache incomplete responses.
 
-At all times, the `X-Pucora-Completed` header contains a boolean telling you if all backends returned their content (`x-velonetics-completed: true`) or it's a partial response (`x-velonetics-completed: false`).
+At all times, the `X-Pucora-Completed` header contains a boolean telling you if all backends returned their content (`x-pucora-completed: true`) or it's a partial response (`x-pucora-completed: false`).
 
 ### Merge example
 

@@ -10,7 +10,7 @@ menu:
   community_current:
     parent: "180 Extending with custom code"
 images:
-- /images/documentation/velonetics-plugins.png
+- /images/documentation/pucora-plugins.png
 ---
 **Plugins are soft-linked libraries**, thus a separated `.so` file that can participate in the processing when running in conjunction with Pucora. When we talk about plugins, we refer to **[Go plugins](https://golang.org/pkg/plugin/)**. You can create custom code, inject it into different parts of Pucora processing, and still use the official Pucora software without forking the code.
 
@@ -96,7 +96,7 @@ These are all the steps needed to create a plugin from scratch and successfully 
 3. [Check the dependencies](#check-the-dependencies) are compatible with the binary
 4. [Compile the plugin](#compile-the-plugin) for your architecture (not in your machine, but in the builder)
 5. [Test the plugin is loadable](#test-the-plugin)
-6. [Inject your plugin](#inject-your-plugin-and-run-velonetics) and run Pucora
+6. [Inject your plugin](#inject-your-plugin-and-run-pucora) and run Pucora
 
 These steps are detailed below.
 

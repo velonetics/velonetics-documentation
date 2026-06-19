@@ -30,7 +30,7 @@ In other installations, although we aim to default to `/etc/pucora`, you can sti
 The short answer is to start the gateway and look for the following line early in the logs:
 
 ```log
-yyyy/mm/dd hh:mm:ss VELONETICS INFO: Working directory is /etc/pucora
+yyyy/mm/dd hh:mm:ss PUCORA INFO: Working directory is /etc/pucora
 ```
 
 This informative line was introduced in Pucora 2.5

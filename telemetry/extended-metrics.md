@@ -12,7 +12,7 @@ menu:
 notoc: false
 meta:
   since: v0.4
-  source: https://github.com/pucora/velonetics-metrics
+  source: https://github.com/pucora/pucora-metrics
   namespace:
   - telemetry/metrics
   scope:
@@ -123,7 +123,7 @@ services:
     image: influxdb:2.4
     environment:
       - "DOCKER_INFLUXDB_INIT_MODE=setup"
-      - "DOCKER_INFLUXDB_INIT_USERNAME=velonetics-dev"
+      - "DOCKER_INFLUXDB_INIT_USERNAME=pucora-dev"
       - "DOCKER_INFLUXDB_INIT_PASSWORD=pas5w0rd"
       - "DOCKER_INFLUXDB_INIT_ORG=my-org"
       - "DOCKER_INFLUXDB_INIT_BUCKET=pucora"
@@ -156,7 +156,7 @@ docker exec -it influxdb /bin/bash
 Create a configuration:
 
 {{< terminal title="Term" >}}
-influx config create --config-name velonetics-config \
+influx config create --config-name pucora-config \
   --host-url http://localhost:8086 \
   --org my-org \
   --token my-super-secret-auth-token \
@@ -180,7 +180,7 @@ And now launch the last command in the shell:
 influx v1 auth create \
   --read-bucket b492e6f8f3b13aaa \
   --write-bucket b492e6f8f3b13aaa \
-  --username velonetics-dev
+  --username pucora-dev
 {{< /terminal >}}
 
 Replace the ID of the buckets above with the ID you just copied, and the username as in the docker compose. The shell will ask for your password.
@@ -199,7 +199,7 @@ Now your configuration should work and start sending data to InfluxDB:
             "address": "http://localhost:8086",
             "ttl": "25s",
             "buffer_size": 100,
-            "db": "velonetics_db",
+            "db": "pucora_db",
             "username": "user",
             "password": "password"
         }
@@ -219,7 +219,7 @@ services:
     image: influxdb:1.8
     environment:
       - "INFLUXDB_DB=pucora"
-      - "INFLUXDB_USER=velonetics-dev"
+      - "INFLUXDB_USER=pucora-dev"
       - "INFLUXDB_USER_PASSWORD=pas5w0rd"
       - "INFLUXDB_ADMIN_USER=admin"
       - "INFLUXDB_ADMIN_PASSWORD=supersecretpassword"

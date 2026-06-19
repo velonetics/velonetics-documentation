@@ -10,7 +10,7 @@ menu:
     parent: "050 Non-REST Connectivity"
 meta:
   since: v2.0
-  source: https://github.com/pucora/velonetics-grpc
+  source: https://github.com/pucora/pucora-grpc
   namespace:
   - grpc
   scope:
@@ -20,7 +20,7 @@ meta:
 
 Pucora exposes **gRPC client** and **gRPC server** integration with unary RPC support. Catalog services use compiled `.pb` descriptor files.
 
-Implemented by [`velonetics-grpc`](https://github.com/pucora/velonetics-grpc) via:
+Implemented by [`pucora-grpc`](https://github.com/pucora/pucora-grpc) via:
 
 - `extra_config.grpc` — service catalog and optional gRPC server
 - `extra_config.backend/grpc` — gRPC upstream backends
@@ -69,16 +69,16 @@ From the Pucora CE repository:
 | Config | Make target | Smoke test |
 |--------|-------------|------------|
 | `pucora.json` | `grpc-compose-test` | REST `/flights` |
-| `velonetics-server.json` | server variant | `grpcurl` FindFlight |
-| `velonetics-mixed.json` | mixed variant | REST + `grpcurl` |
-| `velonetics-jwt.json` | JWT variant | auth required |
+| `pucora-server.json` | server variant | `grpcurl` FindFlight |
+| `pucora-mixed.json` | mixed variant | REST + `grpcurl` |
+| `pucora-jwt.json` | JWT variant | auth required |
 
 ```bash
 make test-grpc
 make grpc-compose-test
 ```
 
-See [examples/grpc](https://github.com/pucora/velonetics-ce/tree/main/examples/grpc).
+See [examples/grpc](https://github.com/pucora/pucora-ce/tree/main/examples/grpc).
 
 ## Limitations
 

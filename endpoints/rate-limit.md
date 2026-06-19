@@ -12,7 +12,7 @@ menu:
     parent: "090 Traffic Management"
 meta:
   since: v0.4
-  source: https://github.com/pucora/velonetics-ratelimit
+  source: https://github.com/pucora/pucora-ratelimit
   namespace:
   - qos/ratelimit/router
   scope:

@@ -10,7 +10,7 @@ menu:
     parent: "050 Non-REST Connectivity"
 meta:
   since: v2.0
-  source: https://github.com/pucora/velonetics-grpc
+  source: https://github.com/pucora/pucora-grpc
   namespace:
   - backend/grpc
   scope:

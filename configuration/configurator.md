@@ -10,7 +10,7 @@ menu:
     parent: "010 Configuration files"
 meta:
   since: v2.0
-  source: https://github.com/pucora/velonetics-configurator
+  source: https://github.com/pucora/pucora-configurator
   scope:
   - service
 ---
@@ -26,17 +26,17 @@ No more hand-writing `extra_config` namespaces or remembering `disable_host_sani
 make build
 
 # Interactive wizard
-./bin/velonetics-config init -o my-profile.yaml
+./bin/pucora-config init -o my-profile.yaml
 
 # Or pick a preset
-./bin/velonetics-config presets list
-./bin/velonetics-config presets apply rest-proxy -g ./output
+./bin/pucora-config presets list
+./bin/pucora-config presets apply rest-proxy -g ./output
 
 # Generate from your profile
-./bin/velonetics-config generate -f my-profile.yaml -o ./output
+./bin/pucora-config generate -f my-profile.yaml -o ./output
 
 # Validate before generating
-./bin/velonetics-config validate -f my-profile.yaml
+./bin/pucora-config validate -f my-profile.yaml
 ```
 
 Run the gateway:
@@ -106,7 +106,7 @@ routes:
 | `streaming-sse` | Server-sent events / streaming |
 
 ```bash
-velonetics-config presets apply kafka-pubsub -g ./output
+pucora-config presets apply kafka-pubsub -g ./output
 ```
 
 ## Commands

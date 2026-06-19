@@ -53,7 +53,7 @@ Use `{{< product check_plugin_command >}}` in combination with the following fla
 - `-f` or `--format` to let Pucora suggest you about the `go get` commands you should launch.
 - `-s` or `--sum` to specify the path to the `go.sum` file of your plugin.
 - `-g` or `--go` to specify the Go version you are using to compile the plugin
-- `-l` or `--libc` to specify the libc version installed in the system. The libc version must have the prefix `MUSL-`, `GLIBC-`, and `DARWIN-`. For instance, a plugin in Mac Monterrey might use `DARWIN-12.2.1`, an Alpine container will need something like `MUSL-1.2.2`, and a Linux box will have `GLIBC-2.32`. To know your glibc version execute the [Find GLIBC script](https://github.com/pucora/velonetics-ce/blob/master/find_glibc.sh). When there are incompatibilities because the operating system is different, but the libraries (glibc or musl) are in the **exact same version**, it is safe to ignore them.
+- `-l` or `--libc` to specify the libc version installed in the system. The libc version must have the prefix `MUSL-`, `GLIBC-`, and `DARWIN-`. For instance, a plugin in Mac Monterrey might use `DARWIN-12.2.1`, an Alpine container will need something like `MUSL-1.2.2`, and a Linux box will have `GLIBC-2.32`. To know your glibc version execute the [Find GLIBC script](https://github.com/pucora/pucora-ce/blob/master/find_glibc.sh). When there are incompatibilities because the operating system is different, but the libraries (glibc or musl) are in the **exact same version**, it is safe to ignore them.
 
 The example below shows an example of a plugin that uses several libraries that are incompatible with Pucora:
 

@@ -54,14 +54,14 @@ check_config:
     FC_SETTINGS: $CI_PROJECT_DIR/config/settings/prod
     FC_TEMPLATES: $CI_PROJECT_DIR/config/templates
     FC_OUT: /tmp/pucora.json
-    VELONETICS_FILE: $CI_PROJECT_DIR/config/pucora.tmpl
-    VELONETICS_AUDIT_IGNORE: $CI_PROJECT_DIR/.velonetics_audit_ignore
+    PUCORA_FILE: $CI_PROJECT_DIR/config/pucora.tmpl
+    PUCORA_AUDIT_IGNORE: $CI_PROJECT_DIR/.pucora_audit_ignore
   script:
     - echo "FC_ENABLE is set to $FC_ENABLE"
     - echo "Runner working on path $(pwd)"
-    - pucora check -tdc $VELONETICS_FILE
+    - pucora check -tdc $PUCORA_FILE
     - pucora check --lint -c $FC_OUT
-    - pucora audit -c $FC_OUT --ignore-file=$VELONETICS_AUDIT_IGNORE --severity CRITICAL,HIGH
+    - pucora audit -c $FC_OUT --ignore-file=$PUCORA_AUDIT_IGNORE --severity CRITICAL,HIGH
     - echo "--------------------------------------------------"
     - echo "------ YOU ROCK! Pucora config looks good! ------"
     - echo "--------------------------------------------------"

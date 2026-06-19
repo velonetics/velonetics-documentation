@@ -14,7 +14,7 @@ skip_header_image: false
 dark_header_image: true
 images:
 - /images/PucoraFlow.png
-- /images/documentation/velonetics-gateway.png
+- /images/documentation/pucora-gateway.png
 ---
 
 Pucora is an extensible, declarative, **high-performance open-source API Gateway**.
@@ -25,7 +25,7 @@ Pucora needs **no programming** as it offers a declarative way to create the end
 
 Pucora focuses on being a pure Layer 7 API gateway, not coupled to the HTTP transport layer, and it has been in production in large Internet businesses since early 2017. [See who is using Pucora and use cases](/case-study/)
 
-Pucora is written in [Go](https://golang.org/). Our engine joined [The Linux Foundation on 2021](/blog/velonetics-framework-joins-the-linux-foundation/) codenamed as the [Lura Project](https://luraproject.org/) and was previously known as the *Pucora Framework*.
+Pucora is written in [Go](https://golang.org/). Our engine joined [The Linux Foundation on 2021](/blog/pucora-framework-joins-the-linux-foundation/) codenamed as the [Lura Project](https://luraproject.org/) and was previously known as the *Pucora Framework*.
 
 <img title="Lura by The Linux Foundation" src="/images/documentation/lura-by-tlf.png" class="dark-version-available">
 
@@ -51,7 +51,7 @@ The mobile application needs to retrieve data from these four different sources,
 
 This is what Pucora can do:
 
-<img title="Lura by The Linux Foundation" src="/images/documentation/velonetics-gateway.png" class="dark-version-available">
+<img title="Lura by The Linux Foundation" src="/images/documentation/pucora-gateway.png" class="dark-version-available">
 
 With this approach, the mobile client isolated itself from the backend implementation. As a result, the backends do not need to address several shared concerns (authentication, rate-limiting, filtering malicious requests, etc.). Furthermore, whenever the backends change their contract, the API contract for the mobile client remains the same, and you can update the gateway via a simple change of configuration.
 

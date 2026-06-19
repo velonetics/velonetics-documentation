@@ -10,7 +10,7 @@ menu:
   community_current:
     parent: "000 Getting Started"
 weight: 50
-images: ["/images/documentation/velonetics-playground-diagram.png"]
+images: ["/images/documentation/pucora-playground-diagram.png"]
 
 ---
 If you are new to Pucora, a quick way to get started is to make use of the [Pucora Playground](https://github.com/pucora/playground-community).

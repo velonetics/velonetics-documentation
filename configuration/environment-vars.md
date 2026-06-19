@@ -17,7 +17,7 @@ meta:
 ---
 When Pucora runs (whether with `run` or `check`), all the behavior is loaded from the [configuration file](/docs/configuration/structure/). Through environment variables, you can also set values. There are two different ways of injecting environment vars:
 
-- **Use a `VELONETICS_`-like reserved environment variable**: To override values set in the configuration.
+- **Use a `PUCORA_`-like reserved environment variable**: To override values set in the configuration.
 - **Set your own environment variables** when using the `{{env}}` function in [flexible configuration](/docs/configuration/flexible-config/) templates.
 
 ## Use a reserved environment variable
@@ -25,7 +25,7 @@ There are a group of reserved environment variables that are automatically recog
 
 Examples are when you want to replace the `port`, the default `timeout`, or the configuration `name` (sent to your telemetry) that already exists in the configuration.
 
-In essence, you can replace any value in the configuration that lives in the root level, and is a string, an integer, or a boolean. To do it you only need to capitalize the property name and add a prefix `VELONETICS_`.
+In essence, you can replace any value in the configuration that lives in the root level, and is a string, an integer, or a boolean. To do it you only need to capitalize the property name and add a prefix `PUCORA_`.
 
 {{< note title="Reserved variables are ignored unless the key exists in the configuration" type="warning" >}}
 The following list of variables only set the desired values when you have its associated value in the configuration. They are meant to **override** settings **already present** in the configuration, but if you set one of them and there is no value in the configuration, it won't have any effect.
@@ -48,9 +48,9 @@ For instance, take the following `pucora.json` configuration as an example:
 You could start the server with the following command which would allow you to override the values in the configuration:
 
 {{< terminal title="Example: Override configuration with env vars" >}}
-VELONETICS_NAME="Build ABC0123" \
-VELONETICS_TIMEOUT="500ms" \
-VELONETICS_PORT=9000 \
+PUCORA_NAME="Build ABC0123" \
+PUCORA_TIMEOUT="500ms" \
+PUCORA_PORT=9000 \
 pucora run -c pucora.json
 {{< /terminal >}}
 
@@ -63,7 +63,7 @@ The resulting configuration will be:
     "name": "Build ABC0123"
 }
 ```
-**Important**: Notice that the `port` attribute is not present in the configuration, despite passing a `VELONETICS_PORT` parameter. This is because the `port` didn't exist previously in the configuration file, and the environment variables can only **override** values.
+**Important**: Notice that the `port` attribute is not present in the configuration, despite passing a `PUCORA_PORT` parameter. This is because the `port` didn't exist previously in the configuration file, and the environment variables can only **override** values.
 
 ## Setting your environment variables
 If you need to set content using environment variables at any level, you have can either use the [flexible configuration](/docs/configuration/flexible-config/), which includes a series of [advanced functions](/docs/configuration/templates/#sprig-functions) including an `env` function, or you can not use Pucora at all and rely on the operating system `envsubst` command. Obviously you can also write your custom replacement process.

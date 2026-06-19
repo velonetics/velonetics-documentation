@@ -27,7 +27,7 @@ The Pucora `deployment` definition, in a file called `deployment-definition.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: velonetics-deployment
+  name: pucora-deployment
 spec:
   selector:
     matchLabels:
@@ -40,7 +40,7 @@ spec:
     spec:
       containers:
       - name: pucora
-        image: YOUR-VELONETICS-IMAGE:1.0.0
+        image: YOUR-PUCORA-IMAGE:1.0.0
         ports:
         - containerPort: 8080
         imagePullPolicy: Never
@@ -57,7 +57,7 @@ spec:
             add:
               - NET_BIND_SERVICE
         env:
-        - name: VELONETICS_PORT
+        - name: PUCORA_PORT
           value: "8080"
 ```
 
@@ -68,7 +68,7 @@ The Pucora `service` definition, in a file called `service-definition.yaml`:
 apiVersion: v1
 kind: Service
 metadata:
-  name: velonetics-service
+  name: pucora-service
 spec:
   type: NodePort
   ports:
@@ -92,17 +92,17 @@ kubectl create -f deployment-definition.yaml
 kubectl create -f service-definition.yaml
 {{< /terminal >}}
 
-For a more step by step process see [this blog entry](/blog/velonetics-on-kubernetes/).
+For a more step by step process see [this blog entry](/blog/pucora-on-kubernetes/).
 
 ## Helm Chart
 
-An official Helm chart ships with Pucora CE at [`deploy/helm/pucora/`](https://github.com/pucora/velonetics-ce/tree/main/deploy/helm/pucora) in the [velonetics-ce](https://github.com/pucora/velonetics-ce) repository.
+An official Helm chart ships with Pucora CE at [`deploy/helm/pucora/`](https://github.com/pucora/pucora-ce/tree/main/deploy/helm/pucora) in the [pucora-ce](https://github.com/pucora/pucora-ce) repository.
 
 Quick start:
 
 {{< terminal title="Helm install" >}}
-git clone https://github.com/pucora/velonetics-ce.git
-cd velonetics-ce
+git clone https://github.com/pucora/pucora-ce.git
+cd pucora-ce
 helm install my-gateway ./deploy/helm/pucora
 {{< /terminal >}}
 
@@ -113,4 +113,4 @@ The chart supports two configuration modes:
 
 Optional resources (disabled by default): Ingress, HorizontalPodAutoscaler, PodDisruptionBudget, and Prometheus ServiceMonitor.
 
-See the chart [README](https://github.com/pucora/velonetics-ce/blob/main/deploy/helm/pucora/README.md) for full configuration options.
+See the chart [README](https://github.com/pucora/pucora-ce/blob/main/deploy/helm/pucora/README.md) for full configuration options.

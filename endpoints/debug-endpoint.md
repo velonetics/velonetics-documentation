@@ -44,7 +44,7 @@ We are going to test the following endpoints:
     - Recognizes `User-Agent` and `Accept` as forwarded headers
 - `/mandatory/{variable}`: The query string parameters taken from a variable in the endpoint or other query string parameters
 
-To test it right now, save the content of this file in a `velonetics-test.json` and start the server:
+To test it right now, save the content of this file in a `pucora-test.json` and start the server:
 
 ```json
 {
@@ -94,7 +94,7 @@ To test it right now, save the content of this file in a `velonetics-test.json` 
 Start the server:
 
 {{< terminal title="Run Pucora with debug mode">}}
-pucora run -d -c velonetics-test.json
+pucora run -d -c pucora-test.json
 {{< /terminal >}}
 
 Now we can test that the endpoints behave as expected:

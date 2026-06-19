@@ -47,7 +47,7 @@ The circuit breaker watches the state of the connections with your backend(s), w
 ## Bot Detection
 [Bot detection](/docs/throttling/botdetector/) identifies and blocks malicious bots that scrape data, spam endpoints, or conduct other abusive behaviors. It allows you to set your own rules for bot detection, and they are based on regular expressions.
 
-![bot detector](/images/velonetics-botdetector.png)
+![bot detector](/images/pucora-botdetector.png)
 
 ## Geofencing
 With Geofencing , you can restrict API usage based on geographical locations, such as specific countries or cities. This feature, combined with Security Policies, enhances regional access control.

@@ -11,7 +11,7 @@ menu:
   community_current:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
-  source: https://github.com/pucora/velonetics-gologging
+  source: https://github.com/pucora/pucora-gologging
   namespace:
   - telemetry/logging
   scope:
@@ -63,15 +63,15 @@ In addition to this, a lot of **exporters** are available to send your logs out 
 Application logs might look different on each application, but this is an example:
 
 ```
-yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [SERVICE: Gin] Debug enabled
-yyyy/mm/dd hh:mm:ss VELONETICS INFO: Starting the Pucora instance
-yyyy/mm/dd hh:mm:ss VELONETICS INFO: [SERVICE: Gin] Building the router
-yyyy/mm/dd hh:mm:ss VELONETICS INFO: [SERVICE: Gin] Listening on port: 8080
-yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [SERVICE: AsyncAgent][mkt-event] Starting the async agent
-yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [ENDPOINT: mkt-event] Building the proxy pipe
-yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [BACKEND: /__debug/some] Building the backend pipe
-yyyy/mm/dd hh:mm:ss VELONETICS INFO: [SERVICE: AsyncAgent][AMQP][mkt-event] Starting the consumer
-yyyy/mm/dd hh:mm:ss VELONETICS ERROR: [SERVICE: Asyncagent][mkt-event] building the amqp subscriber: dial tcp 192.168.2.223:5672: connect: connection refused
+yyyy/mm/dd hh:mm:ss PUCORA DEBUG: [SERVICE: Gin] Debug enabled
+yyyy/mm/dd hh:mm:ss PUCORA INFO: Starting the Pucora instance
+yyyy/mm/dd hh:mm:ss PUCORA INFO: [SERVICE: Gin] Building the router
+yyyy/mm/dd hh:mm:ss PUCORA INFO: [SERVICE: Gin] Listening on port: 8080
+yyyy/mm/dd hh:mm:ss PUCORA DEBUG: [SERVICE: AsyncAgent][mkt-event] Starting the async agent
+yyyy/mm/dd hh:mm:ss PUCORA DEBUG: [ENDPOINT: mkt-event] Building the proxy pipe
+yyyy/mm/dd hh:mm:ss PUCORA DEBUG: [BACKEND: /__debug/some] Building the backend pipe
+yyyy/mm/dd hh:mm:ss PUCORA INFO: [SERVICE: AsyncAgent][AMQP][mkt-event] Starting the consumer
+yyyy/mm/dd hh:mm:ss PUCORA ERROR: [SERVICE: Asyncagent][mkt-event] building the amqp subscriber: dial tcp 192.168.2.223:5672: connect: connection refused
 ```
 
 ## Logging Configuration

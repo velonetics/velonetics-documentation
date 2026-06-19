@@ -5,13 +5,13 @@ linktitle: JWT Signing
 title: JWT Signing
 description: Pucora's JWT signing wraps your login endpoint, signing payloads with your secret key. Perfect for monolith migrations or setups without an OAuth server.
 weight: 30
-images: ["/images/velonetics-signer-flow.png"]
+images: ["/images/pucora-signer-flow.png"]
 dark_header_image: true
 menu:
   community_current:
     parent: "080 Authentication & Authorization"
 meta:
-  source: https://github.com/pucora/velonetics-jose
+  source: https://github.com/pucora/pucora-jose
   namespace:
   - auth/signer
   scope:

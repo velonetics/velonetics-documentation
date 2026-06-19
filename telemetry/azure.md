@@ -10,7 +10,7 @@ menu:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
   since: v1.1
-  source: https://github.com/pucora/velonetics-otel
+  source: https://github.com/pucora/pucora-otel
   namespace:
   - telemetry/opentelemetry
   scope:

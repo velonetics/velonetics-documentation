@@ -12,7 +12,7 @@ menu:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
   since: v0.5
-  source: https://github.com/pucora/velonetics-opencensus
+  source: https://github.com/pucora/pucora-opencensus
   namespace:
   - telemetry/opencensus
   scope:

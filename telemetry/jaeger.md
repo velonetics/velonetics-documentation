@@ -12,7 +12,7 @@ menu:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
   since: v0.5
-  source: https://github.com/pucora/velonetics-otel
+  source: https://github.com/pucora/pucora-otel
   namespace:
   - telemetry/opentelemetry
   scope:
@@ -32,7 +32,7 @@ To add Jaeger, configure a new exporter to the [OpenTelemetry settings](/docs/te
     "version": 3,
     "extra_config": {
         "telemetry/opentelemetry": {
-            "service_name": "my_velonetics_service",
+            "service_name": "my_pucora_service",
             "metric_reporting_period": 1,
             "trace_sample_rate": 0.15,
             "layers": {

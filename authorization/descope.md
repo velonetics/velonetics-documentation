@@ -10,7 +10,7 @@ menu:
     parent: "080 Authentication & Authorization"
 meta:
   #since:
-  source: https://github.com/pucora/velonetics-jose
+  source: https://github.com/pucora/pucora-jose
   namespace:
   - auth/validator
   scope:

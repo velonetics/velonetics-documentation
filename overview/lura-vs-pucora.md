@@ -1,7 +1,7 @@
 ---
 lastmod: 2026-06-18
 date: 2018-06-23
-aliases: ["velonetics-vs-lura"]
+aliases: ["pucora-vs-lura"]
 linktitle: Lura vs. Pucora
 description: The Lura Project is the API gateway engine; Pucora CE is the ready-to-use distribution built on top of it.
 notoc: true
@@ -16,7 +16,7 @@ If you look at the git repositories or this documentation, you will see two rela
 ## TL;DR
 
 - [**Lura**](https://luraproject.org) is the API gateway **engine** — a toolkit of Go libraries for building gateways. It is a [Linux Foundation](https://linuxfoundation.org/) project.
-- **Pucora CE** ([`velonetics-ce`](https://github.com/pucora/velonetics-ce)) is a ready-to-use API gateway distribution built on Lura, with logging, metrics, circuit breaking, rate limiting, JWT, pub/sub, WebSockets, gRPC, SOAP, and more.
+- **Pucora CE** ([`pucora-ce`](https://github.com/pucora/pucora-ce)) is a ready-to-use API gateway distribution built on Lura, with logging, metrics, circuit breaking, rate limiting, JWT, pub/sub, WebSockets, gRPC, SOAP, and more.
 
 ### Lura Project
 
@@ -33,8 +33,8 @@ Lura focuses on core gateway functionality and keeps the surface clean and exten
 
 ### Pucora API Gateway
 
-[`velonetics-ce`](https://github.com/pucora/velonetics-ce) is the Community Edition gateway: a single binary with the middleware and backends the project maintains, including non-REST connectivity documented in this site.
+[`pucora-ce`](https://github.com/pucora/pucora-ce) is the Community Edition gateway: a single binary with the middleware and backends the project maintains, including non-REST connectivity documented in this site.
 
 {{< button-group >}}
-{{< button url="https://github.com/pucora/velonetics-ce" type="inversed" >}}Source code{{< /button >}}
+{{< button url="https://github.com/pucora/pucora-ce" type="inversed" >}}Source code{{< /button >}}
 {{< /button-group >}}

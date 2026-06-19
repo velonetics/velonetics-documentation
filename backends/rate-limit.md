@@ -11,7 +11,7 @@ menu:
 notoc: true
 meta:
   since: false
-  source: https://github.com/pucora/velonetics-ratelimit
+  source: https://github.com/pucora/pucora-ratelimit
   namespace:
   - qos/ratelimit/proxy
   scope:

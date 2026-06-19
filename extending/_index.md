@@ -12,7 +12,7 @@ menu:
 dark_header_image: true
 images:
   - /images/documentation/hero/extending.png
-  - /images/documentation/velonetics-plugins.png
+  - /images/documentation/pucora-plugins.png
 ---
 
 Pucora is **highly extensible and flexible** and allows developers to extend its functionality through custom code when the built-in features are not enough. Whether you need to add custom logic, integrate specific business rules, or enhance features, Pucora lets you add extensions coded by you.

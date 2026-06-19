@@ -8,7 +8,7 @@ menu:
     parent: "000 Getting Started"
 title: "API Configuration Designer"
 meta:
-  source: https://github.com/pucora/velonetics-designer
+  source: https://github.com/pucora/pucora-designer
   since: v0.2
 notoc: false
 weight: 40

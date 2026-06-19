@@ -10,7 +10,7 @@ menu:
     parent: "080 Authentication & Authorization"
 meta:
   #since:
-  source: https://github.com/pucora/velonetics-jose
+  source: https://github.com/pucora/pucora-jose
   namespace:
   - auth/validator
   scope:
@@ -20,7 +20,7 @@ meta:
 skip_header_image: true
 dark_header_image: true
 images:
-- /images/documentation/keycloak/velonetics-keycloak-integration-workflow.png
+- /images/documentation/keycloak/pucora-keycloak-integration-workflow.png
 ---
 The Keycloak integration allows one of the many possible OpenID Connect different security options available in Pucora.
 
@@ -31,7 +31,7 @@ JSON web tokens (JWT) are an open standard ([RFC 7519](https://datatracker.ietf.
 
 Either if you are trying to protect your API from end-users or machine-to-machine access, the workflow is the same:
 
-<img title="Pucora-Keycloak validation" src="/images/documentation/keycloak/velonetics-keycloak-integration-workflow.png" class="dark-version-available">
+<img title="Pucora-Keycloak validation" src="/images/documentation/keycloak/pucora-keycloak-integration-workflow.png" class="dark-version-available">
 
 - End-Users use their applications to log in to Keycloak who provides an access token for the session.
 - Machine-to-machine communication also uses a token from Keycloak after providing a client_id and a client_secret.
@@ -79,6 +79,6 @@ That's the minimum configuration you need to protect your API from being accesse
 Now you might want to add **additional checks to your system** and take advantage of all the powerful features of Keycloak. This is possible by [declaring more elements into the configuration](https://www.pucora.io/docs/authorization/jwt-validation/).
 
 ## Keycloak demo with Pucora
-The repository "[Demo Microservices with keycloak and pucora](https://gitlab.com/bensiewert/demo-microservices-with-keycloak-and-velonetics)" by Ben Siewert, is a demonstration project integrating microservices with Keycloak for authentication and Pucora as an API gateway.
+The repository "[Demo Microservices with keycloak and pucora](https://gitlab.com/bensiewert/demo-microservices-with-keycloak-and-pucora)" by Ben Siewert, is a demonstration project integrating microservices with Keycloak for authentication and Pucora as an API gateway.
 
 It consists in two Node microservices fronted and protected by Pucora. The identities and tokens are taken from Keycloak and Pucora validates the token to accept or deny access to the services behind.

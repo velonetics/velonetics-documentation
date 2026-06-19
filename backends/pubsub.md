@@ -12,7 +12,7 @@ menu:
     parent: "050 Non-REST Connectivity"
 meta:
   since: v1.0
-  source: https://github.com/pucora/velonetics-pubsub
+  source: https://github.com/pucora/pucora-pubsub
   namespace:
   - backend/pubsub/publisher
   - backend/pubsub/subscriber

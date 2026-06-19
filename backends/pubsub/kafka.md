@@ -10,7 +10,7 @@ menu:
     parent: "050 Non-REST Connectivity"
 meta:
   since: v2.0
-  source: https://github.com/pucora/velonetics-pubsub
+  source: https://github.com/pucora/pucora-pubsub
   namespace:
   - backend/pubsub/publisher/kafka
   - backend/pubsub/subscriber/kafka
@@ -47,7 +47,7 @@ Namespaces: `backend/pubsub/publisher/kafka` and `backend/pubsub/subscriber/kafk
         "key_meta": "X-Event-Key",
         "cluster": {
           "brokers": ["localhost:9092"],
-          "client_id": "velonetics_publisher",
+          "client_id": "pucora_publisher",
           "sasl": {
             "user": "user",
             "password": "password"
@@ -77,7 +77,7 @@ Namespaces: `backend/pubsub/publisher/kafka` and `backend/pubsub/subscriber/kafk
         "key_meta": "X-Event-Key",
         "cluster": {
           "brokers": ["localhost:9092"],
-          "client_id": "velonetics_subscriber"
+          "client_id": "pucora_subscriber"
         },
         "group": {
           "id": "my_group_id",
@@ -128,7 +128,7 @@ Kafka has no per-message ACK. Pucora commits partition offsets after each messag
 make pubsub-kafka-advanced-compose-test
 ```
 
-See [examples/pubsub/kafka-advanced](https://github.com/pucora/velonetics-ce/tree/main/examples/pubsub/kafka-advanced).
+See [examples/pubsub/kafka-advanced](https://github.com/pucora/pucora-ce/tree/main/examples/pubsub/kafka-advanced).
 
 ## Related
 

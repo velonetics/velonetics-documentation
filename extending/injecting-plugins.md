@@ -10,7 +10,7 @@ menu:
   community_current:
     parent: "180 Extending with custom code"
 images:
-- /images/documentation/velonetics-plugins.png
+- /images/documentation/pucora-plugins.png
 ---
 You have developed your plugin or are in the middle of it. There are two phases to take into account:
 
@@ -33,7 +33,7 @@ Pucora registers plugins **during startup** according to its plugin configuratio
 Add the `plugin` keyword at the root of your configuration to let Pucora know the rules to register plugins. The **mandatory** options you need to declare are:
 
 - `folder` (*string*): The directory path in the filesystem where all the plugins you **want to load** are. The folder can be a relative or absolute path (e.g. `/opt/pucora/plugins/`).
-- `pattern` (*string*): The pattern narrows down the folder's contents and acts as a filter. It represents the **substring that must be present** in the plugin name to load. Pucora will load any plugin with a `.so` extension in the example above. You could also use any prefix or suffix to match the content or even the full name of a single plugin. For instance, if you want to load the rewrite plugin, use `"pattern":"velonetics-rewrite.so"`, or use `-prod.so` to load all safe production plugins ending with that suffix. The rules are up to you.
+- `pattern` (*string*): The pattern narrows down the folder's contents and acts as a filter. It represents the **substring that must be present** in the plugin name to load. Pucora will load any plugin with a `.so` extension in the example above. You could also use any prefix or suffix to match the content or even the full name of a single plugin. For instance, if you want to load the rewrite plugin, use `"pattern":"pucora-rewrite.so"`, or use `-prod.so` to load all safe production plugins ending with that suffix. The rules are up to you.
 
 Place the plugin in the folder you have declared in the configuration and start Pucora. At this point and with the previous configuration, you have **registered plugins during startup**, and you should see a line early in the logs when starting Pucora. The log lines depend on the type of plugin you have chosen. An example:
 

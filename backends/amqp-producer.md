@@ -10,7 +10,7 @@ menu:
     parent: "050 Non-REST Connectivity"
 meta:
   since: v0.9
-  source: https://github.com/pucora/velonetics-amqp
+  source: https://github.com/pucora/pucora-amqp
   namespace:
   - backend/amqp/producer
   scope:

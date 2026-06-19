@@ -7,14 +7,14 @@ description: Enhance your development workflow by integrating Pucora with your f
 weight: 300
 notoc: true
 images:
-  - /images/documentation/velonetics-ide-integration.png
+  - /images/documentation/pucora-ide-integration.png
 skip_header_image: true
 menu:
   community_current:
     parent: "170 API Documentation and Dev Tools"
 meta:
   since: v2.0
-  source: https://github.com/pucora/velonetics-schema
+  source: https://github.com/pucora/pucora-schema
 
 ---
 Automatic validation as you type, showing documentation while hovering an attribute, explanation of errors, and autocompletion of properties, are features that you get automatically while working with Pucora.
@@ -23,10 +23,10 @@ For users of **Visual Studio Code**, **Android Studio**, **JetBrains** editors (
 
 This is how it could look like:
 
-![Visual Code integration](/images/documentation/velonetics-ide-integration.png)
+![Visual Code integration](/images/documentation/pucora-ide-integration.png)
 
 ## Editor integration for Pucora files
-Pucora has published an updated JSON-schema definition ([source](https://github.com/pucora/velonetics-schema)) to validate configuration files from your IDE automatically. The editors with built-in json-schema validation will offer this feature **without installing any additional plugin**. All you need to do, is add in the beginning of your `pucora.json` configuration file a line specifying the schema:
+Pucora has published an updated JSON-schema definition ([source](https://github.com/pucora/pucora-schema)) to validate configuration files from your IDE automatically. The editors with built-in json-schema validation will offer this feature **without installing any additional plugin**. All you need to do, is add in the beginning of your `pucora.json` configuration file a line specifying the schema:
 
 ```json
 {
